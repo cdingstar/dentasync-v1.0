@@ -1,0 +1,129 @@
+.app-header {
+  background: #fff;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.logo-icon {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.logo-text {
+  color: #1890ff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-user,
+.header-company {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 客服图标样式 */
+.service-icon-wrapper {
+  width: 32px;
+  height: 32px;
+  background: #1890ff;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #fff;
+}
+
+.service-icon-wrapper:hover {
+  background: #40a9ff;
+}
+
+/* 客服弹窗样式 */
+.service-modal .ant-modal-header {
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.service-modal .ant-modal-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.service-select {
+  margin-bottom: 20px;
+}
+
+.service-list {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.service-item {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.3s;
+}
+
+.service-item:hover {
+  background-color: #fafafa;
+}
+
+.service-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  background: #f0f0f0;
+}
+
+.service-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #262626;
+}
+
+.service-expertise {
+  font-size: 13px;
+  color: #8c8c8c;
+  line-height: 1.6;
+}
+
+.service-list .ant-list-item-action {
+  margin-left: 16px;
+}
+
+.service-list .ant-btn-circle {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-list .ant-btn-circle + .ant-btn-circle {
+  margin-left: 8px;
+}
+

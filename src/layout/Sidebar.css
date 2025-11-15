@@ -1,0 +1,50 @@
+.sidebar {
+  background: #fff;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar .ant-menu {
+  border-right: none;
+  height: 100%;
+}
+
+.sidebar .ant-menu-item {
+  margin: 4px 0;
+}
+
+.sidebar .ant-menu-submenu-title {
+  margin: 4px 0;
+}
+
+/* 自定义折叠按钮样式 */
+.sidebar .ant-layout-sider-trigger {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #1890ff !important;
+  border-top: 1px solid #f0f0f0;
+}
+
+.sidebar .ant-layout-sider-trigger:hover {
+  background: rgba(24, 144, 255, 0.1) !important;
+  color: #1890ff !important;
+}
+
+/* 自定义滚动条样式 */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #bfbfbf;
+}

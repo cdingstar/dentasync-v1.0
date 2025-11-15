@@ -1,0 +1,147 @@
+.tooth-selector-modal .ant-modal-body {
+  padding: 12px;
+  background: #fafafa;
+}
+
+.tooth-selector-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 牙齿图区域 - 缩小30% */
+.teeth-diagram-wrapper {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.teeth-diagram-wrapper svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 牙齿组 */
+.tooth-group {
+  cursor: pointer;
+}
+
+/* 牙齿矩形 */
+.tooth-rect {
+  fill: white;
+  stroke: #e0e0e0;
+  stroke-width: 3;
+  transition: stroke 0.2s, fill 0.2s;
+}
+
+.tooth-group:hover .tooth-rect:not(.selected) {
+  stroke: #60a5fa;
+}
+
+.tooth-rect.selected {
+  fill: #3b82f6;
+  stroke: #3b82f6;
+  filter: drop-shadow(0 2px 6px rgba(59, 130, 246, 0.5));
+}
+
+/* 牙齿数字 */
+.tooth-number {
+  font-size: 27px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  user-select: none;
+  transition: fill 0.2s;
+}
+
+/* 中间选中数字 */
+.selected-numbers-svg {
+  font-size: 22px;
+  font-weight: 700;
+  fill: #3b82f6;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 设计图标 */
+.design-icon-svg {
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.design-icon-svg:hover {
+  opacity: 0.9;
+}
+
+.design-icon-svg text {
+  pointer-events: none;
+}
+
+/* 快捷操作按钮 */
+.quick-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  gap: 8px;
+}
+
+.quick-actions-left {
+  display: flex;
+  gap: 8px;
+}
+
+.quick-actions-right {
+  display: flex;
+  gap: 8px;
+}
+
+.quick-actions button {
+  min-width: 70px;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  padding: 0 10px;
+}
+
+.quick-actions .btn-gray {
+  background: #6b7280;
+  color: white;
+}
+
+.quick-actions .btn-gray:hover {
+  background: #4b5563;
+}
+
+.quick-actions .btn-primary {
+  background: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.quick-actions .btn-primary:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+/* 响应式 */
+@media (max-width: 700px) {
+  .teeth-diagram-wrapper {
+    max-width: 400px;
+  }
+  
+  .quick-actions button {
+    min-width: 60px;
+    height: 28px;
+    font-size: 12px;
+  }
+}
