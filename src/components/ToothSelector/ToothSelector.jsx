@@ -240,7 +240,7 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
             <text x="440" y="570" className="selected-numbers-svg" textAnchor="end">
               {getQuadrantDisplay(bottomLeft)}
             </text>
-            <text x=\"560\" y=\"570\" className=\"selected-numbers-svg\" textAnchor=\"start">
+            <text x="560" y="570" className="selected-numbers-svg" textAnchor="start">
               {getQuadrantDisplay(bottomRight)}
             </text>
           </svg>
