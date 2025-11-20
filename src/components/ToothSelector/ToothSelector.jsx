@@ -240,22 +240,9 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
             <text x="440" y="570" className="selected-numbers-svg" textAnchor="end">
               {getQuadrantDisplay(bottomLeft)}
             </text>
-            <text x="560" y="570" className="selected-numbers-svg" textAnchor="start">
+            <text x=\"560\" y=\"570\" className=\"selected-numbers-svg\" textAnchor=\"start">
               {getQuadrantDisplay(bottomRight)}
             </text>
-            
-            {/* 卡环设计图标 */}
-            <g className="design-icon-svg" onClick={(e) => e.stopPropagation()}>
-              <defs>
-                <linearGradient id="toothGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style={{ stopColor: '#60a5fa', stopOpacity: 1 }} />
-                  <stop offset="100%" style={{ stopColor: '#3b82f6', stopOpacity: 1 }} />
-                </linearGradient>
-              </defs>
-              <rect x="860" y="820" width="80" height="80" rx="12" fill="url(#toothGradient)" />
-              <text x="900" y="850" fontSize="24" textAnchor="middle">🦷</text>
-              <text x="900" y="875" fontSize="8" fill="white" textAnchor="middle" fontWeight="500">卡环设计&gt;&gt;</text>
-            </g>
           </svg>
         </div>
 
