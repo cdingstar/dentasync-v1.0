@@ -189,11 +189,13 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
           >
             <Avatar 
               shape="square"
+              size={32}
               style={{ 
                 backgroundColor: '#1890ff', 
                 cursor: 'pointer',
-                fontSize: '16px',
-                fontWeight: 500
+                fontSize: '14px',
+                fontWeight: 500,
+                borderRadius: '4px'
               }}
             >
               {userInitial}

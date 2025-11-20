@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Layout } from 'antd'
 import { Routes, Route } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import Header from './Header'
@@ -20,8 +19,6 @@ import FactoryManagement from '../pages/SystemManagement/FactoryManagement'
 import MessagesModal from '../components/MessagesModal/MessagesModal'
 import './MainLayout.css'
 
-const { Content } = Layout
-
 function MainLayout({ currentUser, onLogout }) {
   const [collapsed, setCollapsed] = useState(false)
   const [isMessagesModalVisible, setIsMessagesModalVisible] = useState(false)
@@ -31,17 +28,17 @@ function MainLayout({ currentUser, onLogout }) {
   }
 
   return (
-    <Layout className="main-layout">
+    <div className="main-layout" style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header 
         currentUser={currentUser} 
         onLogout={onLogout}
         onOpenMessages={handleOpenMessages}
       />
-      <Layout>
+      <div style={{ display: 'flex', height: 'calc(100vh - 50px)', overflow: 'hidden' }}>
         <Sidebar collapsed={collapsed} onCollapse={setCollapsed} />
-        <Layout className="content-layout">
+        <div className="content-layout" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <NaviBar />
-          <Content className="main-content">
+          <div className="main-content">
             <Routes>
               <Route path="/" element={<Home onOpenMessages={handleOpenMessages} />} />
               <Route path="/order/quick" element={<QuickOrder />} />
@@ -57,16 +54,16 @@ function MainLayout({ currentUser, onLogout }) {
               <Route path="/system/executing-unit" element={<ClinicManagement />} />
               <Route path="/system/factory" element={<FactoryManagement />} />
             </Routes>
-          </Content>
-        </Layout>
-      </Layout>
+          </div>
+        </div>
+      </div>
 
       {/* 消息对话框 */}
       <MessagesModal
         visible={isMessagesModalVisible}
         onClose={() => setIsMessagesModalVisible(false)}
       />
-    </Layout>
+    </div>
   )
 }
 

@@ -174,7 +174,7 @@ function Home({ onOpenMessages }) {
         <Col span={6}>
           <Card>
             <Statistic
-              title="本月订单"
+              title="已完成订单"
               value={15}
               valueStyle={{ color: '#3f8600' }}
               prefix={<ShoppingCartOutlined />}
@@ -184,7 +184,7 @@ function Home({ onOpenMessages }) {
         <Col span={6}>
           <Card>
             <Statistic
-              title="已完成"
+              title="未完成订单"
               value={32}
               valueStyle={{ color: '#52c41a' }}
               prefix={<CheckCircleOutlined />}
