@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
-import { Card, Table, Tag, Button, Space, Input, Select, DatePicker, Modal, Descriptions } from 'antd'
-import { SearchOutlined, EyeOutlined, DownloadOutlined } from '@ant-design/icons'
+import { useState, useEffect } from 'react'
+import { Card, Table, Tag, Button, Space, Input, Select, DatePicker } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
+import { useLocation, useNavigate } from 'react-router-dom'
 import './AllOrders.css'
 
 const { RangePicker } = DatePicker
 const { Option } = Select
 
 function AllOrders() {
+  const location = useLocation()
+  const navigate = useNavigate()
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
-  const [isDetailVisible, setIsDetailVisible] = useState(false)
-  const [currentOrder, setCurrentOrder] = useState(null)
+  const [searchText, setSearchText] = useState('')
+  
+  // 从路由状态中获取搜索关键词
+  useEffect(() => {
+    if (location.state && location.state.searchKeyword) {
+      setSearchText(location.state.searchKeyword)
+    }
+  }, [location.state])
 
   // 订单数据
   const orders = [
@@ -85,7 +94,9 @@ function AllOrders() {
       key: 'orderNo',
       width: 150,
       fixed: 'left',
-      render: (text) => <a onClick={() => handleViewDetail(text)}>{text}</a>
+      render: (text, record) => (
+        <a onClick={() => handleViewDetail(record)}>{text}</a>
+      )
     },
     {
       title: '医生',
@@ -179,10 +190,11 @@ function AllOrders() {
     }
   ]
 
-  const handleViewDetail = (orderNo) => {
-    const order = orders.find(o => o.orderNo === orderNo)
-    setCurrentOrder(order)
-    setIsDetailVisible(true)
+  const handleViewDetail = (record) => {
+    // 跳转到订单详情页面，并传递订单数据
+    navigate(`/order-management/detail/${record.orderNo}`, {
+      state: { orderData: record }
+    })
   }
 
   const rowSelection = {
@@ -192,16 +204,34 @@ function AllOrders() {
     }
   }
 
+  const handleSearch = () => {
+    console.log('搜索:', searchText)
+    // 这里可以添加实际的搜索逻辑
+  }
+
+  const handleReset = () => {
+    setSearchText('')
+  }
+
+  // 根据搜索文本过滤订单
+  const filteredOrders = searchText 
+    ? orders.filter(order => 
+        order.patientName.toLowerCase().includes(searchText.toLowerCase()) ||
+        order.orderNo.includes(searchText)
+      )
+    : orders
+
   return (
     <div className="all-orders-container">
-      <h2 className="page-title">全部订单</h2>
-      
       <Card className="search-card">
         <Space size="middle" wrap>
           <Input 
             placeholder="订单编号/患者姓名" 
             prefix={<SearchOutlined />}
             style={{ width: 200 }}
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onPressEnter={handleSearch}
           />
           <Select placeholder="订单状态" style={{ width: 150 }} allowClear>
             <Option value="pending">待处理</Option>
@@ -210,10 +240,10 @@ function AllOrders() {
             <Option value="completed">已完成</Option>
           </Select>
           <RangePicker placeholder={['开始日期', '结束日期']} />
-          <Button type="primary" icon={<SearchOutlined />}>
+          <Button type="primary" icon={<SearchOutlined />} onClick={handleSearch}>
             搜索
           </Button>
-          <Button>重置</Button>
+          <Button onClick={handleReset}>重置</Button>
         </Space>
       </Card>
 
@@ -221,7 +251,7 @@ function AllOrders() {
         <Table 
           rowSelection={rowSelection}
           columns={columns} 
-          dataSource={orders} 
+          dataSource={filteredOrders} 
           scroll={{ x: 1600 }}
           pagination={{
             pageSize: 10,
@@ -230,64 +260,6 @@ function AllOrders() {
           }}
         />
       </Card>
-
-      <Modal
-        title="订单详情"
-        open={isDetailVisible}
-        onCancel={() => setIsDetailVisible(false)}
-        footer={[
-          <Button key="close" onClick={() => setIsDetailVisible(false)}>
-            关闭
-          </Button>
-        ]}
-        width={800}
-      >
-        {currentOrder && (
-          <Descriptions bordered column={2}>
-            <Descriptions.Item label="订单编号" span={2}>
-              {currentOrder.orderNo}
-            </Descriptions.Item>
-            <Descriptions.Item label="医生">
-              {currentOrder.doctor}
-            </Descriptions.Item>
-            <Descriptions.Item label="患者">
-              {currentOrder.patientName}
-            </Descriptions.Item>
-            <Descriptions.Item label="下单时间">
-              {currentOrder.createTime}
-            </Descriptions.Item>
-            <Descriptions.Item label="预计到货时间">
-              {currentOrder.deliveryTime}
-            </Descriptions.Item>
-            <Descriptions.Item label="诊所">
-              {currentOrder.practiceUnit}
-            </Descriptions.Item>
-            <Descriptions.Item label="责任单位">
-              {currentOrder.responsibleUnit}
-            </Descriptions.Item>
-            <Descriptions.Item label="完成总进度">
-              {currentOrder.progress}%
-            </Descriptions.Item>
-            <Descriptions.Item label="订单状态">
-              <Tag color={
-                currentOrder.status === 'completed' ? 'success' :
-                currentOrder.status === 'processing' ? 'processing' :
-                currentOrder.status === 'shipped' ? 'warning' : 'default'
-              }>
-                {currentOrder.status === 'completed' ? '已完成' :
-                 currentOrder.status === 'processing' ? '制作中' :
-                 currentOrder.status === 'shipped' ? '已发货' : '待处理'}
-              </Tag>
-            </Descriptions.Item>
-            <Descriptions.Item label="订单类型">
-              {currentOrder.orderType}
-            </Descriptions.Item>
-            <Descriptions.Item label="订单类别">
-              {currentOrder.orderCategory}
-            </Descriptions.Item>
-          </Descriptions>
-        )}
-      </Modal>
     </div>
   )
 }

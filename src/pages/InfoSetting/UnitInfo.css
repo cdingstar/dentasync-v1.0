@@ -1,0 +1,269 @@
+.clinic-info-container {
+  padding: 0;
+}
+
+.clinic-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.clinic-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0.3;
+}
+
+.clinic-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.clinic-title h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1890ff;
+}
+
+.dropdown-icon {
+  color: #1890ff;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.section-card {
+  margin-bottom: 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.section-card .ant-card-head {
+  padding: 12px 16px;
+  min-height: auto;
+}
+
+.section-card .ant-card-body {
+  padding: 16px;
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+  position: relative;
+  padding-left: 12px;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 14px;
+  background: #1890ff;
+  border-radius: 2px;
+}
+
+/* 表单网格布局 - 确保对齐 */
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 120px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.form-label {
+  text-align: right;
+  white-space: nowrap;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+  padding-right: 8px;
+}
+
+.form-control {
+  display: flex;
+  align-items: center;
+}
+
+.form-control.short {
+  max-width: 200px;
+}
+
+.form-control.full-width {
+  grid-column: 2 / -1;
+}
+
+.form-control input,
+.form-control .ant-picker {
+  width: 100%;
+}
+
+/* 压缩表单间距 */
+.clinic-info-container .ant-form-item {
+  margin-bottom: 0;
+}
+
+.clinic-info-container .ant-input,
+.clinic-info-container .ant-picker {
+  height: 32px;
+}
+
+/* 资质证件样式 */
+.certificate-section {
+  padding: 0;
+}
+
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.certificate-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.certificate-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fafafa;
+  transition: all 0.3s;
+}
+
+.certificate-image-wrapper:hover {
+  border-color: #1890ff;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.15);
+}
+
+.certificate-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  padding: 3px 6px;
+  font-size: 12px;
+  height: auto;
+  line-height: 1.2;
+}
+
+.certificate-image-wrapper:hover .delete-btn {
+  opacity: 1;
+}
+
+.delete-btn:hover {
+  background: rgba(255, 77, 79, 0.8) !important;
+  color: white !important;
+}
+
+.certificate-name {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+}
+
+.upload-card {
+  width: 100%;
+  aspect-ratio: 3/4;
+  border: 2px dashed #d9d9d9;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: #fafafa;
+}
+
+.upload-card:hover {
+  border-color: #1890ff;
+  background: #e6f7ff;
+}
+
+.upload-icon {
+  font-size: 28px;
+  color: #1890ff;
+  margin-bottom: 6px;
+}
+
+.upload-text {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.submit-section {
+  margin-top: 16px;
+  text-align: center;
+  padding: 16px 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .certificate-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+  
+  .clinic-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .form-label {
+    text-align: left;
+    padding-right: 0;
+  }
+
+  .form-control.full-width {
+    grid-column: 1;
+  }
+
+  .form-control.short {
+    max-width: none;
+  }
+}

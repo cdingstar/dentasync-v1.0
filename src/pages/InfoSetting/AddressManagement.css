@@ -1,0 +1,172 @@
+.address-management-container {
+  padding: 0;
+}
+
+.section-card {
+  border-radius: 6px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.section-card .ant-card-head {
+  padding: 16px 24px;
+  min-height: auto;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.section-card .ant-card-body {
+  padding: 24px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+  position: relative;
+  padding-left: 12px;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 16px;
+  background: #1890ff;
+  border-radius: 2px;
+}
+
+/* 地址表格样式 */
+.address-management-container .ant-table {
+  font-size: 14px;
+}
+
+.address-management-container .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.address-management-container .ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+/* 地址编辑弹窗样式 */
+.address-modal .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 24px;
+}
+
+.modal-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.modal-close-icon {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.modal-close-icon:hover {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.required-label::before {
+  display: inline-block;
+  margin-right: 4px;
+  color: #ff4d4f;
+  font-size: 14px;
+  line-height: 1;
+  content: '*';
+}
+
+.address-modal .ant-form-item-label > label {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+}
+
+.address-modal .ant-input,
+.address-modal .ant-input-textarea {
+  font-size: 14px;
+}
+
+.address-modal .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.address-modal .ant-modal-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 10px 16px;
+  text-align: right;
+}
+
+.address-modal .ant-btn {
+  min-width: 80px;
+  height: 36px;
+}
+
+/* 地址表单网格布局 - 左右两列 */
+.address-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 0;
+}
+
+.address-form-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-form-full-width {
+  margin-top: 0;
+}
+
+/* 优化模态框高度比例 4:3 */
+.address-modal .ant-modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-modal .ant-modal-body {
+  padding: 24px;
+  overflow: visible;
+}
+
+/* 操作按钮样式 */
+.address-management-container .ant-btn-link {
+  padding: 0;
+  height: auto;
+}
+
+.address-management-container .ant-space-item:not(:last-child)::after {
+  content: '|';
+  margin: 0 8px;
+  color: #d9d9d9;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .section-card .ant-card-head {
+    padding: 12px 16px;
+  }
+
+  .section-card .ant-card-body {
+    padding: 16px;
+  }
+
+  .section-title {
+    font-size: 15px;
+  }
+
+  .address-modal .ant-modal-body {
+    padding: 16px;
+  }
+}

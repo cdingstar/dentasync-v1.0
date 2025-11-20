@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { Layout, Menu, Badge } from 'antd'
+import { Layout, Menu } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
 import {
   HomeOutlined,
@@ -12,17 +11,12 @@ import {
   ClockCircleOutlined,
   FileTextOutlined,
   HourglassOutlined,
-  IdcardOutlined,
   ShopOutlined,
   BankOutlined,
-  CarOutlined,
   ApartmentOutlined,
   TeamOutlined,
-  SolutionOutlined,
-  MedicineBoxOutlined,
   FolderOutlined,
-  RocketOutlined,
-  MessageOutlined
+  EnvironmentOutlined
 } from '@ant-design/icons'
 import './Sidebar.css'
 
@@ -37,15 +31,6 @@ function Sidebar({ collapsed, onCollapse }) {
       key: '/',
       icon: <HomeOutlined />,
       label: '首页'
-    },
-    {
-      key: '/messages',
-      icon: <MessageOutlined />,
-      label: (
-        <Badge count={99} offset={[10, 0]} overflowCount={99}>
-          <span style={{ marginRight: 20 }}>我的消息</span>
-        </Badge>
-      )
     },
     {
       key: '/order',
@@ -92,24 +77,24 @@ function Sidebar({ collapsed, onCollapse }) {
       label: '信息设置',
       children: [
         {
-          key: '/system/personnel-auth',
+          key: '/personal/personnel-auth',
           icon: <TeamOutlined />,
           label: '人员管理'
         },
         {
-          key: '/system/patient-archive',
+          key: '/personal/patient-archive',
           icon: <FolderOutlined />,
           label: '患者档案'
         },
         {
-          key: '/personal/info',
-          icon: <IdcardOutlined />,
-          label: '个人信息'
-        },
-        {
-          key: '/system/unit-info',
+          key: '/personal/unit-info',
           icon: <ShopOutlined />,
           label: '诊所信息'
+        },
+        {
+          key: '/personal/address-management',
+          icon: <EnvironmentOutlined />,
+          label: '地址管理'
         }
       ]
     },

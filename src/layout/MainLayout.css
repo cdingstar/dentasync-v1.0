@@ -8,6 +8,8 @@
   background: #f0f2f5;
   height: calc(100vh - 64px);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-content {
@@ -15,6 +17,7 @@
   padding: 24px;
   background: #fff;
   min-height: 280px;
-  height: calc(100vh - 64px - 32px);
+  height: calc(100vh - 64px - 40px - 32px);
   overflow: auto;
+  flex: 1;
 }

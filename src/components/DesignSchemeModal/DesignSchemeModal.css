@@ -1,0 +1,115 @@
+.design-scheme-modal .ant-modal-body {
+  padding: 20px;
+}
+
+.scheme-title {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.scheme-tabs {
+  min-height: 400px;
+}
+
+.scheme-tabs .ant-tabs-nav {
+  margin-bottom: 20px;
+}
+
+.scheme-tabs .ant-tabs-tab {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.scheme-tabs .ant-badge-dot {
+  background-color: #ff4d4f;
+}
+
+.scheme-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 10px;
+}
+
+.scheme-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.scheme-item:hover {
+  background-color: #f5f5f5;
+}
+
+.scheme-item.selected .scheme-img-wrapper {
+  border-color: #1890ff;
+  background-color: #e6f7ff;
+}
+
+.scheme-img-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border: 2px solid #d9d9d9;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+  transition: all 0.3s;
+  margin-bottom: 8px;
+}
+
+.scheme-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: #bfbfbf;
+}
+
+.scheme-img-placeholder span {
+  display: block;
+}
+
+.selected-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  color: #1890ff;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.scheme-name {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.scheme-item.selected .scheme-name {
+  color: #1890ff;
+  font-weight: 500;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .scheme-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .scheme-img-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+}

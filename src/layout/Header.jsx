@@ -1,30 +1,33 @@
-import React, { useState } from 'react'
-import { Layout, Badge, Avatar, Space, Dropdown, message, Modal, Select, Button, List } from 'antd'
+import { useState } from 'react'
+import { Layout, Badge, Avatar, Space, Dropdown, message, Modal, Select, Button, List, Form, Input } from 'antd'
 import { 
   BellOutlined, 
-  UserOutlined, 
   QuestionCircleOutlined,
-  CommentOutlined,
+  IdcardOutlined,
   LockOutlined,
+  KeyOutlined,
   LogoutOutlined,
   CustomerServiceOutlined,
   MessageOutlined,
   PhoneOutlined
 } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
+import PersonalInfoModal from './PersonalInfoModal'
 import './Header.css'
 
 const { Header: AntHeader } = Layout
 const { Option } = Select
 
-function Header() {
+function Header({ currentUser, onLogout, onOpenMessages }) {
   const [isServiceModalVisible, setIsServiceModalVisible] = useState(false)
+  const [isContactModalVisible, setIsContactModalVisible] = useState(false)
+  const [isPersonalInfoVisible, setIsPersonalInfoVisible] = useState(false)
+  const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false)
   const [selectedFactory, setSelectedFactory] = useState(null)
-  const navigate = useNavigate()
+  const [passwordForm] = Form.useForm()
 
   // 用户信息
-  const userName = '黄总' // 可以从用户登录状态获取
-  const userInitial = userName.charAt(0) // 获取第一个字符
+  const userName = currentUser?.shortName || currentUser?.username || '用户'
+  const userInitial = userName.charAt(0).toUpperCase() // 获取第一个字符并转大写
 
   // 客服列表数据
   const serviceList = [
@@ -76,16 +79,16 @@ function Header() {
   // 用户菜单项
   const userMenuItems = [
     {
-      key: 'help',
-      icon: <QuestionCircleOutlined />,
-      label: '帮助',
-      onClick: () => message.info('帮助中心')
+      key: 'personal-info',
+      icon: <IdcardOutlined />,
+      label: '个人信息',
+      onClick: () => setIsPersonalInfoVisible(true)
     },
     {
-      key: 'feedback',
-      icon: <CommentOutlined />,
-      label: '反馈',
-      onClick: () => message.info('意见反馈')
+      key: 'contact',
+      icon: <QuestionCircleOutlined />,
+      label: '联系我们',
+      onClick: () => setIsContactModalVisible(true)
     },
     {
       key: 'lock',
@@ -97,12 +100,26 @@ function Header() {
       type: 'divider'
     },
     {
+      key: 'change-password',
+      icon: <KeyOutlined />,
+      label: '修改密码',
+      onClick: () => setIsChangePasswordVisible(true)
+    },
+    {
       key: 'logout',
       icon: <LogoutOutlined />,
       label: '退出登录',
       onClick: () => {
-        message.success('已退出登录')
-        // 这里可以添加退出登录的逻辑
+        Modal.confirm({
+          title: '确认退出',
+          content: '确定要退出登录吗？',
+          okText: '确定',
+          cancelText: '取消',
+          onOk: () => {
+            message.success('已退出登录')
+            onLogout()
+          }
+        })
       }
     }
   ]
@@ -118,17 +135,31 @@ function Header() {
 
   const handleChat = (service) => {
     setIsServiceModalVisible(false)
-    navigate('/messages', { 
-      state: { 
-        serviceId: service.id,
-        service: service
-      } 
-    })
+    message.info(`开始与 ${service.name} 的对话`)
+    // 这里可以在MessagesModal中集成客服对话功能
   }
 
   const handleCall = (service) => {
     message.success(`拨打 ${service.name} 的电话`)
     // 这里可以集成实际的电话功能
+  }
+
+  // 修改密码处理
+  const handleChangePassword = () => {
+    passwordForm.validateFields().then(values => {
+      // 这里可以添加实际的修改密码逻辑
+      console.log('修改密码:', values)
+      message.success('密码修改成功！')
+      setIsChangePasswordVisible(false)
+      passwordForm.resetFields()
+    }).catch(err => {
+      console.log('验证失败:', err)
+    })
+  }
+
+  const handleCancelChangePassword = () => {
+    setIsChangePasswordVisible(false)
+    passwordForm.resetFields()
   }
 
   return (
@@ -142,7 +173,10 @@ function Header() {
       <div className="header-right">
         <Space size="large">
           <Badge count={70} overflowCount={99}>
-            <BellOutlined style={{ fontSize: 18, cursor: 'pointer' }} />
+            <BellOutlined 
+              style={{ fontSize: 18, cursor: 'pointer' }} 
+              onClick={onOpenMessages}
+            />
           </Badge>
           <div className="service-icon-wrapper" onClick={handleOpenService}>
             <CustomerServiceOutlined style={{ fontSize: 16 }} />
@@ -229,6 +263,113 @@ function Header() {
             </List.Item>
           )}
         />
+      </Modal>
+
+      {/* 联系我们对话框 */}
+      <Modal
+        title="联系我们（反馈问题或意见）"
+        open={isContactModalVisible}
+        onCancel={() => setIsContactModalVisible(false)}
+        footer={[
+          <Button key="close" type="primary" onClick={() => setIsContactModalVisible(false)}>
+            关闭
+          </Button>
+        ]}
+        width={500}
+      >
+        <div style={{ padding: '20px 0' }}>
+          <div style={{ marginBottom: '24px' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', color: '#333' }}>
+              加入我们
+            </h3>
+            <p style={{ fontSize: '14px', color: '#666', margin: 0, lineHeight: '1.8' }}>
+              邮箱：<a href="mailto:asiantechdentallab@gmail.com" style={{ color: '#1890ff' }}>asiantechdentallab@gmail.com</a>
+            </p>
+            <p style={{ fontSize: '14px', color: '#666', margin: 0, lineHeight: '1.8' }}>
+              电话：<a href="tel:+6598625613" style={{ color: '#1890ff' }}>Tom Huang +65 98625613</a>
+            </p>
+          </div>
+          <div style={{ marginBottom: '24px' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', color: '#333' }}>
+              运营管理
+            </h3>
+            <p style={{ fontSize: '14px', color: '#666', margin: 0 }}>
+              请联系：<a href="mailto:asiantechdentallab@gmail.com" style={{ color: '#1890ff' }}>asiantechdentallab@gmail.com</a>
+            </p>
+          </div>
+          <div>
+            <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', color: '#333' }}>
+              产品技术
+            </h3>
+            <p style={{ fontSize: '14px', color: '#666', margin: 0 }}>
+              请联系：<a href="mailto:cdingstar@gmail.com" style={{ color: '#1890ff' }}>cdingstar@gmail.com</a>
+            </p>
+          </div>
+        </div>
+      </Modal>
+
+      {/* 个人信息对话框 */}
+      <PersonalInfoModal
+        visible={isPersonalInfoVisible}
+        onClose={() => setIsPersonalInfoVisible(false)}
+        currentUser={currentUser}
+      />
+
+      {/* 修改密码对话框 */}
+      <Modal
+        title="修改密码"
+        open={isChangePasswordVisible}
+        onOk={handleChangePassword}
+        onCancel={handleCancelChangePassword}
+        width={500}
+        okText="确定"
+        cancelText="取消"
+      >
+        <Form
+          form={passwordForm}
+          layout="vertical"
+          style={{ paddingTop: '20px' }}
+        >
+          <Form.Item
+            label="原密码"
+            name="oldPassword"
+            rules={[
+              { required: true, message: '请输入原密码' }
+            ]}
+          >
+            <Input.Password placeholder="请输入原密码" size="large" />
+          </Form.Item>
+
+          <Form.Item
+            label="新密码"
+            name="newPassword"
+            rules={[
+              { required: true, message: '请输入新密码' },
+              { min: 6, message: '密码至少6位' }
+            ]}
+          >
+            <Input.Password placeholder="请输入新密码" size="large" />
+          </Form.Item>
+
+          <Form.Item
+            label="确认新密码"
+            name="confirmPassword"
+            dependencies={['newPassword']}
+            rules={[
+              { required: true, message: '请确认新密码' },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('newPassword') === value) {
+                    return Promise.resolve()
+                  }
+                  return Promise.reject(new Error('两次输入的密码不一致'))
+                },
+              }),
+            ]}
+          >
+            <Input.Password placeholder="请再次输入新密码" size="large" />
+          </Form.Item>
+        </Form>
       </Modal>
     </AntHeader>
   )

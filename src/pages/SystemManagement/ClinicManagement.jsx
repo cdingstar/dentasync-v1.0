@@ -186,9 +186,8 @@ function ClinicManagement() {
 
   return (
     <div className="clinic-management-container">
-      <h2 className="page-title">诊所管理</h2>
-      
-      <Card 
+      <Card
+        title={<span style={{ fontSize: '16px', fontWeight: 500 }}>诊所管理</span>}
         extra={
           <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
             新增诊所

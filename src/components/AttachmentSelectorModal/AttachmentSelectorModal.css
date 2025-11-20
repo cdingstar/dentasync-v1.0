@@ -1,0 +1,164 @@
+.attachment-selector-modal .ant-modal-body {
+  padding: 0;
+}
+
+.attachment-modal-content {
+  display: flex;
+  min-height: 500px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* 左侧附件选择区 */
+.attachment-left {
+  flex: 1;
+  padding: 20px;
+  border-right: 1px solid #f0f0f0;
+  background-color: #fafafa;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.attachment-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.attachment-btn {
+  height: 40px;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.attachment-btn.selected {
+  background-color: #1890ff;
+  border-color: #1890ff;
+  color: white;
+}
+
+.attachment-btn:not(.selected):hover {
+  border-color: #1890ff;
+  color: #1890ff;
+}
+
+/* 右侧已选附件列表 */
+.attachment-right {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.selected-header {
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.selected-list {
+  flex: 1;
+  padding: 12px 20px;
+  overflow-y: auto;
+  max-height: 450px;
+}
+
+.selected-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.selected-item:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  font-size: 14px;
+  color: #333;
+  flex: 1;
+}
+
+.count-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.count-control .ant-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.count-input {
+  width: 60px;
+  text-align: center;
+}
+
+.count-input .ant-input-number-input {
+  text-align: center;
+  padding: 0 8px;
+}
+
+.empty-tip {
+  padding: 40px 0;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
+
+/* 底部按钮 */
+.modal-footer {
+  padding: 12px 20px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: white;
+}
+
+/* 滚动条样式 */
+.attachment-left::-webkit-scrollbar,
+.selected-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.attachment-left::-webkit-scrollbar-thumb,
+.selected-list::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 3px;
+}
+
+.attachment-left::-webkit-scrollbar-thumb:hover,
+.selected-list::-webkit-scrollbar-thumb:hover {
+  background-color: #bfbfbf;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .attachment-modal-content {
+    flex-direction: column;
+  }
+
+  .attachment-left {
+    border-right: none;
+    border-bottom: 1px solid #f0f0f0;
+    max-height: 300px;
+  }
+
+  .attachment-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .attachment-right {
+    width: 100%;
+  }
+}

@@ -190,8 +190,6 @@ function ExpressManagement() {
 
   return (
     <div className="express-management-container">
-      <h2 className="page-title">快递管理</h2>
-      
       <Card 
         extra={
           <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>

@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Card, Table, Button, Space, Modal, Form, Input, Select, DatePicker, message } from 'antd'
-import { PlusOutlined, EditOutlined, DeleteOutlined, CloseOutlined, FileTextOutlined } from '@ant-design/icons'
+import { PlusOutlined, EditOutlined, DeleteOutlined, CloseOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
 import './PatientArchive.css'
 import dayjs from 'dayjs'
 
@@ -8,10 +9,9 @@ const { Option } = Select
 const { TextArea } = Input
 
 function PatientArchive() {
+  const navigate = useNavigate()
   const [isModalVisible, setIsModalVisible] = useState(false)
-  const [isOrderModalVisible, setIsOrderModalVisible] = useState(false)
   const [editingRecord, setEditingRecord] = useState(null)
-  const [currentPatient, setCurrentPatient] = useState(null)
   const [searchText, setSearchText] = useState('')
   const [dataSource, setDataSource] = useState([
     {
@@ -65,26 +65,6 @@ function PatientArchive() {
   ])
   const [form] = Form.useForm()
 
-  // 关联订单数据（示例）
-  const [relatedOrders] = useState([
-    {
-      key: '1',
-      orderNo: 'ORD-2025110801',
-      patientName: 'lee siew ngoh',
-      productType: '牙冠',
-      orderDate: '2025-11-08',
-      status: '处理中'
-    },
-    {
-      key: '2',
-      orderNo: 'ORD-2025110501',
-      patientName: 'lee siew ngoh',
-      productType: '牙桥',
-      orderDate: '2025-11-05',
-      status: '已完成'
-    }
-  ])
-
   const columns = [
     {
       title: '序号',
@@ -94,16 +74,19 @@ function PatientArchive() {
       render: (_, __, index) => index + 1
     },
     {
-      title: '患者',
-      key: 'patient',
-      width: 200,
+      title: '患者ID',
+      dataIndex: 'patientId',
+      key: 'patientId',
+      width: 120,
+      fixed: 'left'
+    },
+    {
+      title: '患者姓名',
+      dataIndex: 'patientName',
+      key: 'patientName',
+      width: 180,
       fixed: 'left',
-      render: (_, record) => (
-        <div>
-          <div style={{ fontWeight: 500 }}>{record.patientName}</div>
-          <div style={{ fontSize: '12px', color: '#999' }}>{record.patientId}</div>
-        </div>
-      )
+      render: (text) => <span style={{ fontWeight: 500 }}>{text}</span>
     },
     {
       title: '手机号码',
@@ -128,13 +111,6 @@ function PatientArchive() {
       dataIndex: 'addPerson',
       key: 'addPerson',
       width: 120
-    },
-    {
-      title: '归属单位',
-      dataIndex: 'clinic',
-      key: 'clinic',
-      width: 200,
-      ellipsis: true
     },
     {
       title: '添加时间',
@@ -181,40 +157,12 @@ function PatientArchive() {
     }
   ]
 
-  const orderColumns = [
-    {
-      title: '订单编号',
-      dataIndex: 'orderNo',
-      key: 'orderNo',
-      width: 150
-    },
-    {
-      title: '产品类型',
-      dataIndex: 'productType',
-      key: 'productType',
-      width: 120
-    },
-    {
-      title: '下单时间',
-      dataIndex: 'orderDate',
-      key: 'orderDate',
-      width: 120
-    },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-      width: 100
-    }
-  ]
-
   const handleAdd = () => {
     setEditingRecord(null)
     form.resetFields()
     // 设置默认值
     form.setFieldsValue({
-      addPerson: '黄向荣',
-      clinic: 'ASIANTECH PTE. LTD.'
+      addPerson: '黄向荣'
     })
     setIsModalVisible(true)
   }
@@ -223,12 +171,10 @@ function PatientArchive() {
     setEditingRecord(record)
     form.setFieldsValue({
       patientName: record.patientName,
-      patientId: record.patientId,
       phone: record.phone,
       gender: record.gender,
       birthday: record.birthday ? dayjs(record.birthday) : null,
       addPerson: record.addPerson,
-      clinic: record.clinic,
       notes: record.notes
     })
     setIsModalVisible(true)
@@ -248,8 +194,12 @@ function PatientArchive() {
   }
 
   const handleViewOrders = (record) => {
-    setCurrentPatient(record)
-    setIsOrderModalVisible(true)
+    // 跳转到全部订单页面,并传递患者姓名或ID作为搜索关键词
+    navigate('/order-management/all', {
+      state: {
+        searchKeyword: record.patientName // 可以使用 record.patientId 或 record.patientName
+      }
+    })
   }
 
   const handleModalOk = () => {
@@ -260,17 +210,24 @@ function PatientArchive() {
       }
 
       if (editingRecord) {
-        // 编辑
+        // 编辑 - 保留原有的 patientId 和 clinic
         const newData = dataSource.map(item => 
-          item.key === editingRecord.key ? { ...item, ...formattedValues } : item
+          item.key === editingRecord.key ? { 
+            ...item, 
+            ...formattedValues,
+            patientId: item.patientId,  // 保留原有患者ID
+            clinic: item.clinic  // 保留归属单位
+          } : item
         )
         setDataSource(newData)
         message.success('修改成功')
       } else {
-        // 新增
+        // 新增 - 自动生成患者ID
         const newRecord = {
           key: Date.now().toString(),
           ...formattedValues,
+          patientId: `PA${Date.now().toString().slice(-6)}`,  // 自动生成患者ID
+          clinic: 'ASIANTECH PTE. LTD.',  // 默认归属单位
           createTime: new Date().toISOString().replace('T', ' ').substring(0, 19)
         }
         setDataSource([newRecord, ...dataSource])
@@ -285,11 +242,6 @@ function PatientArchive() {
     message.info(`搜索: ${searchText}`)
   }
 
-  const handleReset = () => {
-    setSearchText('')
-    message.info('已重置')
-  }
-
   const filteredData = searchText 
     ? dataSource.filter(item => 
         item.patientName.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -300,26 +252,24 @@ function PatientArchive() {
 
   return (
     <div className="patient-archive-container">
-      <h2 className="page-title">患者档案</h2>
-      
-      <Card>
-        <div className="search-bar">
-          <Input 
-            placeholder="患者姓名" 
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            style={{ width: 300 }}
-            onPressEnter={handleSearch}
-          />
+      <Card
+        title={<span style={{ fontSize: '16px', fontWeight: 500 }}>患者档案</span>}
+        extra={
           <Space>
+            <Input 
+              placeholder="患者姓名" 
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              style={{ width: 200 }}
+              onPressEnter={handleSearch}
+            />
             <Button type="primary" onClick={handleSearch}>搜索</Button>
-            <Button onClick={handleReset}>重置</Button>
             <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
               添加患者档案
             </Button>
           </Space>
-        </div>
-
+        }
+      >
         <Table 
           columns={columns} 
           dataSource={filteredData} 
@@ -354,122 +304,82 @@ function PatientArchive() {
           setIsModalVisible(false)
           form.resetFields()
         }}
-        width={600}
+        width={800}
         closable={false}
         okText="确定"
         cancelText="取消"
         className="patient-modal"
       >
         <Form form={form} layout="vertical">
-          <Form.Item
-            label="添加人"
-            name="addPerson"
-          >
-            <Input disabled style={{ background: '#f5f5f5' }} />
-          </Form.Item>
-
-          <Form.Item
-            label="归属单位"
-            name="clinic"
-          >
-            <Input disabled style={{ background: '#f5f5f5' }} />
-          </Form.Item>
+          <div className="patient-form-grid">
+            {/* 左列 */}
+            <div className="patient-form-column">
+              <Form.Item
+                label={<span className="required-label">患者姓名</span>}
+                name="patientName"
+                rules={[{ required: true, message: '请输入患者姓名' }]}
+              >
+                <Input placeholder="请输入患者姓名" />
+              </Form.Item>
+              
+              <Form.Item
+                label="性别"
+                name="gender"
+              >
+                <Select placeholder="请选择性别" allowClear>
+                  <Option value="男">男</Option>
+                  <Option value="女">女</Option>
+                  <Option value="未知">未知</Option>
+                </Select>
+              </Form.Item>
+              
+              <Form.Item
+                label="添加人"
+                name="addPerson"
+              >
+                <Input disabled style={{ background: '#f5f5f5' }} />
+              </Form.Item>
+            </div>
+            
+            {/* 右列 */}
+            <div className="patient-form-column">
+              <Form.Item
+                label={<span className="required-label">手机号码</span>}
+                name="phone"
+                rules={[
+                  { required: true, message: '请输入手机号码' },
+                  { pattern: /^[0-9+\-\s()]+$/, message: '请输入有效的手机号码' }
+                ]}
+              >
+                <Input placeholder="请输入手机号码" />
+              </Form.Item>
+              
+              <Form.Item
+                label="生日"
+                name="birthday"
+              >
+                <DatePicker 
+                  placeholder="请选择生日" 
+                  style={{ width: '100%' }}
+                  format="YYYY-MM-DD"
+                />
+              </Form.Item>
+            </div>
+          </div>
           
-          <Form.Item
-            label={<span className="required-label">患者姓名</span>}
-            name="patientName"
-            rules={[{ required: true, message: '请输入患者姓名' }]}
-          >
-            <Input placeholder="请输入患者姓名" size="large" />
-          </Form.Item>
-
-          <Form.Item
-            label="患者ID"
-            name="patientId"
-          >
-            <Input placeholder="请输入患者ID（选填）" size="large" />
-          </Form.Item>
-          
-          <Form.Item
-            label={<span className="required-label">手机号码</span>}
-            name="phone"
-            rules={[
-              { required: true, message: '请输入手机号码' },
-              { pattern: /^[0-9+\-\s()]+$/, message: '请输入有效的手机号码' }
-            ]}
-          >
-            <Input placeholder="请输入手机号码" size="large" />
-          </Form.Item>
-          
-          <Form.Item
-            label="性别"
-            name="gender"
-          >
-            <Select placeholder="请选择性别" size="large" allowClear>
-              <Option value="男">男</Option>
-              <Option value="女">女</Option>
-              <Option value="未知">未知</Option>
-            </Select>
-          </Form.Item>
-          
-          <Form.Item
-            label="生日"
-            name="birthday"
-          >
-            <DatePicker 
-              placeholder="请选择生日" 
-              size="large" 
-              style={{ width: '100%' }}
-              format="YYYY-MM-DD"
-            />
-          </Form.Item>
-          
+          {/* 备注占满一行 */}
           <Form.Item
             label="备注"
             name="notes"
+            className="patient-form-full-width"
           >
             <TextArea 
               placeholder="请输入备注信息" 
-              rows={3} 
-              size="large"
+              rows={2} 
               style={{ resize: 'none' }}
             />
           </Form.Item>
         </Form>
-      </Modal>
-
-      {/* 关联订单模态框 */}
-      <Modal
-        title={
-          <div className="modal-title">
-            <span>
-              <FileTextOutlined style={{ marginRight: 8 }} />
-              关联订单 - {currentPatient?.patientName}
-            </span>
-            <CloseOutlined 
-              className="modal-close-icon" 
-              onClick={() => setIsOrderModalVisible(false)}
-            />
-          </div>
-        }
-        open={isOrderModalVisible}
-        onCancel={() => setIsOrderModalVisible(false)}
-        footer={[
-          <Button key="close" onClick={() => setIsOrderModalVisible(false)}>
-            关闭
-          </Button>
-        ]}
-        width={800}
-        closable={false}
-        className="order-modal"
-      >
-        <Table 
-          columns={orderColumns} 
-          dataSource={relatedOrders.filter(order => 
-            order.patientName === currentPatient?.patientName
-          )}
-          pagination={false}
-        />
       </Modal>
     </div>
   )

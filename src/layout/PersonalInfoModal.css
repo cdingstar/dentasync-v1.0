@@ -1,0 +1,129 @@
+.personal-info-modal .personal-info-content {
+  padding: 20px 0;
+}
+
+.personal-info-modal .personal-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+  gap: 16px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.personal-info-modal .avatar-wrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.personal-info-modal .user-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.personal-info-modal .avatar-upload-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 0 0 50% 50%;
+  transition: all 0.3s;
+}
+
+.personal-info-modal .avatar-upload-overlay:hover {
+  background: rgba(0, 0, 0, 0.7);
+  height: 24px;
+}
+
+.personal-info-modal .personal-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.personal-info-modal .personal-title h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1890ff;
+}
+
+.personal-info-modal .position-tag {
+  padding: 4px 12px;
+  background: #e6f7ff;
+  border: 1px solid #91d5ff;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #1890ff;
+}
+
+.personal-info-modal .form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.personal-info-modal .form-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 100px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.personal-info-modal .form-row.full-width {
+  grid-template-columns: 100px 1fr;
+}
+
+.personal-info-modal .form-label {
+  text-align: right;
+  white-space: nowrap;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: 500;
+}
+
+.personal-info-modal .form-control {
+  grid-column: span 1;
+}
+
+.personal-info-modal .form-control-full {
+  grid-column: span 1;
+}
+
+.personal-info-modal .form-control .ant-input,
+.personal-info-modal .form-control .ant-input-textarea,
+.personal-info-modal .form-control-full .ant-input-textarea {
+  width: 100%;
+}
+
+.personal-info-modal .form-control .ant-input[disabled] {
+  color: rgba(0, 0, 0, 0.45);
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.personal-info-modal .form-actions {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+  text-align: left;
+}
+
+.personal-info-modal .form-actions .ant-btn {
+  min-width: 100px;
+}

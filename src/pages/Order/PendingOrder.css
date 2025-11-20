@@ -1,3 +1,28 @@
 .pending-order-container {
   padding: 0;
 }
+
+.search-card {
+  margin-bottom: 16px;
+}
+
+.search-card .ant-card-body {
+  padding: 16px 24px;
+}
+
+.table-card {
+  margin-bottom: 16px;
+}
+
+.table-card .ant-card-body {
+  padding: 0;
+}
+
+.table-card .ant-table-wrapper {
+  padding: 0;
+}
+
+/* 搜索表单样式 */
+.pending-order-container .ant-form-inline .ant-form-item {
+  margin-bottom: 0;
+}

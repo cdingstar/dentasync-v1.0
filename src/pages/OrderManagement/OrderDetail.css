@@ -1,0 +1,122 @@
+.order-detail-container {
+  padding: 0;
+}
+
+.order-detail-tabs {
+  background: #fff;
+}
+
+.order-detail-tabs .ant-tabs-content-holder {
+  padding: 0 0 24px 0;
+}
+
+.order-detail-content {
+  padding: 0;
+}
+
+.detail-section {
+  margin-bottom: 16px;
+}
+
+.detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.detail-section .ant-card-body {
+  padding: 16px 24px;
+}
+
+/* 描述列表样式优化 */
+.order-detail-content .ant-descriptions-item-label {
+  background-color: #fafafa;
+  font-weight: 500;
+  color: #666;
+  width: 140px;
+}
+
+.order-detail-content .ant-descriptions-item-content {
+  color: #333;
+}
+
+/* Tab样式 */
+.order-detail-tabs .ant-tabs-tab {
+  font-size: 14px;
+  padding: 12px 0;
+}
+
+.order-detail-tabs .ant-tabs-tab-active {
+  font-weight: 500;
+}
+
+/* Tab右侧按钮样式 */
+.order-detail-tabs .ant-tabs-extra-content {
+  display: flex;
+  align-items: center;
+}
+
+/* 时间轴节点样式 */
+.timeline-node {
+  padding-bottom: 16px;
+}
+
+.node-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.node-action {
+  font-weight: 600;
+  font-size: 15px;
+  color: #1890ff;
+}
+
+.node-time {
+  color: #999;
+  font-size: 13px;
+}
+
+.node-description {
+  color: #666;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.node-operator {
+  color: #999;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.node-images {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.node-files {
+  margin-top: 12px;
+}
+
+.file-item-small {
+  padding: 4px 8px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  font-size: 13px;
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 4px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .order-detail-tabs {
+    padding: 12px 16px 0;
+  }
+
+  .order-detail-content .ant-descriptions-item-label {
+    width: 100px;
+  }
+}

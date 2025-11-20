@@ -133,3 +133,31 @@
 .order-modal .ant-btn {
   min-width: 80px;
 }
+
+/* 患者表单网格布局 - 左右两列 */
+.patient-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 0;
+}
+
+.patient-form-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-form-full-width {
+  margin-top: 0;
+}
+
+/* 优化模态框高度比例 4:3 */
+.patient-modal .ant-modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-modal .ant-modal-body {
+  padding: 24px;
+  overflow: visible;
+}

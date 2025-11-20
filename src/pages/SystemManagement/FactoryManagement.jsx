@@ -186,9 +186,8 @@ function FactoryManagement() {
 
   return (
     <div className="factory-management-container">
-      <h2 className="page-title">工厂管理</h2>
-      
-      <Card 
+      <Card
+        title={<span style={{ fontSize: '16px', fontWeight: 500 }}>工厂管理</span>}
         extra={
           <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
             新增工厂
