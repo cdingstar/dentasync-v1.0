@@ -1,5 +1,72 @@
 # 更新日志
 
+## 2025-11-27
+
+### 订单详情页优化调整
+
+#### APP优化内容
+1. 产品信息“牙位”采用田字格展示，样式与下单页一致。
+2. “基础信息”改为“收件信息”，显示收件人、电话、收件地址。
+3. 颜色设定新增“牙位”字段，并调整标签为：主色、颈部颜色、中部颜色、切端颜色、基牙颜色、牙体颜色、自定义色。
+4. 在“上传的文件”下新增“3D文件”区块，展示方式与“上传的文件”一致。
+
+#### 文件变更
+- 修改文件
+  - `src/pages/OrderManagement/OrderDetail.jsx` — 订单详情页结构与展示调整
+  - `../DentaSyncApp/src/pages/OrderDetail.jsx` — 移动端订单详情页同步调整
+  - `../DentaSyncApp/src/pages/OrderDetail.css` — 增加牙位田字格样式
+
+## 2025-11-20
+
+### 登录页功能优化
+
+#### 新增功能
+1. **临时角色选择**
+   - 在登录页面新增“临时角色”下拉选项（选填）
+   - 选项包含：诊所-管理员、诊所-医生、诊所-助理、工厂-管理员、工厂-助理、工厂-技师、超级管理员
+   - 登录成功后写入用户信息并持久化到 `localStorage`
+
+#### 文件变更
+- **修改文件**
+  - `src/pages/Login/Login.jsx` - 新增临时角色选择下拉并接入登录逻辑
+  - `CHANGELOG.md` - 更新日志
+
+### 角色驱动的菜单与人员管理
+
+#### 规则与实现
+1. **工厂人员隐藏“下单”**
+   - 登录角色为工厂（管理员/助理/技师）时，左侧不显示`下单`及其子菜单
+2. **工厂管理员限制角色选项**
+   - 人员管理中，角色选择仅显示`助理`、`技师`
+3. **工厂管理员人员表单字段**
+   - 新建/编辑人员弹窗中，将“所属诊所:”动态显示为“所属工厂:”
+   - 角色选择仅显示`助理`、`技师`
+4. **非管理员隐藏人员管理**
+   - 不是工厂管理员或诊所管理员（超级管理员除外），左侧不显示`人员管理`
+5. **系统管理仅超级管理员可见**
+   - 左侧`系统管理`仅在`超级管理员`登录时显示
+
+#### 文件变更
+- **修改文件**
+  - `src/layout/MainLayout.jsx` - 传递`currentUser`到`Sidebar`与`PersonnelAuth`
+  - `src/layout/Sidebar.jsx` - 基于`tempRole`动态过滤菜单项
+  - `src/pages/InfoSetting/PersonnelAuth.jsx` - 动态角色选项与“所属工厂/所属诊所”标签切换
+  - `src/pages/InfoSetting/FactoryInfo.jsx` - 新增工厂信息页面（字段与诊所信息保持一致，适配工厂）
+  - `src/layout/MainLayout.jsx` - 新增`/personal/factory-info`路由
+  - `src/layout/NaviBar.jsx` - 为`/personal/factory-info`增加导航标签“工厂信息”
+  - `src/pages/OrderManagement/PendingOrders.jsx` - 订单编号支持跳转订单详情
+  - `src/components/MessagesModal/MessagesModal.jsx` - 标题改为“企业通信”，支持外部设置默认助理Tab
+  - `src/layout/MainLayout.jsx`、`src/layout/Header.jsx` - 点击客服图标直接打开企业通信并激活“助理”Tab
+  - `src/layout/Sidebar.jsx` - 超级管理员登录后隐藏“信息设置”整组菜单
+  - `src/layout/Sidebar.jsx` - 超级管理员登录后同时隐藏“首页”“下单”“信息设置”
+
+#### 提交摘要（2025-11-20）
+- 登录页新增“临时角色”并写入用户信息
+- 侧边栏按角色控制展示：隐藏下单/患者档案/诊所信息/信息设置（按规则）
+- 新增“工厂信息”页面与路由，导航标签同步
+- 待处理订单支持订单编号跳转详情
+- 客服图标直达“企业通信”，默认激活“助理”Tab；消息对话框标题修正
+
 ## 2025-11-19
 
 ### 订单详情-其他设置内容完善
@@ -424,3 +491,33 @@ threeDFile: 'https://example.com/3d-model.stl'
 - 左右分栏布局
 - 数量调整功能
 - 智能选择机制
+### 按钮与标签一致性调整
+
+#### 优化内容
+1. “我的”页面的对话框顶部“返回”统一为主按钮样式，与“确定”一致。
+2. 工作台功能网格将“我的任务”重命名为“我的信息”。
+
+#### 文件变更
+- 修改文件
+  - `../DentaSyncApp/src/pages/My.jsx` — 返回按钮样式改为主按钮
+  - `../DentaSyncApp/src/pages/Workspace.jsx` — 功能项标签从“我的任务”改为“我的信息”
+
+### 构建与预览修复
+
+### 视觉与可用性修复
+
+#### 修复内容
+1. “我的”页面的三处对话框（个人信息、修改密码、联系我们）输入框文字颜色与背景一致导致不可见的问题修复。
+   - 输入框文字颜色设为 `#333`，背景为白色，placeholder 颜色为 `#999`。
+
+#### 文件变更
+- 修改文件
+  - `../DentaSyncApp/src/pages/My.css` — 输入框与页面正文文字颜色调整
+
+#### 修复内容
+1. Vite 构建失败（缺少入口 `index.html`）问题修复。
+2. 新增 `DentaSyncApp/index.html` 作为 Vite 默认入口，加载 `src/main.jsx`。
+
+#### 文件变更
+- 新增文件
+  - `../DentaSyncApp/index.html` — Vite 构建入口

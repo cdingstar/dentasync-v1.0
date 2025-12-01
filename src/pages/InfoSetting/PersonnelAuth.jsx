@@ -1,14 +1,24 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Card, Table, Button, Space, Modal, Form, Input, Select, message, Popconfirm, Checkbox, Tag } from 'antd'
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import './PersonnelAuth.css'
 
 const { Option } = Select
 
-function PersonnelAuth() {
+function PersonnelAuth({ currentUser }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [editingRecord, setEditingRecord] = useState(null)
   const [form] = Form.useForm()
+
+  const tempRole = currentUser?.tempRole
+  const isFactoryAdmin = tempRole === '工厂-管理员'
+  const isClinicAdmin = tempRole === '诊所-管理员'
+  const isSuperAdmin = tempRole === '超级管理员'
+  const allowedRoles = useMemo(() => {
+    if (isFactoryAdmin) return ['助理', '技师']
+    if (isClinicAdmin || isSuperAdmin) return ['医生', '助理', '行政']
+    return ['医生', '助理', '行政']
+  }, [isFactoryAdmin, isClinicAdmin, isSuperAdmin])
 
   // 人员数据
   const [personnel, setPersonnel] = useState([
@@ -250,7 +260,7 @@ function PersonnelAuth() {
         <Form
           form={form}
           layout="vertical"
-          initialValues={{ role: '医生', isAdmin: false }}
+          initialValues={{ role: isFactoryAdmin ? '助理' : '医生', isAdmin: false }}
         >
           <div className="personnel-form-grid">
             <div className="personnel-form-row">
@@ -309,7 +319,7 @@ function PersonnelAuth() {
             </div>
 
             <div className="personnel-form-row">
-              <label className="personnel-form-label">所属诊所:</label>
+              <label className="personnel-form-label">{isFactoryAdmin ? '所属工厂:' : '所属诊所:'}</label>
               <div className="personnel-form-control">
                 <Form.Item name="clinic" noStyle initialValue="ASIANTECH PTE. LTD.">
                   <Input disabled />
@@ -323,9 +333,9 @@ function PersonnelAuth() {
                   rules={[{ required: true, message: '请选择角色' }]}
                 >
                   <Select placeholder="请选择角色">
-                    <Option value="医生">医生</Option>
-                    <Option value="助理">助理</Option>
-                    <Option value="行政">行政</Option>
+                    {allowedRoles.map(r => (
+                      <Option key={r} value={r}>{r}</Option>
+                    ))}
                   </Select>
                 </Form.Item>
               </div>

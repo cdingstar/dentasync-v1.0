@@ -6,11 +6,16 @@
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 10;
+  height: 50px;
+  /* 与主布局保持一致 */
+  --app-logo-scale: 0.78;
+  /* 70%-80%之间的默认值，可调 */
 }
 
 .header-left {
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
 .logo {
@@ -18,15 +23,43 @@
   align-items: center;
   font-size: 18px;
   font-weight: bold;
+  height: 100%;
 }
 
-.logo-icon {
-  font-size: 24px;
+.app-logo-icon {
+  height: calc(100% * var(--app-logo-scale, 0.78));
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #1890ff 0%, #40a9ff 100%);
+  display: inline-block;
   margin-right: 8px;
+  border-radius: 4px;
+  /* 保持现代感的圆角方形 */
+  overflow: hidden;
+}
+
+.app-logo-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .logo-text {
   color: #1890ff;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo-name {
+  color: #1890ff;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.logo-subtitle {
+  color: #8c8c8c;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .header-right {
@@ -123,7 +156,16 @@
   justify-content: center;
 }
 
-.service-list .ant-btn-circle + .ant-btn-circle {
+.service-list .ant-btn-circle+.ant-btn-circle {
   margin-left: 8px;
 }
 
+/* 自定义版本提示框样式（浅蓝背景） */
+.version-tooltip .ant-tooltip-inner {
+  background: #1890ff;
+  color: #fff;
+}
+
+.version-tooltip .ant-tooltip-arrow::before {
+  background: #1890ff;
+}

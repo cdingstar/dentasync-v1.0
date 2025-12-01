@@ -22,11 +22,17 @@ import './Sidebar.css'
 
 const { Sider } = Layout
 
-function Sidebar({ collapsed, onCollapse }) {
+function Sidebar({ collapsed, onCollapse, currentUser }) {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const menuItems = [
+  const tempRole = currentUser?.tempRole
+  const isFactory = tempRole && tempRole.startsWith('工厂-')
+  const isFactoryAdmin = tempRole === '工厂-管理员'
+  const isClinicAdmin = tempRole === '诊所-管理员'
+  const isSuperAdmin = tempRole === '超级管理员'
+
+  let menuItems = [
     {
       key: '/',
       icon: <HomeOutlined />,
@@ -91,6 +97,12 @@ function Sidebar({ collapsed, onCollapse }) {
           icon: <ShopOutlined />,
           label: '诊所信息'
         },
+        // 工厂信息（按角色显示）
+        ...(isFactoryAdmin ? [{
+          key: '/personal/factory-info',
+          icon: <BankOutlined />,
+          label: '工厂信息'
+        }] : []),
         {
           key: '/personal/address-management',
           icon: <EnvironmentOutlined />,
@@ -116,6 +128,67 @@ function Sidebar({ collapsed, onCollapse }) {
       ]
     }
   ]
+
+  if (isFactory) {
+    menuItems = menuItems.filter(item => item.key !== '/order')
+    // 隐藏患者管理（患者档案）
+    menuItems = menuItems.map(item => {
+      if (item.key === '/personal') {
+        return {
+          ...item,
+          children: item.children.filter(child => child.key !== '/personal/patient-archive')
+        }
+      }
+      return item
+    })
+  }
+
+  if (!isFactoryAdmin && !isClinicAdmin && !isSuperAdmin) {
+    menuItems = menuItems.map(item => {
+      if (item.key === '/personal') {
+        return {
+          ...item,
+          children: item.children.filter(child => child.key !== '/personal/personnel-auth')
+        }
+      }
+      return item
+    })
+  }
+
+  if (!isSuperAdmin) {
+    menuItems = menuItems.filter(item => item.key !== '/system')
+  }
+
+  if (isSuperAdmin) {
+    const hideKeys = new Set(['/', '/order', '/personal'])
+    menuItems = menuItems.filter(item => !hideKeys.has(item.key))
+  }
+
+  // 仅诊所管理员可见“诊所信息”
+  if (!isClinicAdmin) {
+    menuItems = menuItems.map(item => {
+      if (item.key === '/personal') {
+        return {
+          ...item,
+          children: item.children.filter(child => child.key !== '/personal/unit-info')
+        }
+      }
+      return item
+    })
+  }
+
+  // 仅工厂管理员可见“工厂信息”（已在构建时受控，这里再次保护）
+  if (!isFactoryAdmin) {
+    menuItems = menuItems.map(item => {
+      if (item.key === '/personal') {
+        return {
+          ...item,
+          children: item.children.filter(child => child.key !== '/personal/factory-info')
+        }
+      }
+      return item
+    })
+  }
 
   const handleMenuClick = ({ key }) => {
     navigate(key)

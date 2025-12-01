@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Card, Table, Tag, Button, Space, Modal, Select, Input, message } from 'antd'
 import { CheckCircleOutlined, CloseCircleOutlined, EyeOutlined } from '@ant-design/icons'
 import './PendingOrders.css'
@@ -7,6 +8,7 @@ const { Option } = Select
 const { TextArea } = Input
 
 function PendingOrders() {
+  const navigate = useNavigate()
   const [dataSource, setDataSource] = useState([
     {
       key: '1',
@@ -75,7 +77,9 @@ function PendingOrders() {
       key: 'orderNo',
       width: 150,
       fixed: 'left',
-      render: (text) => <a>{text}</a>
+      render: (text, record) => (
+        <a onClick={() => handleViewDetail(record)}>{text}</a>
+      )
     },
     {
       title: '医生',
@@ -169,6 +173,12 @@ function PendingOrders() {
       )
     }
   ]
+
+  const handleViewDetail = (record) => {
+    navigate(`/order-management/detail/${record.orderNo}`, {
+      state: { orderData: record }
+    })
+  }
 
   const handleProcess = (record, action) => {
     setCurrentOrder(record)

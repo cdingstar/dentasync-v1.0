@@ -14,6 +14,7 @@ import PersonnelAuth from '../pages/InfoSetting/PersonnelAuth'
 import PatientArchive from '../pages/InfoSetting/PatientArchive'
 import UnitInfo from '../pages/InfoSetting/UnitInfo'
 import AddressManagement from '../pages/InfoSetting/AddressManagement'
+import FactoryInfo from '../pages/InfoSetting/FactoryInfo'
 import ClinicManagement from '../pages/SystemManagement/ClinicManagement'
 import FactoryManagement from '../pages/SystemManagement/FactoryManagement'
 import MessagesModal from '../components/MessagesModal/MessagesModal'
@@ -22,8 +23,10 @@ import './MainLayout.css'
 function MainLayout({ currentUser, onLogout }) {
   const [collapsed, setCollapsed] = useState(false)
   const [isMessagesModalVisible, setIsMessagesModalVisible] = useState(false)
+  const [messagesInitialSecondaryTab, setMessagesInitialSecondaryTab] = useState('all')
 
-  const handleOpenMessages = () => {
+  const handleOpenMessages = (secondary = 'all') => {
+    setMessagesInitialSecondaryTab(secondary)
     setIsMessagesModalVisible(true)
   }
 
@@ -35,7 +38,7 @@ function MainLayout({ currentUser, onLogout }) {
         onOpenMessages={handleOpenMessages}
       />
       <div style={{ display: 'flex', height: 'calc(100vh - 50px)', overflow: 'hidden' }}>
-        <Sidebar collapsed={collapsed} onCollapse={setCollapsed} />
+        <Sidebar collapsed={collapsed} onCollapse={setCollapsed} currentUser={currentUser} />
         <div className="content-layout" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <NaviBar />
           <div className="main-content">
@@ -47,9 +50,10 @@ function MainLayout({ currentUser, onLogout }) {
               <Route path="/order-management/all" element={<AllOrders />} />
               <Route path="/order-management/detail/:orderNo" element={<OrderDetail />} />
               <Route path="/order-management/pending" element={<PendingOrders />} />
-              <Route path="/personal/personnel-auth" element={<PersonnelAuth />} />
+              <Route path="/personal/personnel-auth" element={<PersonnelAuth currentUser={currentUser} />} />
               <Route path="/personal/patient-archive" element={<PatientArchive />} />
               <Route path="/personal/unit-info" element={<UnitInfo />} />
+              <Route path="/personal/factory-info" element={<FactoryInfo />} />
               <Route path="/personal/address-management" element={<AddressManagement />} />
               <Route path="/system/executing-unit" element={<ClinicManagement />} />
               <Route path="/system/factory" element={<FactoryManagement />} />
@@ -62,6 +66,7 @@ function MainLayout({ currentUser, onLogout }) {
       <MessagesModal
         visible={isMessagesModalVisible}
         onClose={() => setIsMessagesModalVisible(false)}
+        defaultSecondaryTab={messagesInitialSecondaryTab}
       />
     </div>
   )

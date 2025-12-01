@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Layout, Badge, Avatar, Space, Dropdown, message, Modal, Select, Button, List, Form, Input } from 'antd'
-import { 
-  BellOutlined, 
+import {
+  BellOutlined,
   QuestionCircleOutlined,
   IdcardOutlined,
   LockOutlined,
@@ -13,6 +13,7 @@ import {
 } from '@ant-design/icons'
 import PersonalInfoModal from './PersonalInfoModal'
 import './Header.css'
+import { Tooltip } from 'antd'
 
 const { Header: AntHeader } = Layout
 const { Option } = Select
@@ -125,7 +126,7 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
   ]
 
   const handleOpenService = () => {
-    setIsServiceModalVisible(true)
+    onOpenMessages && onOpenMessages('atme')
   }
 
   const handleCloseService = () => {
@@ -166,15 +167,43 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
     <AntHeader className="app-header">
       <div className="header-left">
         <div className="logo">
-          <span className="logo-icon">🦷</span>
-          <span className="logo-text">DentaSync</span>
+          <span className="app-logo-icon">
+            <svg viewBox="0 0 100 100" width="100%" height="100%" aria-label="DentaSync Logo">
+              <defs>
+                <linearGradient id="dsGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#1890ff" />
+                  <stop offset="100%" stopColor="#40a9ff" />
+                </linearGradient>
+              </defs>
+              {/* 背景方块由容器提供，这里只绘制字母以保持简洁 */}
+              <text x="50" y="62" textAnchor="middle" fontSize="60" fontWeight="700" fill="#ffffff" fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif">
+                DS
+              </text>
+            </svg>
+          </span>
+          <div className="logo-title">
+            <Tooltip
+              placement="bottomLeft"
+              overlayClassName="version-tooltip"
+              title={(
+                <div>
+                  <div>系统版本：Build 1.0.1121</div>
+                  <div>Premium Dental Services Pte. Ltd.</div>
+                  <div>版权所有2025.</div>
+                </div>
+              )}
+            >
+              <span className="logo-name">DentaSync V1.0</span>
+            </Tooltip>
+            {/* 移除副标题：改为鼠标悬停显示 Tooltip */}
+          </div>
         </div>
       </div>
       <div className="header-right">
         <Space size="large">
           <Badge count={70} overflowCount={99}>
-            <BellOutlined 
-              style={{ fontSize: 18, cursor: 'pointer' }} 
+            <BellOutlined
+              style={{ fontSize: 18, cursor: 'pointer' }}
               onClick={onOpenMessages}
             />
           </Badge>
@@ -182,16 +211,16 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
             <CustomerServiceOutlined style={{ fontSize: 16 }} />
           </div>
           <div className="header-company">ASIANTECH PTE. LTD.</div>
-          <Dropdown 
+          <Dropdown
             menu={{ items: userMenuItems }}
             placement="bottomRight"
             trigger={['click']}
           >
-            <Avatar 
+            <Avatar
               shape="square"
               size={32}
-              style={{ 
-                backgroundColor: '#1890ff', 
+              style={{
+                backgroundColor: '#1890ff',
                 cursor: 'pointer',
                 fontSize: '14px',
                 fontWeight: 500,

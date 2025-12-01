@@ -18,6 +18,7 @@ function NaviBar() {
     '/personal/personnel-auth': { label: '人员管理', closable: true },
     '/personal/patient-archive': { label: '患者档案', closable: true },
     '/personal/unit-info': { label: '诊所信息', closable: true },
+    '/personal/factory-info': { label: '工厂信息', closable: true },
     '/personal/address-management': { label: '地址管理', closable: true },
     '/system/executing-unit': { label: '诊所管理', closable: true },
     '/system/factory': { label: '工厂管理', closable: true },

@@ -5,7 +5,7 @@ import './MessagesModal.css'
 
 const { Sider, Content } = Layout
 
-function MessagesModal({ visible, onClose }) {
+function MessagesModal({ visible, onClose, defaultSecondaryTab }) {
   const [selectedContact, setSelectedContact] = useState(null)
   const [messageInput, setMessageInput] = useState('')
   const [searchText, setSearchText] = useState('')
@@ -394,6 +394,12 @@ function MessagesModal({ visible, onClose }) {
     }
   }, [visible])
 
+  useEffect(() => {
+    if (visible) {
+      setSecondaryTab(defaultSecondaryTab || 'all')
+    }
+  }, [visible, defaultSecondaryTab])
+
   const handleSendMessage = () => {
     if (!messageInput.trim() || !selectedContact) return
 
@@ -734,7 +740,7 @@ function MessagesModal({ visible, onClose }) {
       title={
         <div className="modal-title-wrapper">
           <span className="modal-title-icon">💬</span>
-          <span className="modal-title-text">企业通讯</span>
+          <span className="modal-title-text">企业通信</span>
         </div>
       }
       open={visible}

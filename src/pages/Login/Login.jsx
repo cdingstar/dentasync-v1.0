@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import { Form, Input, Button, message } from 'antd'
+import { Form, Input, Button, message, Select } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './Login.css'
+
+const { Option } = Select
 
 function Login({ onLogin }) {
   const [loading, setLoading] = useState(false)
@@ -18,7 +20,8 @@ function Login({ onLogin }) {
         message.success('登录成功！')
         onLogin({
           username: values.username,
-          shortName: 'AD'
+          shortName: 'AD',
+          tempRole: values.tempRole
         })
       } else {
         message.error('用户名或密码错误！')
@@ -68,6 +71,18 @@ function Login({ onLogin }) {
               placeholder="密码"
               size="large"
             />
+          </Form.Item>
+
+          <Form.Item name="tempRole">
+            <Select placeholder="请选择临时角色（选填）" size="large">
+              <Option value="诊所-管理员">诊所-管理员</Option>
+              <Option value="诊所-医生">诊所-医生</Option>
+              <Option value="诊所-助理">诊所-助理</Option>
+              <Option value="工厂-管理员">工厂-管理员</Option>
+              <Option value="工厂-助理">工厂-助理</Option>
+              <Option value="工厂-技师">工厂-技师</Option>
+              <Option value="超级管理员">超级管理员</Option>
+            </Select>
           </Form.Item>
 
           <Form.Item>
