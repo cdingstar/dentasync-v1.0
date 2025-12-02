@@ -1,0 +1,21 @@
+.implant-params-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.implant-params-form .ant-form-item-label > label {
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.implant-params-form .ant-select {
+  width: 100%;
+}
+
+.implant-params-form .ant-select-selector {
+  border-radius: 4px;
+}
+
+.implant-params-form .ant-select-selection-placeholder {
+  color: #ccc;
+}
