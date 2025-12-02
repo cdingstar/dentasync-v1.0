@@ -4,9 +4,11 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import ColorSelector from '../../../components/ColorSelector/ColorSelector'
 import ToothSelector from '../../../components/ToothSelector/ToothSelector'
 import ProductSelectorModal from '../../../components/ProductSelectorModal/ProductSelectorModal'
+import ImplantParamsModal from '../../../components/ImplantParamsModal/ImplantParamsModal'
 import BaseInfo from './BaseInfo'
 import PatientInfo from './PatientInfo'
 import ProductInfo from './ProductInfo'
+import ImplantParams from './ImplantParams'
 import ColorSettings from './ColorSettings'
 import OtherSettings from './OtherSettings'
 import './QuickOrder.css'
@@ -86,6 +88,7 @@ function QuickOrder() {
   }
   
   const [productList, setProductList] = useState(getInitialProductList())
+  const [implantParamsList, setImplantParamsList] = useState([]) // 种植参数列表
   const [colorSettings, setColorSettings] = useState([
     {
       id: 1,
@@ -114,6 +117,11 @@ function QuickOrder() {
   // 产品选择器状态
   const [productSelectorVisible, setProductSelectorVisible] = useState(false)
   const [currentProductId, setCurrentProductId] = useState(null)
+  
+  // 种植参数选择器状态
+  const [implantParamsVisible, setImplantParamsVisible] = useState(false)
+  const [pendingProduct, setPendingProduct] = useState(null) // 暂存待处理的产品信息
+  const [editingImplantParams, setEditingImplantParams] = useState(null) // 编辑模式下的种植参数
 
   // 编辑模式 - 回填表单数据
   useEffect(() => {
@@ -140,6 +148,7 @@ function QuickOrder() {
       const orderData = {
         ...values,
         productList,
+        implantParamsList,
         uploadedImages,
         uploadedFiles,
         colorSettings
@@ -179,6 +188,7 @@ function QuickOrder() {
       message.success('订单提交成功！')
       form.resetFields()
       setProductList([])
+      setImplantParamsList([])
       setUploadedImages([])
       setUploadedFiles([])
     }
@@ -212,20 +222,86 @@ function QuickOrder() {
 
   const handleProductSelect = (product) => {
     console.log('选择的产品:', product)
-    if (currentProductId) {
-      // 更新产品列表中对应产品的信息
+    
+    // 检查产品名称是否包含"种植"
+    if (product.name && product.name.includes('种植')) {
+      console.log('检测到种植产品，打开种植参数选择器')
+      // 暂存产品信息，等待用户填写种植参数
+      setPendingProduct({
+        ...product,
+        productId: currentProductId
+      })
+      setEditingImplantParams(null) // 新增模式
+      setImplantParamsVisible(true)
+    } else {
+      // 非种植产品，直接更新
+      if (currentProductId) {
+        setProductList(productList.map(item => 
+          item.id === currentProductId 
+            ? { 
+                ...item, 
+                productName: product.name,
+                productId: product.key,
+                productCode: product.productCode
+              } 
+            : item
+        ))
+        message.success(`已选择产品: ${product.name}`)
+      }
+    }
+  }
+  
+  // 处理种植参数确认
+  const handleImplantParamsConfirm = (params) => {
+    console.log('种植参数:', params)
+    
+    if (editingImplantParams) {
+      // 修改模式：更新现有参数
+      setImplantParamsList(implantParamsList.map(item => 
+        item.productId === editingImplantParams.productId
+          ? { ...item, params }
+          : item
+      ))
+      message.success('种植参数已更新')
+      setEditingImplantParams(null)
+    } else if (pendingProduct && currentProductId) {
+      // 新增模式：更新产品列表并添加种植参数
       setProductList(productList.map(item => 
         item.id === currentProductId 
           ? { 
               ...item, 
-              productName: product.name,
-              productId: product.key,
-              productCode: product.productCode
+              productName: pendingProduct.name,
+              productId: pendingProduct.key,
+              productCode: pendingProduct.productCode
             } 
           : item
       ))
-      message.success(`已选择产品: ${product.name}`)
+      
+      // 添加种植参数到列表
+      setImplantParamsList([...implantParamsList, {
+        productId: currentProductId,
+        productName: pendingProduct.name,
+        params
+      }])
+      
+      message.success(`已选择产品: ${pendingProduct.name}`)
+      setPendingProduct(null)
     }
+  }
+  
+  // 编辑种植参数
+  const handleEditImplantParams = (productId) => {
+    const implantParam = implantParamsList.find(item => item.productId === productId)
+    if (implantParam) {
+      setEditingImplantParams(implantParam)
+      setImplantParamsVisible(true)
+    }
+  }
+  
+  // 删除种植参数
+  const handleDeleteImplantParams = (productId) => {
+    setImplantParamsList(implantParamsList.filter(item => item.productId !== productId))
+    message.success('已删除种植参数')
   }
 
   const handleSelectScanDevice = (id) => {
@@ -234,6 +310,8 @@ function QuickOrder() {
 
   const handleDeleteProduct = (id) => {
     setProductList(productList.filter(item => item.id !== id))
+    // 同时删除对应的种植参数
+    setImplantParamsList(implantParamsList.filter(item => item.productId !== id))
   }
 
   const handleUpdateProduct = (id, field, value) => {
@@ -360,6 +438,13 @@ function QuickOrder() {
           onDeleteProduct={handleDeleteProduct}
         />
 
+        {/* 种植参数 */}
+        <ImplantParams
+          implantParamsList={implantParamsList}
+          onEditParams={handleEditImplantParams}
+          onDeleteParams={handleDeleteImplantParams}
+        />
+
         {/* 颜色设定 */}
         <ColorSettings
           colorSettings={colorSettings}
@@ -387,7 +472,10 @@ function QuickOrder() {
           <Button type="primary" htmlType="submit" size="large">
             {config.buttonText}
           </Button>
-          <Button size="large" style={{ marginLeft: 16 }} onClick={() => form.resetFields()}>
+          <Button size="large" style={{ marginLeft: 16 }} onClick={() => {
+            form.resetFields()
+            setImplantParamsList([])
+          }}>
             重置
           </Button>
         </div>
@@ -425,6 +513,18 @@ function QuickOrder() {
         visible={productSelectorVisible}
         onClose={() => setProductSelectorVisible(false)}
         onSelect={handleProductSelect}
+      />
+      
+      {/* 种植参数选择器 */}
+      <ImplantParamsModal
+        visible={implantParamsVisible}
+        onClose={() => {
+          setImplantParamsVisible(false)
+          setPendingProduct(null)
+          setEditingImplantParams(null)
+        }}
+        onConfirm={handleImplantParamsConfirm}
+        initialValues={editingImplantParams?.params || {}}
       />
     </div>
   )

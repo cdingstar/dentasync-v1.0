@@ -52,11 +52,6 @@ function Sidebar({ collapsed, onCollapse, currentUser }) {
           key: '/order/product-library',
           icon: <DatabaseOutlined />,
           label: '产品库下单'
-        },
-        {
-          key: '/order/pending',
-          icon: <ClockCircleOutlined />,
-          label: '待下单'
         }
       ]
     },
@@ -69,6 +64,11 @@ function Sidebar({ collapsed, onCollapse, currentUser }) {
           key: '/order-management/all',
           icon: <FileTextOutlined />,
           label: '全部订单'
+        },
+        {
+          key: '/order/pending',
+          icon: <ClockCircleOutlined />,
+          label: '待下单'
         },
         {
           key: '/order-management/pending',

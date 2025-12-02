@@ -184,7 +184,7 @@ function Home({ onOpenMessages }) {
         <Col span={6}>
           <Card>
             <Statistic
-              title="未完成订单"
+              title="待处理订单"
               value={32}
               valueStyle={{ color: '#52c41a' }}
               prefix={<CheckCircleOutlined />}

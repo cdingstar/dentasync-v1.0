@@ -1,5 +1,92 @@
 # 更新日志
 
+## 2025-12-1
+
+### 优化记录
+1. 首页上的 “未完成订单” 改为 “待处理订单”；
+2. 左侧菜单栏里面的 “待下单”这个入口 需要移动到订单管理全部订单和待处理订单的中间；
+3. 增加页面的导航条，允许部分页面可以多页面同时展示；
+4. 订单详情页优化调整和功能优化；
+5. 订单详情-其他设置内容完善；
+6. 完成沟通模块功能调整和优化；
+7. 首页Logo调整和Header的高度优化等UI细节；
+8. 增加关于我们页面；
+9. 删除锁定系统的功能；
+10. 增加种植系统设定页面和参数配置表；
+11. 增加医技沟通的入口；
+12. 增加订单详情的生产进度关键节点的状态修改功能；
+13. 增加订单详情的文件和图片上传；
+
+### 首页交互优化（APP）
+
+### 我的页面增强（APP）
+
+#### 新增内容
+1. 在“我的”页面的“联系我们”下新增“关于我们”入口。
+2. 新增“关于我们”手机端页面，展示版本信息、公司信息、业务联系与产品技术反馈，版式与“联系我们”对话框类似。
+
+#### 文件变更
+- 修改文件
+  - `../DentaSyncApp/src/pages/My.jsx` — 新增 `showAbout` 状态与“关于我们”页面结构
+
+#### 布局优化
+1. 优化“联系我们”页面宽度感受：将“业务联系”和“产品技术反馈”改为上下排列。
+2. 补充“Powered by HOUQI INTELLIGENT TECHNOLOGY CO., LTD”信息。
+
+#### 文件变更
+- 修改文件
+  - `../DentaSyncApp/src/pages/My.jsx` — 优化“联系我们”内容布局并补充 Powered by
+  - `../DentaSyncApp/src/components/Header.jsx` — 在“我的”页顶部右侧增加“联系我们”按钮，点击打开“关于我们”页
+  - `../DentaSyncApp/src/components/Header.css` — 增加右侧操作按钮样式
+  - `../DentaSyncApp/src/pages/My.jsx` — 关于我们页“联系我们”分区改为上下排布；公司名称大写；版权行样式优化为移动端风格。
+
+#### 入口调整
+1. “我的”页移除“联系我们”“关于我们”菜单项，入口统一至顶部右侧按钮。
+
+### 首页跳转优化（APP）
+1. 首页“已完成订单”“待处理订单”卡片点击后，分别跳转至订单页的“已完成”“待处理”标签。
+- 修改文件
+  - `../DentaSyncApp/src/pages/Workspace.jsx` — 为统计卡片增加点击跳转逻辑
+  - `../DentaSyncApp/src/pages/Workspace.jsx` — “已发货”功能入口点击跳转到订单页“已发货”标签
+
+### 产品库筛选优化（APP）
+1. 筛选条件对话框删除顶部供应商下拉选择器，仅保留Tab筛选与底部操作。
+- 修改文件
+  - `../DentaSyncApp/src/components/FilterPanel.jsx` — 移除顶部供应商下拉区域
+  - `../DentaSyncApp/src/pages/Products.jsx` — 顶部搜索按钮仅显示图标，移除“搜索”文字
+
+### 患者档案搜索优化（APP）
+1. 删除患者档案页内部“患者姓名/ID/电话”搜索输入，改为统一使用顶部右侧搜索弹窗。
+2. 顶部搜索弹窗在患者档案页显示占位“患者姓名/ID/电话”，并将搜索结果写入列表筛选。
+- 修改文件
+  - `../DentaSyncApp/src/components/Header.jsx` — 为 `patient` 页面提供专用搜索占位与上下文
+  - `../DentaSyncApp/src/pages/PatientArchive.jsx` — 移除内部搜索输入并监听全局搜索事件
+
+### 我的页面弹层优化（APP）
+1. “关于我们/联系我们”弹层删除“返回”按钮，仅保留“关闭”。
+- 修改文件
+  - `../DentaSyncApp/src/pages/My.jsx` — 弹层头部移除“返回”按钮
+
+#### 修改内容
+1. 首页“我的消息”入口点击后跳转到“消息”页面。
+
+#### 文件变更
+- 修改文件
+  - `../DentaSyncApp/src/App.jsx` — 新增 `handleNavigateToMessages` 并传递到 `Workspace`
+  - `../DentaSyncApp/src/pages/Workspace.jsx` — 将“我的消息”入口点击改为触发页面跳转
+
+### 构建与预览修复（APP）
+
+#### 修复内容
+1. 为 `npm run preview` 增加自动构建钩子：新增 `prepreview` 脚本执行 `vite build`。
+2. 预览启动添加 `--host`，确保在本机可访问；`vite.config.js` 增加 `strictPort` 避免端口占用引发失败。
+
+#### 文件变更
+- 修改文件
+  - `../DentaSyncApp/package.json` — 新增 `prepreview`、调整 `preview` 参数
+  - `../DentaSyncApp/vite.config.js` — 预览配置新增 `strictPort`
+
+
 ## 2025-11-27
 
 ### 订单详情页优化调整
@@ -15,6 +102,28 @@
   - `src/pages/OrderManagement/OrderDetail.jsx` — 订单详情页结构与展示调整
   - `../DentaSyncApp/src/pages/OrderDetail.jsx` — 移动端订单详情页同步调整
   - `../DentaSyncApp/src/pages/OrderDetail.css` — 增加牙位田字格样式
+
+### 一键下单-种植参数支持（APP）
+
+### 产品库新增“种植产品”类别（APP）
+
+#### 新增内容
+1. 产品库新增分类标签“种植产品”。
+2. 新增不少于14款“种植”系列产品，名称均包含“种植”。
+   - 示例：种植牙冠标准版、种植个性化基台、种植取模杆组件、种植数字化导板、种植全拱修复方案等。
+
+#### 文件变更
+- 修改文件
+  - `../DentaSyncApp/src/data/productsData.js` — 增加“种植产品”数据条目
+  - `../DentaSyncApp/src/pages/Products.jsx` — 增加“种植产品”分类标签
+
+#### 新增功能
+1. 在一键下单的“产品信息”选择产品后，若产品名称包含“种植”，弹出“种植参数选择器”。
+2. 选择完成后不修改产品信息表格，而是在“产品信息”和“颜色设定”之间新增“种植参数”表格展示：序号、种植参数、操作（删除/修改）。
+
+#### 文件变更
+- 修改文件
+  - `../DentaSyncApp/src/pages/QuickOrder/index.jsx` — 新增种植参数列表、选择器与交互逻辑
 
 ## 2025-11-20
 

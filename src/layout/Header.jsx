@@ -4,7 +4,6 @@ import {
   BellOutlined,
   QuestionCircleOutlined,
   IdcardOutlined,
-  LockOutlined,
   KeyOutlined,
   LogoutOutlined,
   CustomerServiceOutlined,
@@ -23,6 +22,7 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
   const [isContactModalVisible, setIsContactModalVisible] = useState(false)
   const [isPersonalInfoVisible, setIsPersonalInfoVisible] = useState(false)
   const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false)
+  const [isAboutVisible, setIsAboutVisible] = useState(false)
   const [selectedFactory, setSelectedFactory] = useState(null)
   const [passwordForm] = Form.useForm()
 
@@ -92,10 +92,10 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
       onClick: () => setIsContactModalVisible(true)
     },
     {
-      key: 'lock',
-      icon: <LockOutlined />,
-      label: '锁定屏幕',
-      onClick: () => message.info('锁定屏幕')
+      key: 'about',
+      icon: <QuestionCircleOutlined />,
+      label: '关于我们',
+      onClick: () => setIsAboutVisible(true)
     },
     {
       type: 'divider'
@@ -184,7 +184,6 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
           <div className="logo-title">
             <Tooltip
               placement="bottomLeft"
-              overlayClassName="version-tooltip"
               title={(
                 <div>
                   <div>系统版本：Build 1.0.1121</div>
@@ -401,6 +400,118 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
             <Input.Password placeholder="请再次输入新密码" size="large" />
           </Form.Item>
         </Form>
+      </Modal>
+
+      {/* 关于我们对话框 */}
+      <Modal
+        title="关于我们"
+        open={isAboutVisible}
+        onCancel={() => setIsAboutVisible(false)}
+        footer={[
+          <Button key="close" type="primary" onClick={() => setIsAboutVisible(false)}>
+            关闭
+          </Button>
+        ]}
+        width={600}
+      >
+        <div style={{ padding: '20px 0' }}>
+          {/* 产品信息 */}
+          <div style={{ marginBottom: '32px', textAlign: 'center' }}>
+            <div style={{ 
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '80px',
+              height: '80px',
+              backgroundColor: '#1890ff',
+              borderRadius: '12px',
+              marginBottom: '16px'
+            }}>
+              <svg viewBox="0 0 100 100" width="60" height="60">
+                <text x="50" y="62" textAnchor="middle" fontSize="60" fontWeight="700" fill="#ffffff" fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial">
+                  DS
+                </text>
+              </svg>
+            </div>
+            <h2 style={{ fontSize: '24px', fontWeight: 600, margin: '0 0 8px 0', color: '#333' }}>
+              DentaSync
+            </h2>
+            <p style={{ fontSize: '14px', color: '#999', margin: 0 }}>
+              版本 V1.0 (Build 1.0.1121)
+            </p>
+          </div>
+
+          {/* 公司信息 */}
+          <div style={{ marginBottom: '24px' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px', color: '#333', borderBottom: '2px solid #f0f0f0', paddingBottom: '8px' }}>
+              公司信息
+            </h3>
+            <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
+              <strong>公司名称：</strong>Premier Dental Service Pte. Ltd.
+            </p>
+            <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
+              <strong>运营单位：</strong>ASIANTECH PTE. LTD.
+            </p>
+          </div>
+
+          {/* 联系方式 */}
+          <div style={{ marginBottom: '24px' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px', color: '#333', borderBottom: '2px solid #f0f0f0', paddingBottom: '8px' }}>
+              联系我们
+            </h3>
+            <div style={{ display: 'flex', gap: '32px' }}>
+              {/* 左栏 - 业务联系 */}
+              <div style={{ flex: 1 }}>
+                <h4 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: '#1890ff' }}>
+                  业务联系
+                </h4>
+                <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
+                  <strong>联系人：</strong>Tom Huang
+                </p>
+                <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
+                  <strong>电话：</strong>
+                  <a href="tel:+6598625613" style={{ color: '#1890ff', marginLeft: '4px' }}>+65 98625613</a>
+                </p>
+                <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
+                  <strong>邮箱：</strong>
+                  <a href="mailto:asiantechdentallab@gmail.com" style={{ color: '#1890ff', marginLeft: '4px' }}>asiantechdentallab@gmail.com</a>
+                </p>
+              </div>
+              
+              {/* 右栏 - 产品技术反馈 */}
+              <div style={{ flex: 1 }}>
+                <h4 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: '#1890ff' }}>
+                  产品技术反馈
+                </h4>
+                <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
+                  <strong>邮箱：</strong>
+                  <a href="mailto:cdingstar@gmail.com" style={{ color: '#1890ff', marginLeft: '4px' }}>cdingstar@gmail.com</a>
+                </p>
+                <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
+                  如有任何产品问题或改进建议，欢迎反馈
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 版权信息 */}
+          <div style={{ 
+            marginTop: '32px', 
+            paddingTop: '20px', 
+            borderTop: '1px solid #f0f0f0',
+            textAlign: 'center'
+          }}>
+            <p style={{ fontSize: '13px', color: '#999', margin: '4px 0' }}>
+              © 2025 Premier Dental Service Pte. Ltd.
+            </p>
+            <p style={{ fontSize: '13px', color: '#999', margin: '4px 0' }}>
+              All Rights Reserved.
+            </p>
+            <p style={{ fontSize: '12px', color: '#bbb', margin: '8px 0 0 0' }}>
+              Powered by HOUQI INTELLIGENT TECHNOLOGY CO., LTD
+            </p>
+          </div>
+        </div>
       </Modal>
     </AntHeader>
   )
