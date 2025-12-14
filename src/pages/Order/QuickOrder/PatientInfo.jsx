@@ -1,37 +1,40 @@
 import React from 'react'
 import { Card, Form, Input, Select } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 const { Option } = Select
 
 function PatientInfo() {
+  const { t } = useTranslation()
+
   return (
-    <Card title="患者信息" className="section-card">
+    <Card title={t('quickOrder.patientInfo.title')} className="section-card">
       <div className="base-info-row">
         <div className="info-item">
-          <span className="info-label">患者</span>
+          <span className="info-label">{t('quickOrder.patientInfo.name')}</span>
           <Form.Item name="patientName" style={{ marginBottom: 0 }}>
-            <Input placeholder="请输入患者姓名" className="info-input" />
+            <Input placeholder={t('quickOrder.patientInfo.placeholders.enterName')} className="info-input" />
           </Form.Item>
         </div>
         <div className="info-item">
-          <span className="info-label">患者手机号</span>
+          <span className="info-label">{t('quickOrder.patientInfo.phone')}</span>
           <Form.Item name="patientPhone" style={{ marginBottom: 0 }}>
-            <Input placeholder="请输入患者" className="info-input" />
+            <Input placeholder={t('quickOrder.patientInfo.placeholders.enterPhone')} className="info-input" />
           </Form.Item>
         </div>
         <div className="info-item">
-          <span className="info-label">性别</span>
+          <span className="info-label">{t('quickOrder.patientInfo.gender')}</span>
           <Form.Item name="gender" style={{ marginBottom: 0 }}>
-            <Select placeholder="请选择性别" className="info-input">
-              <Option value="male">男</Option>
-              <Option value="female">女</Option>
+            <Select placeholder={t('quickOrder.patientInfo.placeholders.selectGender')} className="info-input">
+              <Option value="male">{t('quickOrder.patientInfo.options.male')}</Option>
+              <Option value="female">{t('quickOrder.patientInfo.options.female')}</Option>
             </Select>
           </Form.Item>
         </div>
         <div className="info-item">
-          <span className="info-label">年龄</span>
+          <span className="info-label">{t('quickOrder.patientInfo.age')}</span>
           <Form.Item name="age" style={{ marginBottom: 0 }}>
-            <Input placeholder="请输入年龄" className="info-input" />
+            <Input placeholder={t('quickOrder.patientInfo.placeholders.enterAge')} className="info-input" />
           </Form.Item>
         </div>
       </div>

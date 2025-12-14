@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Button, Select } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 const { Option } = Select
 
@@ -12,13 +13,15 @@ function ProductInfo({
   onSelectScanDevice,
   onDeleteProduct 
 }) {
+  const { t } = useTranslation()
+
   return (
     <Card 
-      title={`产品信息 (${productList.length})`}
+      title={`${t('quickOrder.productInfo.title')} (${productList.length})`}
       className="section-card"
       extra={
         <Button type="primary" onClick={onAddProduct}>
-          新增产品
+          {t('quickOrder.productInfo.actions.add')}
         </Button>
       }
     >
@@ -26,14 +29,14 @@ function ProductInfo({
         <table className="product-table">
           <thead>
             <tr>
-              <th>序号</th>
-              <th>产品名称</th>
-              <th>牙位</th>
-              <th>取模方式</th>
-              <th>扫描设备</th>
-              <th>连接方式</th>
-              <th>修复方式</th>
-              <th>操作</th>
+              <th>{t('quickOrder.productInfo.columns.no')}</th>
+              <th>{t('quickOrder.productInfo.columns.name')}</th>
+              <th>{t('quickOrder.productInfo.columns.toothPosition')}</th>
+              <th>{t('quickOrder.productInfo.columns.moldingMethod')}</th>
+              <th>{t('quickOrder.productInfo.columns.scanDevice')}</th>
+              <th>{t('quickOrder.productInfo.columns.connectionMethod')}</th>
+              <th>{t('quickOrder.productInfo.columns.repairMethod')}</th>
+              <th>{t('quickOrder.productInfo.columns.action')}</th>
             </tr>
           </thead>
           <tbody>
@@ -53,7 +56,7 @@ function ProductInfo({
                   <div 
                     className="tooth-grid clickable" 
                     onClick={() => onOpenToothSelector(product.id, 'product')}
-                    title="点击选择牙位"
+                    title={t('quickOrder.productInfo.placeholders.clickToSelectTooth')}
                   >
                     <div className="tooth-row">
                       <div className="tooth-cell-display">
@@ -87,8 +90,8 @@ function ProductInfo({
                     onChange={(value) => onUpdateProduct(product.id, 'moldingMethod', value)}
                     style={{ width: '100%' }}
                   >
-                    <Option value="常规取模">常规取模</Option>
-                    <Option value="口内扫描">口内扫描</Option>
+                    <Option value="常规取模">{t('quickOrder.productInfo.options.normalMolding')}</Option>
+                    <Option value="口内扫描">{t('quickOrder.productInfo.options.intraoralScan')}</Option>
                   </Select>
                 </td>
                 <td>
@@ -99,7 +102,7 @@ function ProductInfo({
                   >
                     {product.scanDevice && product.scanNumber 
                       ? `${product.scanDevice}：${product.scanNumber}` 
-                      : '选择扫描设备'}
+                      : t('quickOrder.productInfo.placeholders.selectScanDevice')}
                   </Button>
                 </td>
                 <td>
@@ -108,8 +111,8 @@ function ProductInfo({
                     onChange={(value) => onUpdateProduct(product.id, 'connectionMethod', value)}
                     style={{ width: '100%' }}
                   >
-                    <Option value="单冠">单冠</Option>
-                    <Option value="桥体">桥体</Option>
+                    <Option value="单冠">{t('quickOrder.productInfo.options.singleCrown')}</Option>
+                    <Option value="桥体">{t('quickOrder.productInfo.options.bridge')}</Option>
                   </Select>
                 </td>
                 <td>
@@ -118,9 +121,9 @@ function ProductInfo({
                     onChange={(value) => onUpdateProduct(product.id, 'repairMethod', value)}
                     style={{ width: '100%' }}
                   >
-                    <Option value="新做">新做</Option>
-                    <Option value="返修">返修</Option>
-                    <Option value="重做">重做</Option>
+                    <Option value="新做">{t('quickOrder.productInfo.options.new')}</Option>
+                    <Option value="返修">{t('quickOrder.productInfo.options.repair')}</Option>
+                    <Option value="重做">{t('quickOrder.productInfo.options.redo')}</Option>
                   </Select>
                 </td>
                 <td>
@@ -130,7 +133,7 @@ function ProductInfo({
                     size="small"
                     onClick={() => onDeleteProduct(product.id)}
                   >
-                    删除
+                    {t('quickOrder.productInfo.actions.delete')}
                   </Button>
                 </td>
               </tr>

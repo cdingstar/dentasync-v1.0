@@ -1,35 +1,61 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Button, InputNumber } from 'antd'
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import './AttachmentSelectorModal.css'
 
 /**
- * 附件选择对话框
- * @param {Boolean} visible - 是否显示对话框
- * @param {Function} onClose - 关闭对话框回调
- * @param {Function} onConfirm - 确认选择回调，参数为选中的附件数组 [{name, count}]
- * @param {Array} initialSelection - 初始选中的附件
+ * Attachment selection modal
+ * @param {Boolean} visible - Whether to show the modal
+ * @param {Function} onClose - Close callback
+ * @param {Function} onConfirm - Confirm callback, parameter is array of selected attachments [{name, count}]
+ * @param {Array} initialSelection - Initially selected attachments
  */
 function AttachmentSelectorModal({ visible, onClose, onConfirm, initialSelection = [] }) {
+  const { t } = useTranslation()
   const [selectedAttachments, setSelectedAttachments] = useState({})
 
-  // 附件列表数据
+  // Attachment list data
   const attachmentList = [
-    '工厂颌架', '颌架垫片', '螺丝附件', '颜面弓', '托槽',
-    '螺旋', '带环', '取模杆', '旧模', '替代体',
-    '医生颌架', 'U盘', '蜡冠', '参考模', '咬胶',
-    '转移杆螺丝', '保证卡', '基台发货单', '定位器', '印模帽',
-    '基台', '旧牙', '转移杆', '取模杆螺丝', '蜡堤',
-    '托盘', '旧托', '基台螺丝', '诊断蜡型'
+    { label: t('attachmentSelector.items.factoryArticulator'), value: t('attachmentSelector.items.factoryArticulator') },
+    { label: t('attachmentSelector.items.articulatorPad'), value: t('attachmentSelector.items.articulatorPad') },
+    { label: t('attachmentSelector.items.screwAttachment'), value: t('attachmentSelector.items.screwAttachment') },
+    { label: t('attachmentSelector.items.faceBow'), value: t('attachmentSelector.items.faceBow') },
+    { label: t('attachmentSelector.items.bracket'), value: t('attachmentSelector.items.bracket') },
+    { label: t('attachmentSelector.items.screw'), value: t('attachmentSelector.items.screw') },
+    { label: t('attachmentSelector.items.band'), value: t('attachmentSelector.items.band') },
+    { label: t('attachmentSelector.items.impressionPost'), value: t('attachmentSelector.items.impressionPost') },
+    { label: t('attachmentSelector.items.oldMold'), value: t('attachmentSelector.items.oldMold') },
+    { label: t('attachmentSelector.items.analog'), value: t('attachmentSelector.items.analog') },
+    { label: t('attachmentSelector.items.doctorArticulator'), value: t('attachmentSelector.items.doctorArticulator') },
+    { label: t('attachmentSelector.items.usbDisk'), value: t('attachmentSelector.items.usbDisk') },
+    { label: t('attachmentSelector.items.waxCrown'), value: t('attachmentSelector.items.waxCrown') },
+    { label: t('attachmentSelector.items.refMold'), value: t('attachmentSelector.items.refMold') },
+    { label: t('attachmentSelector.items.biteWax'), value: t('attachmentSelector.items.biteWax') },
+    { label: t('attachmentSelector.items.transferScrew'), value: t('attachmentSelector.items.transferScrew') },
+    { label: t('attachmentSelector.items.warrantyCard'), value: t('attachmentSelector.items.warrantyCard') },
+    { label: t('attachmentSelector.items.abutmentNote'), value: t('attachmentSelector.items.abutmentNote') },
+    { label: t('attachmentSelector.items.locator'), value: t('attachmentSelector.items.locator') },
+    { label: t('attachmentSelector.items.impressionCap'), value: t('attachmentSelector.items.impressionCap') },
+    { label: t('attachmentSelector.items.abutment'), value: t('attachmentSelector.items.abutment') },
+    { label: t('attachmentSelector.items.oldTooth'), value: t('attachmentSelector.items.oldTooth') },
+    { label: t('attachmentSelector.items.transferPost'), value: t('attachmentSelector.items.transferPost') },
+    { label: t('attachmentSelector.items.impressionPostScrew'), value: t('attachmentSelector.items.impressionPostScrew') },
+    { label: t('attachmentSelector.items.waxRim'), value: t('attachmentSelector.items.waxRim') },
+    { label: t('attachmentSelector.items.tray'), value: t('attachmentSelector.items.tray') },
+    { label: t('attachmentSelector.items.oldTray'), value: t('attachmentSelector.items.oldTray') },
+    { label: t('attachmentSelector.items.abutmentScrew'), value: t('attachmentSelector.items.abutmentScrew') },
+    { label: t('attachmentSelector.items.diagnosticWax'), value: t('attachmentSelector.items.diagnosticWax') },
+    { label: t('attachmentSelector.items.locatorPin'), value: t('attachmentSelector.items.locatorPin') }
   ]
 
-  // 初始化选中状态
+  // Initialize selection state
   useEffect(() => {
     if (visible && initialSelection.length > 0) {
       const initState = {}
       initialSelection.forEach(item => {
         if (typeof item === 'string') {
-          // 兼容旧格式 "附件名 * 数量"
+          // Compatible with old format "Attachment Name * Count"
           const match = item.match(/(.+?)\s*\*\s*(\d+)/)
           if (match) {
             initState[match[1].trim()] = parseInt(match[2])
@@ -37,7 +63,7 @@ function AttachmentSelectorModal({ visible, onClose, onConfirm, initialSelection
             initState[item] = 1
           }
         } else if (item.name) {
-          // 新格式 {name, count}
+          // New format {name, count}
           initState[item.name] = item.count || 1
         }
       })
@@ -45,7 +71,7 @@ function AttachmentSelectorModal({ visible, onClose, onConfirm, initialSelection
     }
   }, [visible, initialSelection])
 
-  // 切换附件选中状态
+  // Toggle attachment selection
   const toggleAttachment = (name) => {
     setSelectedAttachments(prev => {
       const newState = { ...prev }
@@ -58,10 +84,10 @@ function AttachmentSelectorModal({ visible, onClose, onConfirm, initialSelection
     })
   }
 
-  // 更新附件数量
+  // Update attachment count
   const updateCount = (name, count) => {
     if (count < 1) {
-      // 数量小于1时移除该附件
+      // Remove attachment if count is less than 1
       setSelectedAttachments(prev => {
         const newState = { ...prev }
         delete newState[name]
@@ -75,27 +101,33 @@ function AttachmentSelectorModal({ visible, onClose, onConfirm, initialSelection
     }
   }
 
-  // 增加数量
+  // Increment count
   const incrementCount = (name) => {
     updateCount(name, (selectedAttachments[name] || 0) + 1)
   }
 
-  // 减少数量
+  // Decrement count
   const decrementCount = (name) => {
     const currentCount = selectedAttachments[name] || 0
     if (currentCount > 1) {
       updateCount(name, currentCount - 1)
     } else {
-      updateCount(name, 0) // 移除
+      updateCount(name, 0) // Remove
     }
   }
 
-  // 检查是否选中
+  // Check if selected
   const isSelected = (name) => {
     return !!selectedAttachments[name]
   }
 
-  // 确认选择
+  // Get attachment display label
+  const getAttachmentLabel = (name) => {
+    const item = attachmentList.find(i => i.value === name)
+    return item ? item.label : name
+  }
+
+  // Confirm selection
   const handleConfirm = () => {
     const result = Object.entries(selectedAttachments).map(([name, count]) => ({
       name,
@@ -105,12 +137,12 @@ function AttachmentSelectorModal({ visible, onClose, onConfirm, initialSelection
     onClose()
   }
 
-  // 取消
+  // Cancel
   const handleCancel = () => {
     onClose()
   }
 
-  // 获取已选中的附件列表
+  // Get selected attachments list
   const getSelectedList = () => {
     return Object.entries(selectedAttachments).map(([name, count]) => ({
       name,
@@ -120,7 +152,7 @@ function AttachmentSelectorModal({ visible, onClose, onConfirm, initialSelection
 
   return (
     <Modal
-      title="选择附件"
+      title={t('attachmentSelector.title')}
       open={visible}
       onCancel={handleCancel}
       footer={null}
@@ -128,29 +160,29 @@ function AttachmentSelectorModal({ visible, onClose, onConfirm, initialSelection
       className="attachment-selector-modal"
     >
       <div className="attachment-modal-content">
-        {/* 左侧：附件选择区 */}
+        {/* Left: Attachment selection area */}
         <div className="attachment-left">
           <div className="attachment-grid">
-            {attachmentList.map((name, index) => (
+            {attachmentList.map((item, index) => (
               <Button
                 key={index}
-                type={isSelected(name) ? 'primary' : 'default'}
-                className={`attachment-btn ${isSelected(name) ? 'selected' : ''}`}
-                onClick={() => toggleAttachment(name)}
+                type={isSelected(item.value) ? 'primary' : 'default'}
+                className={`attachment-btn ${isSelected(item.value) ? 'selected' : ''}`}
+                onClick={() => toggleAttachment(item.value)}
               >
-                {name}
+                {item.label}
               </Button>
             ))}
           </div>
         </div>
 
-        {/* 右侧：已选附件列表 */}
+        {/* Right: Selected attachments list */}
         <div className="attachment-right">
-          <div className="selected-header">已选附件</div>
+          <div className="selected-header">{t('attachmentSelector.selectedHeader')}</div>
           <div className="selected-list">
             {getSelectedList().map((item, index) => (
               <div key={index} className="selected-item">
-                <span className="item-name">{item.name}</span>
+                <span className="item-name">{getAttachmentLabel(item.name)}</span>
                 <div className="count-control">
                   <Button
                     size="small"
@@ -174,17 +206,17 @@ function AttachmentSelectorModal({ visible, onClose, onConfirm, initialSelection
               </div>
             ))}
             {getSelectedList().length === 0 && (
-              <div className="empty-tip">请从左侧选择附件</div>
+              <div className="empty-tip">{t('attachmentSelector.emptyTip')}</div>
             )}
           </div>
         </div>
       </div>
 
-      {/* 底部按钮 */}
+      {/* Footer buttons */}
       <div className="modal-footer">
-        <Button onClick={handleCancel}>取消</Button>
+        <Button onClick={handleCancel}>{t('common.cancel')}</Button>
         <Button type="primary" onClick={handleConfirm}>
-          确定
+          {t('common.confirm')}
         </Button>
       </div>
     </Modal>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Layout, Badge, Avatar, Space, Dropdown, message, Modal, Select, Button, List, Form, Input } from 'antd'
+import { Layout, Badge, Avatar, Space, Dropdown, message, Modal, Button, Form, Input } from 'antd'
+import { useTranslation } from 'react-i18next'
 import {
   BellOutlined,
   QuestionCircleOutlined,
@@ -7,95 +8,84 @@ import {
   KeyOutlined,
   LogoutOutlined,
   CustomerServiceOutlined,
-  MessageOutlined,
-  PhoneOutlined
+  SettingOutlined,
+  GlobalOutlined,
+  CheckOutlined
 } from '@ant-design/icons'
 import PersonalInfoModal from './PersonalInfoModal'
 import './Header.css'
 import { Tooltip } from 'antd'
 
 const { Header: AntHeader } = Layout
-const { Option } = Select
 
 function Header({ currentUser, onLogout, onOpenMessages }) {
-  const [isServiceModalVisible, setIsServiceModalVisible] = useState(false)
+  const { t, i18n } = useTranslation()
   const [isContactModalVisible, setIsContactModalVisible] = useState(false)
   const [isPersonalInfoVisible, setIsPersonalInfoVisible] = useState(false)
   const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false)
   const [isAboutVisible, setIsAboutVisible] = useState(false)
-  const [selectedFactory, setSelectedFactory] = useState(null)
   const [passwordForm] = Form.useForm()
 
-  // 用户信息
+  // User info
   const userName = currentUser?.shortName || currentUser?.username || '用户'
   const userInitial = userName.charAt(0).toUpperCase() // 获取第一个字符并转大写
 
-  // 客服列表数据
-  const serviceList = [
-    {
-      id: 1,
-      name: '奥齿方',
-      avatar: '👨‍💼',
-      expertise: '种植修复技术|种植修复方案'
-    },
-    {
-      id: 2,
-      name: '黄婷婷',
-      avatar: '👩',
-      expertise: '个性化修复技术|个性化方案|美学修复技术|美学修复方案'
-    },
-    {
-      id: 3,
-      name: '何汾蔓',
-      avatar: '👨',
-      expertise: '金属与全瓷修复技术|金属与全瓷修复方案'
-    },
-    {
-      id: 4,
-      name: '黄礼祝',
-      avatar: '👩‍⚕️',
-      expertise: '铸瓷修复方案'
-    },
-    {
-      id: 5,
-      name: '黄皓莱',
-      avatar: '👨‍⚕️',
-      expertise: '正畸技术|正畸方案'
-    },
-    {
-      id: 6,
-      name: '李文贞',
-      avatar: '👨‍💼',
-      expertise: '活动修复技术|活动修复方案'
-    }
-  ]
-
-  // 工厂选项（示例数据）
-  const factories = [
-    { id: 1, name: '后齐科技' },
-    { id: 2, name: '优齿工厂' },
-    { id: 3, name: '精工义齿' }
-  ]
-
-  // 用户菜单项
+  // User menu items
   const userMenuItems = [
     {
       key: 'personal-info',
       icon: <IdcardOutlined />,
-      label: '个人信息',
+      label: t('header.personalInfo'),
       onClick: () => setIsPersonalInfoVisible(true)
     },
     {
       key: 'contact',
       icon: <QuestionCircleOutlined />,
-      label: '联系我们',
+      label: t('header.contactUs'),
       onClick: () => setIsContactModalVisible(true)
     },
     {
       key: 'about',
       icon: <QuestionCircleOutlined />,
-      label: '关于我们',
+      label: t('header.aboutUs'),
       onClick: () => setIsAboutVisible(true)
+    },
+    {
+      type: 'divider'
+    },
+    {
+      key: 'system-settings',
+      icon: <SettingOutlined />,
+      label: t('menu.systemSettings'),
+      children: [
+        {
+          key: 'language',
+          label: t('menu.language'),
+          icon: <GlobalOutlined />,
+          children: [
+            {
+              key: 'lang-zh',
+              label: (
+                <Space>
+                  <span>{t('menu.chinese')}</span>
+                  {i18n.language === 'zh' && <CheckOutlined style={{ color: '#1890ff' }} />}
+                </Space>
+              ),
+              onClick: () => i18n.changeLanguage('zh')
+            },
+            {
+              key: 'lang-en',
+              label: (
+                <Space>
+                  <span>{t('menu.english')}</span>
+                  {i18n.language === 'en' && <CheckOutlined style={{ color: '#1890ff' }} />}
+                </Space>
+              ),
+              onClick: () => i18n.changeLanguage('en')
+            }
+          ]
+        }
+      ]
     },
     {
       type: 'divider'
@@ -103,21 +93,21 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
     {
       key: 'change-password',
       icon: <KeyOutlined />,
-      label: '修改密码',
+      label: t('header.changePassword'),
       onClick: () => setIsChangePasswordVisible(true)
     },
     {
       key: 'logout',
       icon: <LogoutOutlined />,
-      label: '退出登录',
+      label: t('header.logout'),
       onClick: () => {
         Modal.confirm({
-          title: '确认退出',
-          content: '确定要退出登录吗？',
-          okText: '确定',
-          cancelText: '取消',
+          title: t('header.logout'),
+          content: t('header.confirmLogout'),
+          okText: t('common.confirm'),
+          cancelText: t('common.cancel'),
           onOk: () => {
-            message.success('已退出登录')
+            message.success(t('header.logoutSuccess'))
             onLogout()
           }
         })
@@ -129,32 +119,16 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
     onOpenMessages && onOpenMessages('atme')
   }
 
-  const handleCloseService = () => {
-    setIsServiceModalVisible(false)
-    setSelectedFactory(null)
-  }
-
-  const handleChat = (service) => {
-    setIsServiceModalVisible(false)
-    message.info(`开始与 ${service.name} 的对话`)
-    // 这里可以在MessagesModal中集成客服对话功能
-  }
-
-  const handleCall = (service) => {
-    message.success(`拨打 ${service.name} 的电话`)
-    // 这里可以集成实际的电话功能
-  }
-
-  // 修改密码处理
+  // Handle password change
   const handleChangePassword = () => {
     passwordForm.validateFields().then(values => {
       // 这里可以添加实际的修改密码逻辑
       console.log('修改密码:', values)
-      message.success('密码修改成功！')
+      message.success(t('header.passwordChanged'))
       setIsChangePasswordVisible(false)
       passwordForm.resetFields()
     }).catch(err => {
-      console.log('验证失败:', err)
+      console.log(t('header.validationFailed'), err)
     })
   }
 
@@ -175,7 +149,7 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
                   <stop offset="100%" stopColor="#40a9ff" />
                 </linearGradient>
               </defs>
-              {/* 背景方块由容器提供，这里只绘制字母以保持简洁 */}
+              {/* Background square provided by container, drawing only letters for simplicity */}
               <text x="50" y="62" textAnchor="middle" fontSize="60" fontWeight="700" fill="#ffffff" fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif">
                 DS
               </text>
@@ -186,15 +160,15 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
               placement="bottomLeft"
               title={(
                 <div>
-                  <div>系统版本：Build 1.0.1121</div>
-                  <div>Premium Dental Services Pte. Ltd.</div>
-                  <div>版权所有2025.</div>
+                  <div>{t('header.systemVersion')}</div>
+                  <div>{t('header.companyNameValue')}</div>
+                  <div>{t('header.copyright')}</div>
                 </div>
               )}
             >
-              <span className="logo-name">DentaSync V1.0</span>
+              <span className="logo-name">{t('header.brandName')} V1.0</span>
             </Tooltip>
-            {/* 移除副标题：改为鼠标悬停显示 Tooltip */}
+            {/* Remove subtitle: change to show Tooltip on hover */}
           </div>
         </div>
       </div>
@@ -209,7 +183,7 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
           <div className="service-icon-wrapper" onClick={handleOpenService}>
             <CustomerServiceOutlined style={{ fontSize: 16 }} />
           </div>
-          <div className="header-company">ASIANTECH PTE. LTD.</div>
+          <div className="header-company">{t('header.operatingUnitValue')}</div>
           <Dropdown
             menu={{ items: userMenuItems }}
             placement="bottomRight"
@@ -232,77 +206,14 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
         </Space>
       </div>
 
+      {/* Contact Us Modal */}
       <Modal
-        title="生产单位助理"
-        open={isServiceModalVisible}
-        onCancel={handleCloseService}
-        footer={[
-          <Button key="close" onClick={handleCloseService}>
-            关闭
-          </Button>
-        ]}
-        width={700}
-        className="service-modal"
-      >
-        <div className="service-select">
-          <Select
-            placeholder="请选择加工厂"
-            style={{ width: '100%' }}
-            size="large"
-            value={selectedFactory}
-            onChange={setSelectedFactory}
-            allowClear
-          >
-            {factories.map(factory => (
-              <Option key={factory.id} value={factory.id}>
-                {factory.name}
-              </Option>
-            ))}
-          </Select>
-        </div>
-
-        <List
-          className="service-list"
-          dataSource={serviceList}
-          renderItem={(item) => (
-            <List.Item
-              className="service-item"
-              actions={[
-                <Button
-                  key="chat"
-                  type="primary"
-                  shape="circle"
-                  icon={<MessageOutlined />}
-                  onClick={() => handleChat(item)}
-                />,
-                <Button
-                  key="call"
-                  type="primary"
-                  shape="circle"
-                  icon={<PhoneOutlined />}
-                  style={{ backgroundColor: '#52c41a', borderColor: '#52c41a' }}
-                  onClick={() => handleCall(item)}
-                />
-              ]}
-            >
-              <List.Item.Meta
-                avatar={<div className="service-avatar">{item.avatar}</div>}
-                title={<span className="service-name">{item.name}</span>}
-                description={<span className="service-expertise">{item.expertise}</span>}
-              />
-            </List.Item>
-          )}
-        />
-      </Modal>
-
-      {/* 联系我们对话框 */}
-      <Modal
-        title="联系我们（反馈问题或意见）"
+        title={t('header.contactUsTitle')}
         open={isContactModalVisible}
         onCancel={() => setIsContactModalVisible(false)}
         footer={[
           <Button key="close" type="primary" onClick={() => setIsContactModalVisible(false)}>
-            关闭
+            {t('common.close')}
           </Button>
         ]}
         width={500}
@@ -310,50 +221,50 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
         <div style={{ padding: '20px 0' }}>
           <div style={{ marginBottom: '24px' }}>
             <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', color: '#333' }}>
-              加入我们
+              {t('header.joinUs')}
             </h3>
             <p style={{ fontSize: '14px', color: '#666', margin: 0, lineHeight: '1.8' }}>
-              邮箱：<a href="mailto:asiantechdentallab@gmail.com" style={{ color: '#1890ff' }}>asiantechdentallab@gmail.com</a>
+              {t('header.emailLabel')}<a href={"mailto:" + t('header.contactEmail')} style={{ color: '#1890ff' }}>{t('header.contactEmail')}</a>
             </p>
             <p style={{ fontSize: '14px', color: '#666', margin: 0, lineHeight: '1.8' }}>
-              电话：<a href="tel:+6598625613" style={{ color: '#1890ff' }}>Tom Huang +65 98625613</a>
+              {t('header.phoneLabel')}<a href={"tel:" + t('header.contactPhoneValue').replace(/\s/g, '')} style={{ color: '#1890ff' }}>{t('header.contactPersonValue')} {t('header.contactPhoneValue')}</a>
             </p>
           </div>
           <div style={{ marginBottom: '24px' }}>
             <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', color: '#333' }}>
-              运营管理
+              {t('header.operationManagement')}
             </h3>
             <p style={{ fontSize: '14px', color: '#666', margin: 0 }}>
-              请联系：<a href="mailto:asiantechdentallab@gmail.com" style={{ color: '#1890ff' }}>asiantechdentallab@gmail.com</a>
+              {t('header.pleaseContact')}<a href={"mailto:" + t('header.contactEmail')} style={{ color: '#1890ff' }}>{t('header.contactEmail')}</a>
             </p>
           </div>
           <div>
             <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px', color: '#333' }}>
-              产品技术
+              {t('header.productTech')}
             </h3>
             <p style={{ fontSize: '14px', color: '#666', margin: 0 }}>
-              请联系：<a href="mailto:cdingstar@gmail.com" style={{ color: '#1890ff' }}>cdingstar@gmail.com</a>
+              {t('header.pleaseContact')}<a href={"mailto:" + t('header.techEmail')} style={{ color: '#1890ff' }}>{t('header.techEmail')}</a>
             </p>
           </div>
         </div>
       </Modal>
 
-      {/* 个人信息对话框 */}
+      {/* Personal Info Modal */}
       <PersonalInfoModal
         visible={isPersonalInfoVisible}
         onClose={() => setIsPersonalInfoVisible(false)}
         currentUser={currentUser}
       />
 
-      {/* 修改密码对话框 */}
+      {/* Change Password Modal */}
       <Modal
-        title="修改密码"
+        title={t('header.changePasswordTitle')}
         open={isChangePasswordVisible}
         onOk={handleChangePassword}
         onCancel={handleCancelChangePassword}
         width={500}
-        okText="确定"
-        cancelText="取消"
+        okText={t('common.confirm')}
+        cancelText={t('common.cancel')}
       >
         <Form
           form={passwordForm}
@@ -361,61 +272,61 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
           style={{ paddingTop: '20px' }}
         >
           <Form.Item
-            label="原密码"
+            label={t('header.oldPassword')}
             name="oldPassword"
             rules={[
-              { required: true, message: '请输入原密码' }
+              { required: true, message: t('header.oldPasswordPlaceholder') }
             ]}
           >
-            <Input.Password placeholder="请输入原密码" size="large" />
+            <Input.Password placeholder={t('header.oldPasswordPlaceholder')} size="large" />
           </Form.Item>
 
           <Form.Item
-            label="新密码"
+            label={t('header.newPassword')}
             name="newPassword"
             rules={[
-              { required: true, message: '请输入新密码' },
-              { min: 6, message: '密码至少6位' }
+              { required: true, message: t('header.newPasswordPlaceholder') },
+              { min: 6, message: t('header.passwordMinLength') }
             ]}
           >
-            <Input.Password placeholder="请输入新密码" size="large" />
+            <Input.Password placeholder={t('header.newPasswordPlaceholder')} size="large" />
           </Form.Item>
 
           <Form.Item
-            label="确认新密码"
+            label={t('header.confirmPassword')}
             name="confirmPassword"
             dependencies={['newPassword']}
             rules={[
-              { required: true, message: '请确认新密码' },
+              { required: true, message: t('header.confirmPasswordRequired') },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('newPassword') === value) {
                     return Promise.resolve()
                   }
-                  return Promise.reject(new Error('两次输入的密码不一致'))
+                  return Promise.reject(new Error(t('header.passwordMismatch')))
                 },
               }),
             ]}
           >
-            <Input.Password placeholder="请再次输入新密码" size="large" />
+            <Input.Password placeholder={t('header.confirmPasswordPlaceholder')} size="large" />
           </Form.Item>
         </Form>
       </Modal>
 
-      {/* 关于我们对话框 */}
+      {/* About Us Modal */}
       <Modal
-        title="关于我们"
+        title={t('header.aboutUsTitle')}
         open={isAboutVisible}
         onCancel={() => setIsAboutVisible(false)}
         footer={[
           <Button key="close" type="primary" onClick={() => setIsAboutVisible(false)}>
-            关闭
+            {t('common.close')}
           </Button>
         ]}
         width={600}
       >
         <div style={{ padding: '20px 0' }}>
-          {/* 产品信息 */}
+          {/* Product Info */}
           <div style={{ marginBottom: '32px', textAlign: 'center' }}>
             <div style={{ 
               display: 'inline-flex',
@@ -434,67 +345,67 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
               </svg>
             </div>
             <h2 style={{ fontSize: '24px', fontWeight: 600, margin: '0 0 8px 0', color: '#333' }}>
-              DentaSync
+              {t('header.brandName')}
             </h2>
             <p style={{ fontSize: '14px', color: '#999', margin: 0 }}>
-              版本 V1.0 (Build 1.0.1121)
+              {t('header.version')} V1.0 (Build 1.0.1121)
             </p>
           </div>
 
-          {/* 公司信息 */}
+          {/* Company Info */}
           <div style={{ marginBottom: '24px' }}>
             <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px', color: '#333', borderBottom: '2px solid #f0f0f0', paddingBottom: '8px' }}>
-              公司信息
+              {t('header.companyInfo')}
             </h3>
             <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
-              <strong>公司名称：</strong>Premier Dental Service Pte. Ltd.
+              <strong>{t('header.companyNameLabel')}</strong>{t('header.companyNameValue')}
             </p>
             <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
-              <strong>运营单位：</strong>ASIANTECH PTE. LTD.
+              <strong>{t('header.operatingUnitLabel')}</strong>{t('header.operatingUnitValue')}
             </p>
           </div>
 
-          {/* 联系方式 */}
+          {/* Contact Info */}
           <div style={{ marginBottom: '24px' }}>
             <h3 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px', color: '#333', borderBottom: '2px solid #f0f0f0', paddingBottom: '8px' }}>
-              联系我们
+              {t('header.contactUs')}
             </h3>
             <div style={{ display: 'flex', gap: '32px' }}>
-              {/* 左栏 - 业务联系 */}
+              {/* Left Column - Business Contact */}
               <div style={{ flex: 1 }}>
                 <h4 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: '#1890ff' }}>
-                  业务联系
+                  {t('header.businessContact')}
                 </h4>
                 <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
-                  <strong>联系人：</strong>Tom Huang
+                  <strong>{t('header.contactPersonLabel')}</strong>{t('header.contactPersonValue')}
                 </p>
                 <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
-                  <strong>电话：</strong>
-                  <a href="tel:+6598625613" style={{ color: '#1890ff', marginLeft: '4px' }}>+65 98625613</a>
+                  <strong>{t('header.phoneLabel')}</strong>
+                  <a href={"tel:" + t('header.contactPhoneValue').replace(/\s/g, '')} style={{ color: '#1890ff', marginLeft: '4px' }}>{t('header.contactPhoneValue')}</a>
                 </p>
                 <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
-                  <strong>邮箱：</strong>
-                  <a href="mailto:asiantechdentallab@gmail.com" style={{ color: '#1890ff', marginLeft: '4px' }}>asiantechdentallab@gmail.com</a>
+                  <strong>{t('header.emailLabel')}</strong>
+                  <a href={"mailto:" + t('header.contactEmail')} style={{ color: '#1890ff', marginLeft: '4px' }}>{t('header.contactEmail')}</a>
                 </p>
               </div>
               
-              {/* 右栏 - 产品技术反馈 */}
+              {/* Right Column - Product Tech Feedback */}
               <div style={{ flex: 1 }}>
                 <h4 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: '#1890ff' }}>
-                  产品技术反馈
+                  {t('header.techFeedback')}
                 </h4>
                 <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
-                  <strong>邮箱：</strong>
-                  <a href="mailto:cdingstar@gmail.com" style={{ color: '#1890ff', marginLeft: '4px' }}>cdingstar@gmail.com</a>
+                  <strong>{t('header.emailLabel')}</strong>
+                  <a href={"mailto:" + t('header.techEmail')} style={{ color: '#1890ff', marginLeft: '4px' }}>{t('header.techEmail')}</a>
                 </p>
                 <p style={{ fontSize: '14px', color: '#666', margin: '8px 0', lineHeight: '1.8' }}>
-                  如有任何产品问题或改进建议，欢迎反馈
+                  {t('header.feedbackNote')}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* 版权信息 */}
+          {/* Copyright Info */}
           <div style={{ 
             marginTop: '32px', 
             paddingTop: '20px', 
@@ -502,13 +413,13 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
             textAlign: 'center'
           }}>
             <p style={{ fontSize: '13px', color: '#999', margin: '4px 0' }}>
-              © 2025 Premier Dental Service Pte. Ltd.
+              © 2025 {t('header.companyNameValue')}
             </p>
             <p style={{ fontSize: '13px', color: '#999', margin: '4px 0' }}>
-              All Rights Reserved.
+              {t('header.rightsReserved')}
             </p>
             <p style={{ fontSize: '12px', color: '#bbb', margin: '8px 0 0 0' }}>
-              Powered by HOUQI INTELLIGENT TECHNOLOGY CO., LTD
+              {t('header.poweredBy')}
             </p>
           </div>
         </div>

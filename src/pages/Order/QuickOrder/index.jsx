@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button, message } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import ColorSelector from '../../../components/ColorSelector/ColorSelector'
 import ToothSelector from '../../../components/ToothSelector/ToothSelector'
 import ProductSelectorModal from '../../../components/ProductSelectorModal/ProductSelectorModal'
@@ -14,81 +15,82 @@ import OtherSettings from './OtherSettings'
 import './QuickOrder.css'
 
 function QuickOrder() {
+  const { t } = useTranslation()
   const [form] = Form.useForm()
   const navigate = useNavigate()
   const location = useLocation()
   
   /**
-   * 订单模式：
-   * - 'direct': 直接下单模式（一键下单）
-   * - 'create': 从待下单页面新建订单
-   * - 'edit': 从待下单页面编辑订单
+   * Order Mode:
+   * - 'direct': Direct order mode (One-click order)
+   * - 'create': Create new order from pending orders page
+   * - 'edit': Edit order from pending orders page
    */
   const orderMode = location.state?.mode || 'direct'
   const editingOrder = location.state?.orderData || null
-  const selectedProduct = location.state?.selectedProduct || null  // 从产品库页面传递的产品信息
+  const selectedProduct = location.state?.selectedProduct || null  // Product info passed from product library page
   
-  // 调试日志
-  console.log('=== 快速下单页面初始化 ===')
+  // Debug logs
+  console.log('=== Quick Order Page Init ===')
   console.log('location.state:', location.state)
   console.log('orderMode:', orderMode)
   console.log('editingOrder:', editingOrder)
   console.log('selectedProduct:', selectedProduct)
   
-  // 根据模式确定配置
+  // Determine config based on mode
   const modeConfig = {
     direct: {
-      title: '一键下单',
-      buttonText: '提交订单',
+      title: t('quickOrder.modes.direct.title'),
+      buttonText: t('quickOrder.modes.direct.button'),
       shouldReturnToPending: false
     },
     create: {
-      title: '新建订单（保存）',
-      buttonText: '保存订单',
+      title: t('quickOrder.modes.create.title'),
+      buttonText: t('quickOrder.modes.create.button'),
       shouldReturnToPending: true
     },
     edit: {
-      title: '编辑订单',
-      buttonText: '保存订单',
+      title: t('quickOrder.modes.edit.title'),
+      buttonText: t('quickOrder.modes.edit.button'),
       shouldReturnToPending: true
     }
   }
   
   const config = modeConfig[orderMode]
-  console.log('当前配置:', config)
+  console.log('Current config:', config)
   
-  // 初始化产品列表 - 如果从产品库页面跳转过来，则使用传递的产品信息
+  // Initialize product list - if redirected from product library page, use passed product info
   const getInitialProductList = () => {
     if (selectedProduct) {
       // 从产品库页面跳转，使用传递的产品信息
       return [{
         id: 1,
-        productName: selectedProduct.name || '点击选择产品',
+        productName: selectedProduct.name || t('quickOrder.defaults.clickToSelect'),
         productId: selectedProduct.productId,
         productCode: selectedProduct.productCode,
         toothPosition: { topLeft: [], topRight: [], bottomLeft: [], bottomRight: [] },
-        repairMethod: '新做',
-        moldingMethod: '常规取模',
-        scanDevice: '先临',
+        repairMethod: t('quickOrder.productInfo.options.new'),
+        moldingMethod: t('quickOrder.productInfo.options.normalMolding'),
+        scanDevice: t('quickOrder.productInfo.options.shining3d'),
         scanNumber: '',
-        connectionMethod: '单冠'
+        connectionMethod: t('quickOrder.productInfo.options.singleCrown')
       }]
     }
-    // 默认空列表或示例产品
+    // Default empty list or sample product
     return [{
       id: 1,
-      productName: '点击选择产品',
+      productName: t('quickOrder.defaults.clickToSelect'),
       toothPosition: { topLeft: [], topRight: [], bottomLeft: [], bottomRight: [] },
-      repairMethod: '新做',
-      moldingMethod: '常规取模',
-      scanDevice: '先临',
+      repairMethod: t('quickOrder.productInfo.options.new'),
+      moldingMethod: t('quickOrder.productInfo.options.normalMolding'),
+      scanDevice: t('quickOrder.productInfo.options.shining3d'),
       scanNumber: '',
-      connectionMethod: '单冠'
+      connectionMethod: t('quickOrder.productInfo.options.singleCrown')
     }]
   }
   
   const [productList, setProductList] = useState(getInitialProductList())
-  const [implantParamsList, setImplantParamsList] = useState([]) // 种植参数列表
+  const [implantParamsList, setImplantParamsList] = useState([]) // Implant params list
   const [colorSettings, setColorSettings] = useState([
     {
       id: 1,
@@ -104,44 +106,50 @@ function QuickOrder() {
   ])
   const [uploadedImages, setUploadedImages] = useState([])
   const [uploadedFiles, setUploadedFiles] = useState([])
-  const [selectedAttachments, setSelectedAttachments] = useState(['旧模', '咬胶', '定位柱', '取模托盘'])
+  const [selectedAttachments, setSelectedAttachments] = useState([
+    t('attachmentSelector.items.oldMold'),
+    t('attachmentSelector.items.biteWax'),
+    t('attachmentSelector.items.locatorPin'),
+    t('attachmentSelector.items.tray')
+  ])
   
-  // 颜色选择器状态
+  // Color selector state
   const [colorSelectorVisible, setColorSelectorVisible] = useState(false)
   const [currentColorField, setCurrentColorField] = useState({ id: null, field: null })
 
-  // 牙位选择器状态
+  // Tooth selector state
   const [toothSelectorVisible, setToothSelectorVisible] = useState(false)
   const [currentToothField, setCurrentToothField] = useState({ id: null, type: null })
 
-  // 产品选择器状态
+  // Product selector state
   const [productSelectorVisible, setProductSelectorVisible] = useState(false)
   const [currentProductId, setCurrentProductId] = useState(null)
   
-  // 种植参数选择器状态
+  // Implant params selector state
   const [implantParamsVisible, setImplantParamsVisible] = useState(false)
-  const [pendingProduct, setPendingProduct] = useState(null) // 暂存待处理的产品信息
-  const [editingImplantParams, setEditingImplantParams] = useState(null) // 编辑模式下的种植参数
+  const [pendingProduct, setPendingProduct] = useState(null) // Temporary pending product info
+  const [editingImplantParams, setEditingImplantParams] = useState(null) // Implant params in edit mode
 
-  // 编辑模式 - 回填表单数据
+  // Edit mode - Fill form data
   useEffect(() => {
     if (orderMode === 'edit' && editingOrder) {
       console.log(`[${orderMode}模式] 回填订单数据:`, editingOrder)
       
       // 回填基础表单数据
+      // Fill basic form data
       form.setFieldsValue({
         doctor: editingOrder.doctor,
         patientName: editingOrder.patient,
         factory: editingOrder.factory,
-        // 可以添加更多字段回填
+        // Can add more fields to fill
       })
     }
   }, [orderMode, editingOrder, form])
 
   const handleSubmit = (values) => {
-    console.log(`[${orderMode}模式] 提交订单 - 表单数据:`, values)
-    console.log(`[${orderMode}模式] 产品列表:`, productList)
-    console.log(`[${orderMode}模式] 配置:`, config)
+    console.log(`[${orderMode} mode] Submit order - Form data:`, values)
+    console.log(`[${orderMode} mode] Product list:`, productList)
+    console.log(`[${orderMode} mode] Config:`, config)
     
     if (config.shouldReturnToPending) {
       // 保存订单并返回待下单页面 (create 或 edit 模式)
@@ -159,18 +167,18 @@ function QuickOrder() {
         orderData.orderKey = editingOrder.key
         orderData.creator = editingOrder.creator
         orderData.createTime = editingOrder.createTime
-        console.log(`[${orderMode}模式] 保留订单信息:`, { 
+        console.log(`[${orderMode} mode] Retain order info:`, { 
           key: editingOrder.key, 
           creator: editingOrder.creator, 
           createTime: editingOrder.createTime 
         })
       }
       
-      console.log(`[${orderMode}模式] 返回待下单页面, 订单数据:`, orderData)
+      console.log(`[${orderMode} mode] Return to pending page, order data:`, orderData)
       
       const successMessage = orderMode === 'edit' 
-        ? '订单更新成功！正在返回...' 
-        : '订单保存成功！正在返回...'
+        ? t('quickOrder.messages.orderUpdated') 
+        : t('quickOrder.messages.orderSaved')
       message.success(successMessage)
       
       // 返回待下单页面并传递订单数据
@@ -184,8 +192,8 @@ function QuickOrder() {
       })
     } else {
       // 直接下单模式 (direct)
-      console.log('[direct模式] 直接提交订单')
-      message.success('订单提交成功！')
+      console.log('[direct mode] Submit order directly')
+      message.success(t('quickOrder.messages.orderSubmitted'))
       form.resetFields()
       setProductList([])
       setImplantParamsList([])
@@ -194,18 +202,18 @@ function QuickOrder() {
     }
   }
 
-  // 产品相关方法
+  // Product related methods
   const handleAddProduct = () => {
     const newProductId = productList.length + 1
     const newProduct = {
       id: newProductId,
-      productName: '点击选择产品',
+      productName: t('quickOrder.productInfo.placeholders.clickToSelectProduct'),
       toothPosition: { topLeft: '', topRight: '', bottomLeft: '', bottomRight: '' },
-      repairMethod: '新做',
-      moldingMethod: '常规取模',
-      scanDevice: '先临',
+      repairMethod: t('quickOrder.productInfo.options.new'),
+      moldingMethod: t('quickOrder.productInfo.options.normalMolding'),
+      scanDevice: t('quickOrder.productInfo.options.shining3d'),
       scanNumber: '',
-      connectionMethod: '单冠',
+      connectionMethod: t('quickOrder.productInfo.options.singleCrown'),
       color: 'A1'
     }
     setProductList([...productList, newProduct])
@@ -221,11 +229,11 @@ function QuickOrder() {
   }
 
   const handleProductSelect = (product) => {
-    console.log('选择的产品:', product)
+    console.log('Selected product:', product)
     
     // 检查产品名称是否包含"种植"
-    if (product.name && product.name.includes('种植')) {
-      console.log('检测到种植产品，打开种植参数选择器')
+    if (product.name && (product.name.includes('种植') || product.name.includes('Implant'))) {
+      console.log('Detected implant product, opening implant params selector')
       // 暂存产品信息，等待用户填写种植参数
       setPendingProduct({
         ...product,
@@ -246,14 +254,14 @@ function QuickOrder() {
               } 
             : item
         ))
-        message.success(`已选择产品: ${product.name}`)
+        message.success(t('quickOrder.messages.productSelected', { name: product.name }))
       }
     }
   }
   
-  // 处理种植参数确认
+  // Handle implant params confirmation
   const handleImplantParamsConfirm = (params) => {
-    console.log('种植参数:', params)
+    console.log('Implant params:', params)
     
     if (editingImplantParams) {
       // 修改模式：更新现有参数
@@ -262,7 +270,7 @@ function QuickOrder() {
           ? { ...item, params }
           : item
       ))
-      message.success('种植参数已更新')
+      message.success(t('quickOrder.messages.paramsUpdated'))
       setEditingImplantParams(null)
     } else if (pendingProduct && currentProductId) {
       // 新增模式：更新产品列表并添加种植参数
@@ -284,12 +292,12 @@ function QuickOrder() {
         params
       }])
       
-      message.success(`已选择产品: ${pendingProduct.name}`)
+      message.success(t('quickOrder.messages.productSelected', { name: pendingProduct.name }))
       setPendingProduct(null)
     }
   }
   
-  // 编辑种植参数
+  // Edit implant params
   const handleEditImplantParams = (productId) => {
     const implantParam = implantParamsList.find(item => item.productId === productId)
     if (implantParam) {
@@ -298,19 +306,19 @@ function QuickOrder() {
     }
   }
   
-  // 删除种植参数
+  // Delete implant params
   const handleDeleteImplantParams = (productId) => {
     setImplantParamsList(implantParamsList.filter(item => item.productId !== productId))
-    message.success('已删除种植参数')
+    message.success(t('quickOrder.messages.paramsDeleted'))
   }
 
   const handleSelectScanDevice = (id) => {
-    message.info('打开扫描设备选择弹窗')
+    message.info(t('quickOrder.messages.openScanDevice'))
   }
 
   const handleDeleteProduct = (id) => {
     setProductList(productList.filter(item => item.id !== id))
-    // 同时删除对应的种植参数
+    // Also delete corresponding implant params
     setImplantParamsList(implantParamsList.filter(item => item.productId !== id))
   }
 
@@ -320,7 +328,7 @@ function QuickOrder() {
     ))
   }
 
-  // 颜色设定相关方法
+  // Color settings related methods
   const handleAddColorSetting = () => {
     const newColorSetting = {
       id: colorSettings.length + 1,
@@ -357,7 +365,7 @@ function QuickOrder() {
     }
   }
 
-  // 牙位选择器相关方法
+  // Tooth selector related methods
   const handleOpenToothSelector = (id, type) => {
     setCurrentToothField({ id, type })
     setToothSelectorVisible(true)
@@ -381,19 +389,19 @@ function QuickOrder() {
     }
   }
 
-  // 附件相关方法
+  // Attachment related methods
   const handleRemoveAttachment = (item) => {
     setSelectedAttachments(selectedAttachments.filter(a => a !== item))
   }
 
-  // 文件上传相关方法
+  // File upload related methods
   const imageUploadProps = {
     name: 'file',
     multiple: true,
     beforeUpload: (file) => {
       const isImage = file.type.startsWith('image/')
       if (!isImage) {
-        message.error('只能上传图片文件！')
+        message.error(t('quickOrder.messages.imageOnly'))
         return false
       }
       setUploadedImages([...uploadedImages, { name: file.name, url: URL.createObjectURL(file) }])
@@ -421,13 +429,13 @@ function QuickOrder() {
   return (
     <div className="quick-order-container">
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
-        {/* 基础信息 */}
+        {/* Basic Info */}
         <BaseInfo />
 
-        {/* 患者信息 */}
+        {/* Patient Info */}
         <PatientInfo />
 
-        {/* 产品信息 */}
+        {/* Product Info */}
         <ProductInfo
           productList={productList}
           onAddProduct={handleAddProduct}
@@ -438,14 +446,14 @@ function QuickOrder() {
           onDeleteProduct={handleDeleteProduct}
         />
 
-        {/* 种植参数 */}
+        {/* Implant Params */}
         <ImplantParams
           implantParamsList={implantParamsList}
           onEditParams={handleEditImplantParams}
           onDeleteParams={handleDeleteImplantParams}
         />
 
-        {/* 颜色设定 */}
+        {/* Color Settings */}
         <ColorSettings
           colorSettings={colorSettings}
           onAddColorSetting={handleAddColorSetting}
@@ -455,7 +463,7 @@ function QuickOrder() {
           onDeleteColorSetting={handleDeleteColorSetting}
         />
 
-        {/* 其他设置 */}
+        {/* Other Settings */}
         <OtherSettings
           uploadedImages={uploadedImages}
           uploadedFiles={uploadedFiles}
@@ -467,7 +475,7 @@ function QuickOrder() {
           fileUploadProps={fileUploadProps}
         />
 
-        {/* 提交按钮 */}
+        {/* Submit Button */}
         <div className="submit-section">
           <Button type="primary" htmlType="submit" size="large">
             {config.buttonText}
@@ -476,12 +484,12 @@ function QuickOrder() {
             form.resetFields()
             setImplantParamsList([])
           }}>
-            重置
+            {t('quickOrder.actions.reset')}
           </Button>
         </div>
       </Form>
 
-      {/* 颜色选择器 */}
+      {/* Color Selector */}
       <ColorSelector
         visible={colorSelectorVisible}
         onClose={() => setColorSelectorVisible(false)}
@@ -494,7 +502,7 @@ function QuickOrder() {
         }
       />
 
-      {/* 牙位选择器 */}
+      {/* Tooth Selector */}
       <ToothSelector
         visible={toothSelectorVisible}
         onClose={() => setToothSelectorVisible(false)}
@@ -508,14 +516,14 @@ function QuickOrder() {
         }
       />
 
-      {/* 产品选择器 */}
+      {/* Product Selector */}
       <ProductSelectorModal
         visible={productSelectorVisible}
         onClose={() => setProductSelectorVisible(false)}
         onSelect={handleProductSelect}
       />
       
-      {/* 种植参数选择器 */}
+      {/* Implant Params Selector */}
       <ImplantParamsModal
         visible={implantParamsVisible}
         onClose={() => {

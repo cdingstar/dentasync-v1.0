@@ -1,0 +1,1321 @@
+{
+  "common": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "submit": "Submit",
+    "reset": "Reset",
+    "search": "Search",
+    "action": "Action",
+    "view": "View",
+    "close": "Close",
+    "dropdown": "(Dropdown)",
+    "totalItems": "Total {{count}} items",
+    "gender": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "time": {
+      "yesterday": "Yesterday",
+      "daysAgo": "{{count}} days ago"
+    }
+  },
+  "menu": {
+    "home": "Home",
+    "order": "Order",
+    "quickOrder": "Quick Order",
+    "productLibraryOrder": "Product Library",
+    "orderManagement": "Order Management",
+    "allOrders": "All Orders",
+    "pendingOrder": "Pending Orders",
+    "pendingHandling": "To-Do Orders",
+    "infoSettings": "Info Settings",
+    "personnel": "Personnel",
+    "patientArchives": "Patient Archives",
+    "clinicInfo": "Clinic Info",
+    "factoryInfo": "Factory Info",
+    "addressManagement": "Address",
+    "systemManagement": "System Management",
+    "clinicManagement": "Clinic Mgmt",
+    "factoryManagement": "Factory Mgmt",
+    "systemSettings": "System Settings",
+    "language": "Language",
+    "chinese": "Chinese",
+    "english": "English",
+    "orderDetail": "Order Detail"
+  },
+  "login": {
+    "success": "Login successful!",
+    "failed": "Invalid username or password!",
+    "usernameRequired": "Please enter username",
+    "passwordRequired": "Please enter password",
+    "usernamePlaceholder": "Username",
+    "passwordPlaceholder": "Password",
+    "rolePlaceholder": "Select temporary role (optional)",
+    "loginButton": "Login",
+    "copyright": "Copyright © 2025",
+    "company": "Premium Dental Services Pte. Ltd."
+  },
+  "roles": {
+    "clinicAdmin": "Clinic-Admin",
+    "clinicDoctor": "Clinic-Doctor",
+    "clinicAssistant": "Clinic-Assistant",
+    "factoryAdmin": "Factory-Admin",
+    "factoryAssistant": "Factory-Assistant",
+    "factoryTechnician": "Factory-Technician",
+    "superAdmin": "Super Admin"
+  },
+  "header": {
+    "personalInfo": "Profile",
+    "changePassword": "Change Password",
+    "aboutUs": "About Us",
+    "logout": "Logout",
+    "enterpriseComm": "Enterprise Comm",
+    "joinUs": "Join Us",
+    "operationManagement": "Operations",
+    "productTech": "Product Tech",
+    "companyInfo": "Company Info",
+    "contactUs": "Contact Us",
+    "version": "System Version",
+    "systemVersion": "System Version: Build 1.0.1121",
+    "copyright": "Copyright 2025.",
+    "contactUsTitle": "Contact Us (Feedback)",
+    "logoutSuccess": "Logged out successfully",
+    "confirmLogout": "Are you sure you want to logout?",
+    "changePasswordTitle": "Change Password",
+    "oldPassword": "Current Password",
+    "oldPasswordPlaceholder": "Enter current password",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "Enter new password",
+    "confirmPassword": "Confirm New Password",
+    "confirmPasswordPlaceholder": "Enter new password again",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "confirmPasswordRequired": "Please confirm new password",
+    "passwordMismatch": "Passwords do not match",
+    "passwordChanged": "Password changed successfully!",
+    "validationFailed": "Validation failed",
+    "aboutUsTitle": "About Us",
+    "companyNameLabel": "Company Name:",
+    "operatingUnitLabel": "Operating Unit:",
+    "businessContact": "Business Contact",
+    "contactPersonLabel": "Contact Person:",
+    "phoneLabel": "Phone:",
+    "emailLabel": "Email:",
+    "techFeedback": "Technical Feedback",
+    "feedbackNote": "We welcome any product issues or improvement suggestions.",
+    "pleaseContact": "Please contact:",
+    "brandName": "DentaSync",
+    "companyNameValue": "Premier Dental Service Pte. Ltd.",
+    "operatingUnitValue": "ASIANTECH PTE. LTD.",
+    "poweredBy": "Powered by HOUQI INTELLIGENT TECHNOLOGY CO., LTD",
+    "rightsReserved": "All Rights Reserved.",
+    "contactEmail": "asiantechdentallab@gmail.com",
+    "contactPersonValue": "Tom Huang",
+    "contactPhoneValue": "+65 98625613",
+    "techEmail": "cdingstar@gmail.com"
+  },
+  "messages": {
+    "title": "Enterprise Communication",
+    "search": "Search",
+    "tabs": {
+      "message": "Messages",
+      "assistant": "Assistant",
+      "organization": "Organization",
+      "members": "Members",
+      "announcement": "Announcements",
+      "files": "Files"
+    },
+    "placeholder": "Type a message...",
+    "send": "Send",
+    "download": "Download",
+    "noMessages": "No messages",
+    "selectChat": "Select a conversation",
+    "memberCount": "Total {{count}} members",
+    "me": "Me",
+    "keywords": {
+      "doctor": "Doctor",
+      "master": "Master"
+    },
+    "roles": {
+      "contact": "Contact",
+      "doctor": "Doctor",
+      "assistant": "Assistant",
+      "technician": "Technician",
+      "order": "Order",
+      "clinicAdmin": "Clinic Admin"
+    },
+    "labels": {
+      "patient": "Patient",
+      "order": "Order"
+    },
+    "attachment": {
+      "image": "Image",
+      "model": "3D Model",
+      "file": "File",
+      "designScheme": "Design Scheme"
+    },
+    "mock": {
+      "orderAvatar": "Ord",
+      "senderNameYitu": "Yitu Tech",
+      "unitA": "Production Unit A",
+      "unitB": "Production Unit B",
+      "unitC": "Production Unit C",
+      "unitD": "Production Unit D",
+      "assistantLi": "Assistant Li",
+      "assistantWang": "Assistant Wang",
+      "assistantZhang": "Assistant Zhang",
+      "assistantChen": "Assistant Chen",
+      "assistantLiu": "Assistant Liu",
+      "assistantZhao": "Assistant Zhao",
+      "assistantSun": "Assistant Sun",
+      "assistantZhou": "Assistant Zhou",
+      "assistantWu": "Assistant Wu",
+      "assistantZheng": "Assistant Zheng",
+      "assistantHuang": "Assistant Huang",
+      "assistantQian": "Assistant Qian",
+      "doctorHuang": "Dr. Huang",
+      "doctorLi": "Dr. Li",
+      "technicianWang": "Master Wang",
+      "subtitleDoctor": "Attending Physician",
+      "subtitleDoctor2": "Associate Chief Physician",
+      "subtitleTechnician": "Technician - Unit A",
+      "msgDelivery": "Delivery Notice",
+      "msgDeliveryContent": "Order shipped, please check",
+      "msgProduction": "Production on schedule",
+      "msgQualityPass": "QC Passed",
+      "msgDesignUploaded": "Design uploaded",
+      "msgConfirm": "Order confirmed, proceed to production",
+      "msgConfirmContent": "Design for Order 102511144444301 confirmed, please proceed.",
+      "msgDoneTech": "Production completed, arrange QC",
+      "msgDoneTechContent": "Order 102511144444301 production completed, please arrange QC.",
+      "msgFeedback": "Patient feedback: Very satisfied",
+      "msgUpdate": "Order progress update",
+      "msgDone": "Order 102511144444301 completed",
+      "msgDesign": "Design scheme needs confirmation",
+      "msgMaterial": "Materials ready",
+      "msgQuality": "QC Report",
+      "msgSchedule": "Schedule confirmation",
+      "msgMaintain": "Equipment maintenance notice",
+      "msgUrgent": "Urgent Order",
+      "msg3D": "3D Model completed",
+      "msgSample": "Sampling completed",
+      "msgContentUpdate": "Hello, Order 102511144444301 has completed production and is being scheduled for shipment.",
+      "msgContentUrgent": "Hello, there is an urgent order that needs expedited processing, please confirm.",
+      "msgDesignReview": "Dear Director, the customer's shape design is ready for your review. Thank you!",
+      "msgProceed": "Ok, please proceed. :)",
+      "announcement": {
+        "completed": "Order Completed",
+        "inProduction": "In Production",
+        "designConfirmed": "Design Confirmed",
+        "contentCompleted": "Order {{orderId}} has completed all production processes and has been shipped.",
+        "contentInProduction": "Order {{orderId}} is in production.",
+        "contentDesignConfirmed": "Design scheme for order {{orderId}} has been confirmed by the doctor."
+      },
+      "files": {
+        "training": "2024 Training Plan.pdf",
+        "manual": "Equipment Manual.docx",
+        "finishedPhoto": "FinishedProduct.jpg",
+        "uploaderLi": "Manager Li",
+        "uploaderTech": "Tech Dept"
+      }
+    }
+  },
+  "factoryInfo": {
+    "title": "Factory Info",
+    "basicInfo": "Basic Info",
+    "qualificationInfo": "Qualification Info",
+    "certificates": "Certificates",
+    "detailedAddress": "Address:",
+    "detailedAddressPlaceholder": "Enter detailed address",
+    "manager": "Manager:",
+    "managerPlaceholder": "Enter manager name",
+    "managerPhone": "Phone:",
+    "managerPhonePlaceholder": "Enter manager phone",
+    "displayName": "Display Name:",
+    "displayNamePlaceholder": "Enter display name",
+    "shortName": "Short Name:",
+    "shortNamePlaceholder": "Enter short name",
+    "simpleAddress": "Simple Addr:",
+    "simpleAddressPlaceholder": "Enter simple address",
+    "businessLicenseExpiry": "License Expiry:",
+    "businessLicenseExpiryPlaceholder": "Enter license expiry",
+    "productionLicense": "Prod. License No.:",
+    "productionLicensePlaceholder": "Enter production license no.",
+    "joinDate": "Join Date:",
+    "joinDatePlaceholder": "Select join date",
+    "licenseValidity": "License Validity:",
+    "licenseValidityPlaceholder": "Enter license validity",
+    "factoryArea": "Area (sqm):",
+    "factoryAreaPlaceholder": "Enter factory area",
+    "businessLicense": "Business License No.:",
+    "businessLicensePlaceholder": "Enter business license no.",
+    "openingDate": "Opening Date:",
+    "openingDatePlaceholder": "Select opening date",
+    "factoryPhone": "Factory Phone:",
+    "factoryPhonePlaceholder": "Enter factory phone",
+    "deviceCount": "Devices (units):",
+    "deviceCountPlaceholder": "Enter device count",
+    "uploadCertificate": "Upload",
+    "delete": "Delete",
+    "save": "Save",
+    "saveSuccess": "Saved successfully!",
+    "uploadSuccess": "Uploaded successfully",
+    "deleteSuccess": "Deleted successfully",
+    "onlyImages": "Only image files are allowed!",
+    "longTerm": "Long Term",
+    "license1": "Business License",
+    "license2": "Production License",
+    "managerDefault": "Factory Manager",
+    "mockData": {
+      "asiantech": "ASIANTECH FACTORY",
+      "atf": "ATF",
+      "detailedAddress": "Bendemeer 994 Bendemeer Road, #02-04 B-Central, Singapore 339943."
+    }
+  },
+  "clinicInfo": {
+    "title": "Clinic Info",
+    "clinicArea": "Clinic Area (sqm):",
+    "clinicAreaPlaceholder": "Enter clinic area",
+    "clinicPhone": "Clinic Phone:",
+    "clinicPhonePlaceholder": "Enter clinic phone",
+    "chairCount": "Dental Chairs:",
+    "chairCountPlaceholder": "Enter chair count",
+    "medicalLicense": "Medical Institution Practice License",
+    "mockData": {
+      "clinicName": "Excellent Dental Clinic",
+      "detailedAddress": "123 Central Road, Singapore",
+      "tomHuang": "Tom Huang",
+      "contactPerson": "Huang Xiangrong",
+      "longTerm": "Long Term"
+    }
+  },
+  "personnel": {
+    "title": "Personnel Management",
+    "create": "New Personnel",
+    "deleteSuccess": "Deleted successfully",
+    "editSuccess": "Edited successfully",
+    "addSuccess": "Added successfully",
+    "edit": "Edit Personnel",
+    "index": "No.",
+    "username": "Username",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "role": "Role",
+    "isAdmin": "Admin Status",
+    "admin": "Admin",
+    "user": "User",
+    "createTime": "Created At",
+    "action": "Action",
+    "editAction": "Edit",
+    "deleteAction": "Delete",
+    "deleteConfirm": "Are you sure to delete this personnel?",
+    "usernameRequired": "Please enter username",
+    "usernameMin": "Username must be at least 3 characters",
+    "nameRequired": "Please enter real name",
+    "namePlaceholder": "Enter real name",
+    "emailRequired": "Please enter email",
+    "emailInvalid": "Please enter a valid email",
+    "phoneRequired": "Please enter phone number",
+    "phoneInvalid": "Please enter a valid phone number",
+    "factoryLabel": "Factory:",
+    "clinicLabel": "Clinic:",
+    "roleRequired": "Please select role",
+    "rolePlaceholder": "Select role",
+    "address": "Address:",
+    "addressPlaceholder": "Enter address",
+    "setAdmin": "Set as Admin",
+    "password": "Password:",
+    "passwordRequired": "Please enter password",
+    "passwordMin": "Password must be at least 6 characters",
+    "roles": {
+      "doctor": "Doctor",
+      "assistant": "Assistant",
+      "technician": "Technician",
+      "admin": "Admin"
+    }
+  },
+  "address": {
+    "title": "Address Management",
+    "receiver": "Receiver",
+    "phone": "Phone Number",
+    "region": "Region",
+    "detailAddress": "Detailed Address",
+    "isDefault": "Default Address",
+    "setDefault": "Set as Default",
+    "default": "Default",
+    "add": "Add Address",
+    "edit": "Edit Address",
+    "delete": "Delete",
+    "deleteConfirmTitle": "Confirm Delete",
+    "deleteConfirmContent": "Are you sure you want to delete this address?",
+    "receiverRequired": "Please enter receiver name",
+    "receiverPlaceholder": "Enter receiver name",
+    "regionRequired": "Please select region",
+    "regionPlaceholder": "e.g. China / Guangdong / Shenzhen / Baoan",
+    "phoneRequired": "Please enter phone number",
+    "phonePlaceholder": "Enter phone number",
+    "phoneError": "Please enter a valid phone number",
+    "detailAddressRequired": "Please enter detailed address",
+    "detailAddressPlaceholder": "Enter detailed address",
+    "deleteSuccess": "Deleted successfully",
+    "editSuccess": "Modified successfully",
+    "addSuccess": "Added successfully",
+    "setDefaultSuccess": "Set as default address successfully"
+  },
+  "patient": {
+    "title": "Patient Archives",
+    "add": "Add Patient Archive",
+    "searchPlaceholder": "Patient Name",
+    "search": "Search",
+    "index": "No.",
+    "id": "Patient ID",
+    "name": "Patient Name",
+    "phone": "Phone Number",
+    "gender": "Gender",
+    "birthday": "Birthday",
+    "addPerson": "Added By",
+    "createTime": "Added Time",
+    "notes": "Notes",
+    "action": "Action",
+    "viewOrders": "Associated Orders",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirmTitle": "Confirm Delete",
+    "deleteConfirmContent": "Are you sure you want to delete this patient archive? This cannot be undone.",
+    "deleteSuccess": "Deleted successfully",
+    "editSuccess": "Modified successfully",
+    "addSuccess": "Added successfully",
+    "modalAddTitle": "Add Patient",
+    "modalEditTitle": "Edit Patient",
+    "nameRequired": "Please enter patient name",
+    "namePlaceholder": "Enter patient name",
+    "genderPlaceholder": "Select gender",
+    "male": "Male",
+    "female": "Female",
+    "unknown": "Unknown",
+    "phoneRequired": "Please enter phone number",
+    "phonePlaceholder": "Enter phone number",
+    "phoneError": "Please enter a valid phone number",
+    "birthdayPlaceholder": "Select birthday",
+    "notesPlaceholder": "Enter notes"
+  },
+  "implantParams": {
+    "title": "Implant Parameter Selection",
+    "editTitle": "Edit Implant Parameters",
+    "system": "Implant System",
+    "systemPlaceholder": "Please select implant system",
+    "model": "Implant Model",
+    "modelPlaceholder": "Please select implant model",
+    "healingCap": "Healing Cap Diameter",
+    "healingCapPlaceholder": "Please select healing cap",
+    "impressionPost": "Impression Post",
+    "impressionPostPlaceholder": "Please select impression post",
+    "repairMethod": "Restoration Method",
+    "repairMethodPlaceholder": "Please select restoration method",
+    "options": {
+      "systems": {
+        "carls": "Carls System",
+        "implant": "Implant System"
+      },
+      "models": {
+        "wide50": "Wide 5.0",
+        "wide45": "Wide 4.5",
+        "standard40": "Standard 4.0",
+        "narrow35": "Narrow 3.5"
+      },
+      "healingCaps": {
+        "d45": "4.5mm",
+        "d50": "5.0mm",
+        "d55": "5.5mm",
+        "d60": "6.0mm"
+      },
+      "impressionPosts": {
+        "open": "Open Tray",
+        "closed": "Closed Tray"
+      },
+      "repairMethods": {
+        "screw": "Screw Retained",
+        "cement": "Cement Retained",
+        "hybrid": "Hybrid Retained"
+      }
+    }
+  },
+  "attachmentSelector": {
+    "title": "Select Attachment",
+    "selectedHeader": "Selected Attachments",
+    "emptyTip": "Please select attachment from the left",
+    "items": {
+      "factoryArticulator": "Factory Articulator",
+      "articulatorPad": "Articulator Pad",
+      "screwAttachment": "Screw Attachment",
+      "faceBow": "Face Bow",
+      "bracket": "Bracket",
+      "screw": "Screw",
+      "band": "Band",
+      "impressionPost": "Impression Post",
+      "oldMold": "Old Mold",
+      "analog": "Analog",
+      "doctorArticulator": "Doctor Articulator",
+      "usbDisk": "USB Disk",
+      "waxCrown": "Wax Crown",
+      "refMold": "Reference Mold",
+      "biteWax": "Bite Wax",
+      "locatorPin": "Locator Pin",
+      "transferScrew": "Transfer Screw",
+      "warrantyCard": "Warranty Card",
+      "abutmentNote": "Abutment Note",
+      "locator": "Locator",
+      "impressionCap": "Impression Cap",
+      "abutment": "Abutment",
+      "oldTooth": "Old Tooth",
+      "transferPost": "Transfer Post",
+      "impressionPostScrew": "Impression Post Screw",
+      "waxRim": "Wax Rim",
+      "tray": "Tray",
+      "oldTray": "Old Tray",
+      "abutmentScrew": "Abutment Screw",
+      "diagnosticWax": "Diagnostic Wax"
+    }
+  },
+  "designScheme": {
+    "title": "Design Scheme",
+    "selectTitle": "Select Design Scheme",
+    "tabs": {
+      "design": "Design",
+      "color": "Color",
+      "shape": "Shape",
+      "surface": "Surface",
+      "edge": "Screw Channel",
+      "collar": "Collar",
+      "margin": "Margin",
+      "body": "Body",
+      "occlusion": "Occlusion"
+    },
+    "options": {
+      "design": {
+        "opposing": "Opposing Dentition",
+        "nasal": "Nasal Spine",
+        "normal": "Normal Overbite/Overjet",
+        "bite": "Occlusion"
+      },
+      "color": {
+        "noStain": "No Fissure Staining",
+        "stain": "Fissure Staining",
+        "natural": "Natural Staining",
+        "heavy": "Heavy Staining"
+      },
+      "shape": {
+        "obvious": "Pronounced Anatomy",
+        "smooth": "Smooth Anatomy",
+        "sharp": "Sharp Cusps",
+        "blunt": "Blunt Cusps"
+      },
+      "surface": {
+        "smooth": "Smooth Surface",
+        "texture": "Textured Surface",
+        "natural": "Natural Surface"
+      },
+      "edge": {
+        "round": "Round Hole",
+        "square": "Square Hole",
+        "closed": "Closed Hole"
+      },
+      "collar": {
+        "tight": "Tight Contact",
+        "standard": "Standard Contact",
+        "loose": "Loose Contact"
+      },
+      "margin": {
+        "knife": "Knife Edge",
+        "standard": "Standard Edge",
+        "thick": "Thick Edge"
+      },
+      "body": {
+        "standard": "Standard Thickness",
+        "thick": "Thickened Body",
+        "thin": "Thinned Body"
+      },
+      "occlusion": {
+        "normal": "Normal Occlusion",
+        "shallow": "Shallow Occlusion",
+        "deep": "Deep Occlusion"
+      }
+    }
+  },
+  "productLibrary": {
+    "title": "Select Product",
+    "actions": {
+      "select": "Select",
+      "order": "Order"
+    },
+    "categories": {
+      "all": "All",
+      "implant": "Implant",
+      "implantT": "Solid Tooth Shell (T Series)",
+      "implantD2": "D2 Custom Implant System",
+      "allCeramic": "All Ceramic",
+      "allZirconia": "All Zirconia",
+      "metalPorcelain": "Metal Porcelain",
+      "metalCrown": "Metal Crown",
+      "traditional": "Traditional Implant",
+      "shine": "Shine Series",
+      "zirconia": "Zirconia",
+      "metal": "Metal",
+      "castPorcelain": "Cast Porcelain",
+      "removable": "Removable",
+      "ortho": "Orthodontics",
+      "mengdaqi": "Meng Da Qi",
+      "bonding": "Bonding",
+      "other": "Other",
+      "veneer": "Veneer"
+    },
+    "labels": {
+      "allCategories": "All Categories",
+      "noImage": "No Image",
+      "externalPrice": "Set External Price",
+      "totalItems": "Total {{count}} items"
+    },
+    "products": {
+      "digitalZirconia": {
+        "name": "Digital Zirconia Implant Crown",
+        "material": "Zirconia",
+        "unit": "Unit",
+        "description": "High strength zirconia crown, aesthetic and durable"
+      },
+      "japanZirconia": {
+        "name": "Japanese Zirconia Implant Crown",
+        "material": "Zirconia",
+        "unit": "Unit",
+        "description": "Imported Japanese zirconia material"
+      },
+      "germanZirconia": {
+        "name": "German Zirconia Implant Crown",
+        "material": "Zirconia",
+        "unit": "Unit",
+        "description": "German craftsmanship zirconia"
+      },
+      "fixedBridge": {
+        "name": "Fixed Bridge",
+        "material": "Metal Porcelain",
+        "unit": "Set",
+        "description": "3-unit metal porcelain fixed bridge"
+      },
+      "veneer": {
+        "name": "Porcelain Veneer",
+        "material": "All Ceramic",
+        "unit": "Piece",
+        "description": "Ultra-thin porcelain veneer, natural and aesthetic"
+      }
+    }
+  },
+  "toothSelector": {
+    "title": "Select Tooth",
+    "actions": {
+      "fullMouth": "Full Mouth",
+      "upperJaw": "Upper Jaw",
+      "lowerJaw": "Lower Jaw"
+    }
+  },
+  "colorSelector": {
+    "title": "Select Color",
+    "tabs": {
+      "vitaClassic": "VITA Classic (16 Colors)",
+      "vita3DMaster": "VITA 3D MASTER (29 Colors)",
+      "special": "Special Colors",
+      "image": "Image"
+    },
+    "actions": {
+      "upload": "Upload Image"
+    },
+    "messages": {
+      "uploadTip": "Supports JPG, PNG formats",
+      "onlyImages": "Only image files can be uploaded!",
+      "uploadSuccess": "Image uploaded successfully"
+    },
+    "specialColors": {
+      "fluorosis": "Fluorosis",
+      "tetracycline": "Tetracycline",
+      "metalPost": "Metal Post",
+      "fiberPost": "Fiber Post"
+    }
+  },
+  "quickOrder": {
+    "baseInfo": {
+      "title": "Basic Information",
+      "clinic": "Clinic",
+      "doctor": "Doctor",
+      "factory": "Factory",
+      "receiver": "Receiver",
+      "address": "Address",
+      "placeholders": {
+        "selectDoctor": "Select Doctor",
+        "enterReceiver": "Enter Receiver",
+        "enterAddress": "Enter Address"
+      },
+      "mockData": {
+        "clinicName": "ASIANTECH PTE. LTD.",
+        "doctorHuang": "Dr. Huang Xiangrong",
+        "doctorLi": "Dr. Li",
+        "doctorWang": "Dr. Wang",
+        "factoryNanning": "Nanning Factory"
+      }
+    },
+    "patientInfo": {
+      "title": "Patient Information",
+      "name": "Patient",
+      "phone": "Phone",
+      "gender": "Gender",
+      "age": "Age",
+      "placeholders": {
+        "enterName": "Enter Patient Name",
+        "enterPhone": "Enter Phone Number",
+        "selectGender": "Select Gender",
+        "enterAge": "Enter Age"
+      },
+      "options": {
+        "male": "Male",
+        "female": "Female"
+      }
+    },
+    "productInfo": {
+      "title": "Product Information",
+      "actions": {
+        "add": "Add Product",
+        "delete": "Delete"
+      },
+      "columns": {
+        "no": "No.",
+        "name": "Product Name",
+        "toothPosition": "Tooth Position",
+        "moldingMethod": "Molding Method",
+        "scanDevice": "Scan Device",
+        "connectionMethod": "Connection Method",
+        "repairMethod": "Repair Method",
+        "action": "Action"
+      },
+      "placeholders": {
+        "selectScanDevice": "Select Scan Device",
+        "clickToSelectTooth": "Click to Select Tooth",
+        "clickToSelectProduct": "Click to Select Product"
+      },
+      "options": {
+        "normalMolding": "Normal Molding",
+        "intraoralScan": "Intraoral Scan",
+        "singleCrown": "Single Crown",
+        "bridge": "Bridge",
+        "new": "New",
+        "repair": "Repair",
+        "redo": "Redo",
+        "shining3d": "Shining 3D"
+      }
+    },
+
+    "implantParams": {
+      "title": "Implant Parameters",
+      "columns": {
+        "no": "No.",
+        "params": "Parameters",
+        "action": "Action"
+      },
+      "labels": {
+        "system": "Implant System",
+        "model": "Implant Model",
+        "diameter": "Healing Cap Diameter",
+        "post": "Impression Post",
+        "repair": "Repair Method"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "colorSettings": {
+      "title": "Color Settings",
+      "actions": {
+        "addRow": "Add Row",
+        "delete": "Delete"
+      },
+      "columns": {
+        "no": "No.",
+        "toothPosition": "Tooth Position",
+        "mainColor": "Main Color",
+        "neckColor": "Neck Color",
+        "middleColor": "Middle Color",
+        "cuttingEdgeColor": "Cutting Edge",
+        "baseColor": "Base Color",
+        "toothBodyColor": "Tooth Body",
+        "customColor": "Custom Color",
+        "action": "Action"
+      },
+      "placeholders": {
+        "clickToSelect": "Select",
+        "clickToSelectTooth": "Select Tooth",
+        "enterCustom": "Enter Custom..."
+      }
+    },
+    "otherSettings": {
+      "title": "Other Settings",
+      "labels": {
+        "trialStatus": "Trial Status",
+        "designScheme": "Design Scheme",
+        "attachments": "Attachments",
+        "imageUpload": "Image Upload",
+        "fileUpload": "File Upload",
+        "file3d": "3D File",
+        "remarks": "Remarks"
+      },
+      "placeholders": {
+        "selectTrialStatus": "Select Trial Status",
+        "enterRemarks": "Enter Remarks"
+      },
+      "actions": {
+        "selectScheme": "Select Scheme",
+        "selectAttachment": "Select Attachment",
+        "uploadImage": "Upload Image",
+        "uploadFile": "Upload File",
+        "upload3d": "3D File"
+      },
+      "trialOptions": {
+        "waxShape": "Trial Wax Shape",
+        "innerCrown": "Trial Inner Crown",
+        "color": "Trial Color",
+        "porcelainShape": "Trial Porcelain Shape",
+        "abutment": "Trial Abutment",
+        "abutmentWaxCrown": "Trial Abutment Wax Crown"
+      }
+    },
+    "modes": {
+      "direct": {
+        "title": "One-Click Order",
+        "button": "Submit Order"
+      },
+      "create": {
+        "title": "New Order (Save)",
+        "button": "Save Order"
+      },
+      "edit": {
+        "title": "Edit Order",
+        "button": "Save Order"
+      }
+    },
+    "messages": {
+      "imageOnly": "Only image files are allowed!",
+      "productSelected": "Selected Product: {{name}}",
+      "paramsUpdated": "Implant parameters updated",
+      "paramsDeleted": "Implant parameters deleted",
+      "openScanDevice": "Open Scan Device Selector",
+      "orderUpdated": "Order updated! Returning...",
+      "orderSaved": "Order saved! Returning...",
+      "orderSubmitted": "Order submitted successfully!"
+    },
+    "actions": {
+      "reset": "Reset"
+    },
+    "defaults": {
+      "clickToSelect": "Click to Select Product"
+    }
+  },
+  "pendingOrders": {
+      "columns": {
+        "index": "No.",
+        "orderNo": "Order No.",
+        "doctor": "Doctor",
+        "patient": "Patient",
+        "createTime": "Order Time",
+        "clinic": "Clinic",
+        "responsibleUnit": "Responsible Unit",
+        "deliveryTime": "Est. Delivery",
+        "progress": "Progress",
+        "status": "Status",
+        "action": "Action"
+      },
+      "status": {
+        "pending": "Pending",
+        "waitingAccept": "Waiting Accept"
+      },
+      "actions": {
+        "view": "View",
+        "approve": "Approve",
+        "reject": "Reject"
+      },
+      "messages": {
+        "processed": "Order {{orderNo}} {{action}}"
+      },
+      "counts": {
+        "pending": "Pending: {{count}}"
+      },
+      "pagination": {
+        "total": "Total {{total}} pending orders"
+      },
+      "modal": {
+        "approveTitle": "Confirm Approve",
+        "rejectTitle": "Confirm Reject",
+        "labels": {
+          "orderNo": "Order No.",
+          "patient": "Patient",
+          "doctor": "Doctor",
+          "clinic": "Clinic",
+          "status": "Status"
+        },
+        "approveContent": "Once approved, the order will enter production.",
+        "processTypePlaceholder": "Select Process Type",
+        "processTypes": {
+          "normal": "Normal",
+          "urgent": "Urgent"
+        },
+        "rejectContent": "Please enter rejection reason:",
+        "rejectReasonPlaceholder": "Enter reason (will notify clinic)"
+      }
+    },
+    "orderDetail": {
+      "tabs": {
+        "detail": "Order Detail",
+        "progress": "Order Status"
+      },
+      "sections": {
+        "baseInfo": "Basic Info",
+        "patientInfo": "Patient Info",
+        "productInfo": "Product Info",
+        "colorSettings": "Color Settings",
+        "remarks": "Remarks",
+        "otherSettings": "Other Settings",
+        "statusHistory": "Status History"
+      },
+      "fields": {
+        "orderNo": "Order No.",
+        "orderType": "Order Type",
+        "orderCategory": "Category",
+        "clinic": "Clinic",
+        "doctor": "Doctor",
+        "factory": "Factory",
+        "receiver": "Receiver",
+        "address": "Address",
+        "createTime": "Order Time",
+        "deliveryTime": "Est. Delivery",
+        "patientName": "Patient Name",
+        "patientPhone": "Phone",
+        "gender": "Gender",
+        "age": "Age",
+        "productName": "Product Name",
+        "toothPosition": "Tooth Position",
+        "repairMethod": "Repair Method",
+        "moldingMethod": "Molding Method",
+        "scanDevice": "Scan Device",
+        "connectionMethod": "Connection Method",
+        "mainColor": "Main Color",
+        "neckColor": "Neck Color",
+        "middleColor": "Middle Color",
+        "cuttingEdgeColor": "Cutting Edge",
+        "trialStatus": "Trial Status",
+        "threeDFile": "3D File",
+        "viewFile": "View File",
+        "viewImage": "View Image",
+        "designScheme": "Design Scheme:",
+        "attachments": "Attachments:",
+        "uploadedImages": "Uploaded Images:",
+        "uploadedFiles": "Uploaded Files:"
+      },
+      "status": {
+        "pending": "Pending",
+        "accepted": "Accepted",
+        "production_33": "Production-33%",
+        "production_66": "Production-66%",
+        "production_100": "Production-100%",
+        "shipped": "Shipped",
+        "received": "Received",
+        "processing": "Processing",
+        "completed": "Completed",
+        "unknown": "Unknown",
+        "updateSuccess": "Status updated",
+        "progressUpdateSuccess": "Progress updated to {{value}}%"
+      },
+      "progress": {
+        "addNode": "Add Node",
+        "operator": "Operator:",
+        "modalTitle": "Add Progress Node",
+        "actionLabel": "Action",
+        "actionPlaceholder": "Enter action (e.g., Start Production)",
+        "statusLabel": "Current Status",
+        "statusPlaceholder": "Select Current Status",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Enter description",
+        "operatorLabel": "Operator",
+        "operatorPlaceholder": "Enter operator name",
+        "uploadImage": "Upload Image",
+        "selectImages": "Select Images",
+        "uploadFile": "Upload File",
+        "selectFiles": "Select Files",
+        "submit": "Submit",
+        "delete": "Delete",
+        "close": "Close",
+        "cancel": "Cancel",
+        "success": "Node added successfully",
+        "onlyImages": "Only image files allowed!",
+        "actions": {
+          "accepted": "Accepted",
+          "scheduleProduction": "Schedule Production",
+          "startProduction": "Start Production",
+          "productionCompleted": "Production Completed",
+          "qualityCheck": "QC Completed",
+          "shipping": "Shipping",
+          "received": "Received",
+          "other": "Other"
+        }
+      },
+      "messages": {
+        "open": "Communication"
+      },
+      "mockData": {
+        "trialStatus": {
+          "waxTrial": "Wax trial"
+        },
+        "designSchemes": {
+          "esthetic": "Esthetic Design",
+          "occlusion": "Occlusion Reconstruction"
+        },
+        "attachments": {
+          "oldCast": "Old Cast",
+          "biteBlock": "Bite Block",
+          "positioningPost": "Positioning Post"
+        },
+        "descriptions": {
+          "accepted": "Order accepted, preparing for production",
+          "scheduleProduction": "Scheduled for Li Si to start production",
+          "productionCompleted": "Production reached 100%, completed"
+        },
+        "remarks": "Patient requires high color matching accuracy, please pay special attention."
+      }
+    },
+    "allOrders": {
+      "columns": {
+        "index": "No.",
+        "orderNo": "Order No.",
+        "doctor": "Doctor",
+        "patient": "Patient",
+        "createTime": "Order Time",
+        "clinic": "Clinic",
+        "responsibleUnit": "Responsible Unit",
+        "deliveryTime": "Est. Delivery",
+        "progress": "Progress",
+        "status": "Status",
+        "action": "Action"
+      },
+      "search": {
+        "keywordPlaceholder": "Order No. / Patient",
+        "statusPlaceholder": "Order Status",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "search": "Search",
+        "reset": "Reset"
+      },
+      "status": {
+        "pending": "Pending",
+        "processing": "Processing",
+        "shipped": "Shipped",
+        "completed": "Completed"
+      },
+      "actions": {
+        "communication": "Communication",
+        "cancel": "Cancel",
+        "complete": "Complete",
+        "receive": "Receive",
+        "return": "Return"
+      },
+      "pagination": {
+        "total": "Total {{total}} orders"
+      },
+      "mockData": {
+        "doctors": {
+          "huang": "Huang Xiangrong",
+          "li": "Dr. Li",
+          "zhang": "Dr. Zhang",
+          "wang": "Dr. Wang"
+        },
+        "orderTypes": {
+          "standard": "Standard Order",
+          "urgent": "Urgent Order"
+        },
+        "orderCategories": {
+          "zirconia": "Zirconia Crown",
+          "bridge": "Fixed Bridge",
+          "veneer": "Porcelain Veneer",
+          "implant": "Implant Crown"
+        },
+        "units": {
+          "houqi": "Houqi Tech",
+          "asiantech": "ASIANTECH PTE. LTD."
+        },
+        "patients": {
+          "lee": "Lee Siew Ngoh",
+          "wang": "Wang Xiaoming",
+          "chen": "Chen Hong",
+          "liu": "Liu Qiang",
+          "zhao": "Zhao Min",
+          "zhang": "Zhang Wei"
+        }
+      }
+    },
+    "pendingOrderPage": {
+      "columns": {
+        "index": "No.",
+        "orderNo": "Order No.",
+        "doctor": "Doctor",
+        "patient": "Patient",
+        "createTime": "Order Time",
+        "clinic": "Clinic",
+        "responsibleUnit": "Responsible Unit",
+        "deliveryTime": "Est. Delivery",
+        "progress": "Progress",
+        "status": "Status",
+        "action": "Action"
+      },
+      "status": {
+        "pending": "Pending",
+        "waitingAccept": "Waiting Accept",
+        "unknown": "Unknown"
+      },
+      "actions": {
+        "delete": "Delete",
+        "edit": "Edit",
+        "goToOrder": "Order Now",
+        "createOrder": "Create Order"
+      },
+      "search": {
+        "doctorPlaceholder": "Doctor Name",
+        "patientPlaceholder": "Patient Name",
+        "creatorPlaceholder": "Creator",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "search": "Search",
+        "reset": "Reset"
+      },
+      "messages": {
+        "searchNotImplemented": "Search not implemented yet",
+        "resetSuccess": "Search criteria reset",
+        "confirmDeleteTitle": "Confirm Delete",
+        "confirmDeleteContent": "Are you sure you want to delete this pending order?",
+        "deleteSuccess": "Delete successful",
+        "goToOrderMessage": "Going to order page, Patient: {{name}}",
+        "orderUpdated": "Order updated! Doctor: {{doctor}}, Patient: {{patient}}",
+        "orderSaved": "Order saved! Doctor: {{doctor}}, Patient: {{patient}}"
+      },
+      "pagination": {
+        "total": "Total {{total}} items"
+      },
+      "defaults": {
+        "notSpecified": "Not specified",
+        "houqiTech": "Nanning Houqi Tech",
+        "standardOrder": "Standard Order",
+        "zirconiaCrown": "Zirconia Crown"
+      }
+    },
+    "productLibraryOrder": {
+      "actionButton": "Order Now"
+    },
+    "home": {
+      "stats": {
+        "allOrders": "All Orders",
+        "pendingHandling": "Pending Orders",
+        "completedOrders": "Completed Orders"
+      },
+      "quickEntries": {
+        "title": "Quick Access",
+        "orderNow": "Order Now",
+        "productLibrary": "Product Library",
+        "myMessages": "My Messages",
+        "patientArchive": "Patient Archives",
+        "shipped": "Shipped",
+        "allOrders": "All Orders"
+      },
+      "orders": {
+        "shippedOrders": "Shipped Orders",
+        "pendingOrders": "Pending Orders"
+      },
+      "columns": {
+        "sequence": "No.",
+        "patient": "Patient",
+        "orderNo": "Order No.",
+        "deliveryTime": "Delivery Time",
+        "doctor": "Doctor",
+        "operation": "Action"
+      },
+      "operation": {
+        "noData": "No Data"
+      }
+    },
+    "factoryManagement": {
+      "title": "Factory Management",
+      "addFactory": "Add Factory",
+      "editFactory": "Edit Factory",
+      "factoryId": "Factory ID",
+      "factoryName": "Factory Name",
+      "administrator": "Administrator",
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "createTime": "Create Time",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "deleteConfirm": "Confirm Delete",
+      "deleteMessage": "Are you sure you want to delete this factory? It cannot be recovered.",
+      "idAutoGenerated": "Factory ID will be auto-generated (e.g., {{id}})",
+    "mockData": {
+      "factory1": {
+        "name": "Excellent Denture Factory",
+        "admin": "Manager Wang",
+        "address": "Fuhai Street, Baoan District, Shenzhen, Guangdong"
+      },
+      "factory2": {
+        "name": "Precision Denture Manufacturing",
+        "admin": "Mr. Li",
+        "address": "Binjiang District, Hangzhou, Zhejiang"
+      }
+    },
+    "placeholders": {
+        "factoryName": "Enter Factory Name",
+        "administrator": "Enter Administrator Name",
+        "phone": "Enter Phone",
+        "email": "Enter Email (Optional)",
+        "address": "Enter Address (Optional)"
+      },
+      "validation": {
+        "factoryName": "Please enter factory name",
+        "administrator": "Please enter administrator name",
+        "phone": "Please enter phone number",
+        "phoneInvalid": "Please enter a valid phone number",
+        "emailInvalid": "Please enter a valid email address"
+      },
+      "success": {
+        "add": "Added successfully",
+        "edit": "Modified successfully",
+        "delete": "Deleted successfully"
+      }
+    },
+    "clinicManagement": {
+      "title": "Clinic Management",
+      "addClinic": "Add Clinic",
+      "editClinic": "Edit Clinic",
+      "clinicId": "Clinic ID",
+      "clinicName": "Clinic Name",
+      "administrator": "Administrator",
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "createTime": "Create Time",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "deleteConfirm": "Confirm Delete",
+      "deleteMessage": "Are you sure you want to delete this clinic? It cannot be recovered.",
+      "idAutoGenerated": "Clinic ID will be auto-generated (e.g., {{id}})",
+    "mockData": {
+      "clinic1": {
+        "name": "ASIANTECH PTE. LTD.",
+        "admin": "Tom Huang",
+        "address": "Bendemeer 994 Bendemeer Road, #02-04 B-Central, Singapore 339943."
+      },
+      "clinic2": {
+        "name": "Youya Clinic",
+        "admin": "Dr. Li",
+        "address": "Certain Street, Futian District, Shenzhen, Guangdong, China"
+      }
+    },
+    "placeholders": {
+        "clinicName": "Enter Clinic Name",
+        "administrator": "Enter Administrator Name",
+        "phone": "Enter Phone",
+        "email": "Enter Email (Optional)",
+        "address": "Enter Address (Optional)"
+      },
+      "validation": {
+        "clinicName": "Please enter clinic name",
+        "administrator": "Please enter administrator name",
+        "phone": "Please enter phone number",
+        "phoneInvalid": "Please enter a valid phone number",
+        "emailInvalid": "Please enter a valid email address"
+      },
+      "success": {
+        "add": "Added successfully",
+        "edit": "Modified successfully",
+        "delete": "Deleted successfully"
+      }
+    },
+
+  "expressManagement": {
+    "title": "Express Management",
+    "addExpress": "Add Express",
+    "expressNo": "Express No.",
+    "orderNo": "Order No.",
+    "company": "Express Company",
+    "sender": "Sender",
+    "receiver": "Receiver",
+    "receiverPhone": "Receiver Phone",
+    "status": "Status",
+    "sendTime": "Send Time",
+    "estimatedTime": "Est. Delivery",
+    "track": "Track",
+    "statusMap": {
+      "pending": "Pending",
+      "in_transit": "In Transit",
+      "delivered": "Delivered",
+      "returned": "Returned"
+    },
+    "deleteConfirm": "Confirm Delete",
+    "deleteMessage": "Are you sure you want to delete this express record?",
+    "success": {
+      "delete": "Deleted successfully",
+      "add": "Added successfully",
+      "edit": "Modified successfully"
+    },
+    "companies": {
+      "sf": "SF Express",
+      "yto": "YTO Express",
+      "zto": "ZTO Express",
+      "dhl": "DHL"
+    },
+    "mockData": {
+      "sender1": "Excellent Denture Factory",
+      "receiver1": "ASIANTECH PTE. LTD.",
+      "sender2": "Precision Denture Manufacturing",
+      "receiver2": "Excellent Dental Clinic"
+    }
+  },
+  "executingUnit": {
+    "title": "Executing Unit",
+    "content": "Executing Unit Management Page"
+  },
+  "executingDoctor": {
+    "title": "Practicing Doctor",
+    "content": "Practicing Doctor Management Page"
+  },
+  "personalInfo": {
+    "title": "Personal Info",
+    "basicInfo": "Basic Info",
+    "username": "Username",
+    "realName": "Real Name",
+    "realNamePlaceholder": "Enter real name",
+    "email": "Email",
+    "emailPlaceholder": "Enter email",
+    "phone": "Phone",
+    "phonePlaceholder": "Enter phone number",
+    "clinic": "Clinic",
+    "position": "Position",
+    "positionPlaceholder": "Enter position",
+    "address": "Address",
+    "addressPlaceholder": "Enter address",
+    "role": "Role",
+    "save": "Save",
+    "saveLog": "Saving personal info:",
+    "saveSuccess": "Saved successfully!",
+    "uploadSuccess": "Avatar uploaded successfully",
+    "uploadError": "Only image files allowed!",
+    "mockData": {
+      "admin": "Admin",
+      "clinicAdmin": "Clinic Admin"
+    }
+  }
+}

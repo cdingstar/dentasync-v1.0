@@ -1,34 +1,36 @@
 import React, { useState } from 'react'
 import { Card, Form, Input, Button, Upload, message, Image, Row, Col, Select, DatePicker } from 'antd'
 import { PlusOutlined, DeleteOutlined, UploadOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import './ClinicInfo.css'
 import dayjs from 'dayjs'
 
 const { Option } = Select
 
 function ClinicInfo() {
+  const { t } = useTranslation()
   const [form] = Form.useForm()
   const [certificateImages, setCertificateImages] = useState([
-    // 示例数据
-    { id: 1, name: '营业执照', url: '/placeholder-license.jpg' },
-    { id: 2, name: '医疗机构执业许可证', url: '/placeholder-medical.jpg' }
+    // Sample data
+    { id: 1, name: t('clinicInfo.businessLicense'), url: '/placeholder-license.jpg' },
+    { id: 2, name: t('clinicInfo.medicalLicense'), url: '/placeholder-medical.jpg' }
   ])
 
-  // 初始化表单数据
+  // Initialize form data
   const initialValues = {
-    // 基础信息
+    // Basic Info
     clinicName: 'ASIANTECH PTE. LTD.',
-    detailedAddress: '东区 Bendemeer 994 Bendemeer Road, #02-04 B-Central, Singapore 339943.',
-    contactPerson: '黄向荣',
+    detailedAddress: t('clinicInfo.mockData.detailedAddress'),
+    contactPerson: t('clinicInfo.mockData.contactPerson'),
     contactPhone: '006598625613',
     
-    // 资质信息
+    // Qualification Info
     displayName: 'ASIANTECH PTE. LTD.',
     shortName: '-',
     simpleAddress: '-',
     productionLicense: '2156466507962',
     licenseIssueDate: dayjs('2024-11-02'),
-    licenseValidity: '长期',
+    licenseValidity: t('clinicInfo.mockData.longTerm'),
     businessLicense: '2156466507962',
     clinicArea: '-',
     businessLicenseExpiry: '-',
@@ -38,15 +40,15 @@ function ClinicInfo() {
   }
 
   const handleSubmit = (values) => {
-    console.log('提交诊所信息:', values, { certificateImages })
-    message.success('保存成功！')
+    console.log('Submit clinic info:', values, { certificateImages })
+    message.success(t('clinicInfo.messages.saveSuccess'))
   }
 
-  // 处理证件图片上传
+  // Handle certificate image upload
   const handleCertificateUpload = (file) => {
     const isImage = file.type.startsWith('image/')
     if (!isImage) {
-      message.error('只能上传图片文件！')
+      message.error(t('clinicInfo.messages.onlyImages'))
       return false
     }
     
@@ -56,14 +58,14 @@ function ClinicInfo() {
       url: URL.createObjectURL(file)
     }
     setCertificateImages([...certificateImages, newImage])
-    message.success('上传成功')
+    message.success(t('clinicInfo.messages.uploadSuccess'))
     return false
   }
 
-  // 删除证件图片
+  // Delete certificate image
   const handleDeleteImage = (id) => {
     setCertificateImages(certificateImages.filter(img => img.id !== id))
-    message.success('删除成功')
+    message.success(t('clinicInfo.messages.deleteSuccess'))
   }
 
   return (
@@ -84,62 +86,62 @@ function ClinicInfo() {
         onFinish={handleSubmit}
         initialValues={initialValues}
       >
-        {/* 基础信息 */}
-        <Card title={<span className="section-title">基础信息</span>} className="section-card">
+        {/* Basic Info */}
+        <Card title={<span className="section-title">{t('clinicInfo.basicInfo')}</span>} className="section-card">
           <Row gutter={[24, 16]}>
             <Col span={24}>
               <Form.Item 
-                label={<span className="form-label">详细地址:</span>}
+                label={<span className="form-label">{t('clinicInfo.detailedAddress')}:</span>}
                 name="detailedAddress"
               >
-                <Input className="form-input" placeholder="请输入详细地址" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.detailedAddress')} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">负责人:</span>}
+                label={<span className="form-label">{t('clinicInfo.contactPerson')}:</span>}
                 name="contactPerson"
               >
-                <Input className="form-input" placeholder="请输入负责人" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.contactPerson')} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">负责人电话:</span>}
+                label={<span className="form-label">{t('clinicInfo.contactPhone')}:</span>}
                 name="contactPhone"
               >
-                <Input className="form-input" placeholder="请输入负责人电话" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.contactPhone')} />
               </Form.Item>
             </Col>
           </Row>
         </Card>
 
-        {/* 资质信息 */}
-        <Card title={<span className="section-title">资质信息</span>} className="section-card">
+        {/* Qualification Info */}
+        <Card title={<span className="section-title">{t('clinicInfo.qualificationInfo')}</span>} className="section-card">
           <Row gutter={[24, 16]}>
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">招牌名称:</span>}
+                label={<span className="form-label">{t('clinicInfo.displayName')}:</span>}
                 name="displayName"
               >
-                <Input className="form-input" placeholder="请输入招牌名称" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.displayName')} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">简称:</span>}
+                label={<span className="form-label">{t('clinicInfo.shortName')}:</span>}
                 name="shortName"
               >
-                <Input className="form-input" placeholder="请输入简称" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.shortName')} />
               </Form.Item>
             </Col>
 
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">简略地址:</span>}
+                label={<span className="form-label">{t('clinicInfo.simpleAddress')}:</span>}
                 name="simpleAddress"
               >
-                <Input className="form-input" placeholder="请输入简略地址" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.simpleAddress')} />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -148,20 +150,20 @@ function ClinicInfo() {
 
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">生产许可证编号:</span>}
+                label={<span className="form-label">{t('clinicInfo.productionLicense')}:</span>}
                 name="productionLicense"
               >
-                <Input className="form-input" placeholder="请输入生产许可证编号" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.productionLicense')} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">加入时间:</span>}
+                label={<span className="form-label">{t('clinicInfo.joinDate')}:</span>}
                 name="licenseIssueDate"
               >
                 <DatePicker 
                   className="form-input" 
-                  placeholder="请选择加入时间"
+                  placeholder={t('clinicInfo.placeholders.joinDate')}
                   style={{ width: '100%' }}
                 />
               </Form.Item>
@@ -169,10 +171,10 @@ function ClinicInfo() {
 
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">许可证有效期:</span>}
+                label={<span className="form-label">{t('clinicInfo.licenseValidity')}:</span>}
                 name="licenseValidity"
               >
-                <Input className="form-input" placeholder="请输入许可证有效期" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.licenseValidity')} />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -181,27 +183,27 @@ function ClinicInfo() {
 
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">营业执照号码:</span>}
+                label={<span className="form-label">{t('clinicInfo.businessLicense')}:</span>}
                 name="businessLicense"
               >
-                <Input className="form-input" placeholder="请输入营业执照号码" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.businessLicense')} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">诊所面积(平方):</span>}
+                label={<span className="form-label">{t('clinicInfo.clinicArea')}:</span>}
                 name="clinicArea"
               >
-                <Input className="form-input" placeholder="请输入诊所面积" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.clinicArea')} />
               </Form.Item>
             </Col>
 
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">营业执照期限:</span>}
+                label={<span className="form-label">{t('clinicInfo.businessLicenseExpiry')}:</span>}
                 name="businessLicenseExpiry"
               >
-                <Input className="form-input" placeholder="请输入营业执照期限" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.businessLicenseExpiry')} />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -210,12 +212,12 @@ function ClinicInfo() {
 
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">开业时间:</span>}
+                label={<span className="form-label">{t('clinicInfo.openingDate')}:</span>}
                 name="openingDate"
               >
                 <DatePicker 
                   className="form-input" 
-                  placeholder="请选择开业时间"
+                  placeholder={t('clinicInfo.placeholders.openingDate')}
                   style={{ width: '100%' }}
                 />
               </Form.Item>
@@ -226,10 +228,10 @@ function ClinicInfo() {
 
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">门诊电话:</span>}
+                label={<span className="form-label">{t('clinicInfo.phoneNumber')}:</span>}
                 name="phoneNumber"
               >
-                <Input className="form-input" placeholder="请输入门诊电话" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.phoneNumber')} />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -238,10 +240,10 @@ function ClinicInfo() {
 
             <Col span={12}>
               <Form.Item 
-                label={<span className="form-label">牙椅数(台):</span>}
+                label={<span className="form-label">{t('clinicInfo.chairCount')}:</span>}
                 name="chairCount"
               >
-                <Input className="form-input" placeholder="请输入牙椅数" />
+                <Input className="form-input" placeholder={t('clinicInfo.placeholders.chairCount')} />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -250,8 +252,8 @@ function ClinicInfo() {
           </Row>
         </Card>
 
-        {/* 资质证件 */}
-        <Card title={<span className="section-title">资质证件</span>} className="section-card">
+        {/* Certificates */}
+        <Card title={<span className="section-title">{t('clinicInfo.certificates')}</span>} className="section-card">
           <div className="certificate-section">
             <div className="certificate-grid">
               {certificateImages.map((img) => (
@@ -271,7 +273,7 @@ function ClinicInfo() {
                       className="delete-btn"
                       onClick={() => handleDeleteImage(img.id)}
                     >
-                      删除
+                      {t('clinicInfo.delete')}
                     </Button>
                   </div>
                   <div className="certificate-name">{img.name}</div>
@@ -285,20 +287,20 @@ function ClinicInfo() {
               >
                 <div className="upload-card">
                   <PlusOutlined className="upload-icon" />
-                  <div className="upload-text">上传证件</div>
+                  <div className="upload-text">{t('clinicInfo.uploadCertificate')}</div>
                 </div>
               </Upload>
             </div>
           </div>
         </Card>
 
-        {/* 提交按钮 */}
+        {/* Submit Button */}
         <div className="submit-section">
           <Button type="primary" htmlType="submit" size="large">
-            保存
+            {t('clinicInfo.save')}
           </Button>
           <Button size="large" style={{ marginLeft: 16 }} onClick={() => form.resetFields()}>
-            重置
+            {t('clinicInfo.reset')}
           </Button>
         </div>
       </Form>

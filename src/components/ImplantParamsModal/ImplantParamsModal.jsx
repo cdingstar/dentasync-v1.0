@@ -1,35 +1,57 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Select, Form } from 'antd'
+import { useTranslation } from 'react-i18next'
 import './ImplantParamsModal.css'
 
 const { Option } = Select
 
 function ImplantParamsModal({ visible, onClose, onConfirm, initialValues = {} }) {
+  const { t } = useTranslation()
   const [form] = Form.useForm()
 
-  // 判断是否为编辑模式
+  // Check if it is edit mode
   const isEditMode = initialValues && Object.keys(initialValues).length > 0
 
-  // 种植系统选项
-  const implantSystems = ['卡尔斯系统', '种植系统']
+  // Implant system options
+  const implantSystems = [
+    { label: t('implantParams.options.systems.carls'), value: t('implantParams.options.systems.carls') },
+    { label: t('implantParams.options.systems.implant'), value: t('implantParams.options.systems.implant') }
+  ]
   
-  // 植体型号选项
-  const implantModels = ['宽型 5.0', '宽型 4.5', '标准型 4.0', '窄型 3.5']
+  // Implant model options
+  const implantModels = [
+    { label: t('implantParams.options.models.wide50'), value: t('implantParams.options.models.wide50') },
+    { label: t('implantParams.options.models.wide45'), value: t('implantParams.options.models.wide45') },
+    { label: t('implantParams.options.models.standard40'), value: t('implantParams.options.models.standard40') },
+    { label: t('implantParams.options.models.narrow35'), value: t('implantParams.options.models.narrow35') }
+  ]
   
-  // 愈合帽直径选项
-  const healingCapDiameters = ['4.5mm', '5.0mm', '5.5mm', '6.0mm']
+  // Healing cap diameter options
+  const healingCapDiameters = [
+    { label: t('implantParams.options.healingCaps.d45'), value: t('implantParams.options.healingCaps.d45') },
+    { label: t('implantParams.options.healingCaps.d50'), value: t('implantParams.options.healingCaps.d50') },
+    { label: t('implantParams.options.healingCaps.d55'), value: t('implantParams.options.healingCaps.d55') },
+    { label: t('implantParams.options.healingCaps.d60'), value: t('implantParams.options.healingCaps.d60') }
+  ]
   
-  // 取模杆选项
-  const impressionPosts = ['开放式取模杆', '闭合式取模杆']
+  // Impression post options
+  const impressionPosts = [
+    { label: t('implantParams.options.impressionPosts.open'), value: t('implantParams.options.impressionPosts.open') },
+    { label: t('implantParams.options.impressionPosts.closed'), value: t('implantParams.options.impressionPosts.closed') }
+  ]
   
-  // 修复方式选项
-  const repairMethods = ['螺丝固位', '粘接固位', '混合固位']
+  // Repair method options
+  const repairMethods = [
+    { label: t('implantParams.options.repairMethods.screw'), value: t('implantParams.options.repairMethods.screw') },
+    { label: t('implantParams.options.repairMethods.cement'), value: t('implantParams.options.repairMethods.cement') },
+    { label: t('implantParams.options.repairMethods.hybrid'), value: t('implantParams.options.repairMethods.hybrid') }
+  ]
 
   useEffect(() => {
     if (visible) {
       form.setFieldsValue({
-        implantSystem: initialValues.implantSystem || '卡尔斯系统',
-        implantModel: initialValues.implantModel || '宽型 5.0',
+        implantSystem: initialValues.implantSystem || t('implantParams.options.systems.carls'),
+        implantModel: initialValues.implantModel || t('implantParams.options.models.wide50'),
         healingCapDiameter: initialValues.healingCapDiameter || '',
         impressionPost: initialValues.impressionPost || '',
         repairMethod: initialValues.repairMethod || ''
@@ -51,13 +73,13 @@ function ImplantParamsModal({ visible, onClose, onConfirm, initialValues = {} })
 
   return (
     <Modal
-      title={isEditMode ? "修改种植参数" : "种植参数选择"}
+      title={isEditMode ? t('implantParams.editTitle') : t('implantParams.title')}
       open={visible}
       onOk={handleConfirm}
       onCancel={handleCancel}
       width={400}
-      okText="确定"
-      cancelText="取消"
+      okText={t('common.confirm')}
+      cancelText={t('common.cancel')}
     >
       <Form
         form={form}
@@ -66,60 +88,60 @@ function ImplantParamsModal({ visible, onClose, onConfirm, initialValues = {} })
       >
         <Form.Item
           name="implantSystem"
-          label="种植系统"
-          rules={[{ required: true, message: '请选择种植系统' }]}
+          label={t('implantParams.system')}
+          rules={[{ required: true, message: t('implantParams.systemPlaceholder') }]}
         >
-          <Select placeholder="请选择种植系统" suffixIcon={<span>▼</span>}>
-            {implantSystems.map(system => (
-              <Option key={system} value={system}>{system}</Option>
+          <Select placeholder={t('implantParams.systemPlaceholder')} suffixIcon={<span>▼</span>}>
+            {implantSystems.map(item => (
+              <Option key={item.value} value={item.value}>{item.label}</Option>
             ))}
           </Select>
         </Form.Item>
 
         <Form.Item
           name="implantModel"
-          label="植体型号"
-          rules={[{ required: true, message: '请选择植体型号' }]}
+          label={t('implantParams.model')}
+          rules={[{ required: true, message: t('implantParams.modelPlaceholder') }]}
         >
-          <Select placeholder="请选择植体型号" suffixIcon={<span>▼</span>}>
-            {implantModels.map(model => (
-              <Option key={model} value={model}>{model}</Option>
+          <Select placeholder={t('implantParams.modelPlaceholder')} suffixIcon={<span>▼</span>}>
+            {implantModels.map(item => (
+              <Option key={item.value} value={item.value}>{item.label}</Option>
             ))}
           </Select>
         </Form.Item>
 
         <Form.Item
           name="healingCapDiameter"
-          label="愈合帽直径"
-          rules={[{ required: true, message: '请选择愈合帽直径' }]}
+          label={t('implantParams.healingCap')}
+          rules={[{ required: true, message: t('implantParams.healingCapPlaceholder') }]}
         >
-          <Select placeholder="请选择愈合帽" suffixIcon={<span>▼</span>}>
-            {healingCapDiameters.map(diameter => (
-              <Option key={diameter} value={diameter}>{diameter}</Option>
+          <Select placeholder={t('implantParams.healingCapPlaceholder')} suffixIcon={<span>▼</span>}>
+            {healingCapDiameters.map(item => (
+              <Option key={item.value} value={item.value}>{item.label}</Option>
             ))}
           </Select>
         </Form.Item>
 
         <Form.Item
           name="impressionPost"
-          label="取模杆"
-          rules={[{ required: true, message: '请选择取模杆' }]}
+          label={t('implantParams.impressionPost')}
+          rules={[{ required: true, message: t('implantParams.impressionPostPlaceholder') }]}
         >
-          <Select placeholder="请选择取模杆" suffixIcon={<span>▼</span>}>
-            {impressionPosts.map(post => (
-              <Option key={post} value={post}>{post}</Option>
+          <Select placeholder={t('implantParams.impressionPostPlaceholder')} suffixIcon={<span>▼</span>}>
+            {impressionPosts.map(item => (
+              <Option key={item.value} value={item.value}>{item.label}</Option>
             ))}
           </Select>
         </Form.Item>
 
         <Form.Item
           name="repairMethod"
-          label="修复方式"
-          rules={[{ required: true, message: '请选择修复方式' }]}
+          label={t('implantParams.repairMethod')}
+          rules={[{ required: true, message: t('implantParams.repairMethodPlaceholder') }]}
         >
-          <Select placeholder="请选择修复方式" suffixIcon={<span>▼</span>}>
-            {repairMethods.map(method => (
-              <Option key={method} value={method}>{method}</Option>
+          <Select placeholder={t('implantParams.repairMethodPlaceholder')} suffixIcon={<span>▼</span>}>
+            {repairMethods.map(item => (
+              <Option key={item.value} value={item.value}>{item.label}</Option>
             ))}
           </Select>
         </Form.Item>

@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { Card, Table, Button, Space, Modal, Form, Input, Select, message, Tag } from 'antd'
 import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import './ExpressManagement.css'
 
 const { Option } = Select
 
 function ExpressManagement() {
+  const { t } = useTranslation()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [editingRecord, setEditingRecord] = useState(null)
   const [dataSource, setDataSource] = useState([
@@ -13,9 +15,9 @@ function ExpressManagement() {
       key: '1',
       expressNo: 'SF1234567890',
       orderNo: '102511084444301',
-      company: '顺丰速运',
-      sender: '优牙义齿加工厂',
-      receiver: 'ASIANTECH PTE. LTD.',
+      company: 'expressManagement.companies.sf',
+      sender: 'expressManagement.mockData.sender1',
+      receiver: 'expressManagement.mockData.receiver1',
       receiverPhone: '+65 1234 5678',
       receiverAddress: 'Singapore Central',
       status: 'in_transit',
@@ -26,9 +28,9 @@ function ExpressManagement() {
       key: '2',
       expressNo: 'YTO9876543210',
       orderNo: '102511084444302',
-      company: '圆通速递',
-      sender: '精工义齿制造',
-      receiver: '优牙诊所',
+      company: 'expressManagement.companies.yto',
+      sender: 'expressManagement.mockData.sender2',
+      receiver: 'expressManagement.mockData.receiver2',
       receiverPhone: '+65 8765 4321',
       receiverAddress: 'Singapore East',
       status: 'delivered',
@@ -41,7 +43,7 @@ function ExpressManagement() {
 
   const columns = [
     {
-      title: '快递单号',
+      title: t('expressManagement.expressNo'),
       dataIndex: 'expressNo',
       key: 'expressNo',
       width: 150,
@@ -49,65 +51,68 @@ function ExpressManagement() {
       render: (text) => <a>{text}</a>
     },
     {
-      title: '关联订单',
+      title: t('expressManagement.orderNo'),
       dataIndex: 'orderNo',
       key: 'orderNo',
       width: 150
     },
     {
-      title: '快递公司',
+      title: t('expressManagement.company'),
       dataIndex: 'company',
       key: 'company',
-      width: 120
+      width: 120,
+      render: (text) => t(text)
     },
     {
-      title: '发件人',
+      title: t('expressManagement.sender'),
       dataIndex: 'sender',
       key: 'sender',
-      width: 150
+      width: 150,
+      render: (text) => t(text)
     },
     {
-      title: '收件人',
+      title: t('expressManagement.receiver'),
       dataIndex: 'receiver',
       key: 'receiver',
-      width: 200
+      width: 200,
+      render: (text) => t(text)
     },
     {
-      title: '收件电话',
+      title: t('expressManagement.receiverPhone'),
       dataIndex: 'receiverPhone',
       key: 'receiverPhone',
       width: 150
     },
     {
-      title: '状态',
+      title: t('expressManagement.status'),
       dataIndex: 'status',
       key: 'status',
       width: 100,
       render: (status) => {
         const statusMap = {
-          'pending': { text: '待发货', color: 'default' },
-          'in_transit': { text: '运输中', color: 'processing' },
-          'delivered': { text: '已送达', color: 'success' },
-          'returned': { text: '已退回', color: 'error' }
+          'pending': { text: t('expressManagement.statusMap.pending'), color: 'default' },
+          'in_transit': { text: t('expressManagement.statusMap.in_transit'), color: 'processing' },
+          'delivered': { text: t('expressManagement.statusMap.delivered'), color: 'success' },
+          'returned': { text: t('expressManagement.statusMap.returned'), color: 'error' }
         }
-        const { text, color } = statusMap[status]
+        const { text, color } = statusMap[status] || { text: status, color: 'default' }
         return <Tag color={color}>{text}</Tag>
       }
     },
     {
-      title: '发货时间',
+      title: t('expressManagement.sendTime'),
       dataIndex: 'sendTime',
       key: 'sendTime',
       width: 160
     },
     {
-      title: '预计送达',
+      title: t('expressManagement.estimatedTime'),
       dataIndex: 'estimatedTime',
       key: 'estimatedTime',
       width: 160
     },
     {
-      title: '操作',
+      title: t('common.action'),
       key: 'action',
       width: 220,
       fixed: 'right',
@@ -118,7 +123,7 @@ function ExpressManagement() {
             size="small" 
             icon={<EyeOutlined />}
           >
-            追踪
+            {t('expressManagement.track')}
           </Button>
           <Button 
             type="link" 
@@ -126,7 +131,7 @@ function ExpressManagement() {
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           >
-            编辑
+            {t('common.edit')}
           </Button>
           <Button 
             type="link" 
@@ -135,7 +140,7 @@ function ExpressManagement() {
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record.key)}
           >
-            删除
+            {t('common.delete')}
           </Button>
         </Space>
       )
@@ -156,11 +161,13 @@ function ExpressManagement() {
 
   const handleDelete = (key) => {
     Modal.confirm({
-      title: '确认删除',
-      content: '确定要删除这条快递记录吗？',
+      title: t('expressManagement.deleteConfirm'),
+      content: t('expressManagement.deleteMessage'),
+      okText: t('common.confirm'),
+      cancelText: t('common.cancel'),
       onOk: () => {
         setDataSource(dataSource.filter(item => item.key !== key))
-        message.success('删除成功')
+        message.success(t('expressManagement.success.delete'))
       }
     })
   }
@@ -172,16 +179,16 @@ function ExpressManagement() {
           item.key === editingRecord.key ? { ...item, ...values } : item
         )
         setDataSource(newData)
-        message.success('修改成功')
+        message.success(t('expressManagement.success.edit'))
       } else {
         const newRecord = {
           key: Date.now().toString(),
           ...values,
           status: 'pending',
-          sendTime: new Date().toLocaleString('zh-CN')
+          sendTime: new Date().toLocaleString(i18n.language === 'zh' ? 'zh-CN' : 'en-US')
         }
         setDataSource([...dataSource, newRecord])
-        message.success('添加成功')
+        message.success(t('expressManagement.success.add'))
       }
       setIsModalVisible(false)
       form.resetFields()
@@ -191,95 +198,68 @@ function ExpressManagement() {
   return (
     <div className="express-management-container">
       <Card 
+        title={t('expressManagement.title')}
         extra={
           <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
-            添加快递
+            {t('expressManagement.addExpress')}
           </Button>
         }
       >
         <Table 
           columns={columns} 
           dataSource={dataSource} 
-          scroll={{ x: 1600 }}
+          scroll={{ x: 1500 }}
           pagination={{
             pageSize: 10,
-            showTotal: (total) => `共 ${total} 条快递记录`
+            showTotal: (total) => t('common.totalItems', { count: total }),
+            showSizeChanger: true,
+            showQuickJumper: true
           }}
         />
       </Card>
 
       <Modal
-        title={editingRecord ? '编辑快递信息' : '添加快递信息'}
+        title={editingRecord ? t('common.edit') : t('expressManagement.addExpress')}
         open={isModalVisible}
         onOk={handleModalOk}
-        onCancel={() => {
-          setIsModalVisible(false)
-          form.resetFields()
-        }}
+        onCancel={() => setIsModalVisible(false)}
+        okText={t('common.confirm')}
+        cancelText={t('common.cancel')}
         width={600}
       >
         <Form form={form} layout="vertical">
           <Form.Item
-            label="快递单号"
             name="expressNo"
-            rules={[{ required: true, message: '请输入快递单号' }]}
+            label={t('expressManagement.expressNo')}
+            rules={[{ required: true }]}
           >
-            <Input placeholder="请输入快递单号" />
+            <Input />
           </Form.Item>
           <Form.Item
-            label="关联订单号"
-            name="orderNo"
-            rules={[{ required: true, message: '请输入关联订单号' }]}
-          >
-            <Input placeholder="请输入关联订单号" />
-          </Form.Item>
-          <Form.Item
-            label="快递公司"
             name="company"
-            rules={[{ required: true, message: '请选择快递公司' }]}
+            label={t('expressManagement.company')}
+            rules={[{ required: true }]}
           >
-            <Select placeholder="请选择快递公司">
-              <Option value="顺丰速运">顺丰速运</Option>
-              <Option value="圆通速递">圆通速递</Option>
-              <Option value="中通快递">中通快递</Option>
-              <Option value="韵达快递">韵达快递</Option>
-              <Option value="申通快递">申通快递</Option>
-              <Option value="EMS">EMS</Option>
+            <Select>
+              <Option value="expressManagement.companies.sf">{t('expressManagement.companies.sf')}</Option>
+              <Option value="expressManagement.companies.yto">{t('expressManagement.companies.yto')}</Option>
+              <Option value="expressManagement.companies.zto">{t('expressManagement.companies.zto')}</Option>
+              <Option value="expressManagement.companies.dhl">{t('expressManagement.companies.dhl')}</Option>
             </Select>
           </Form.Item>
           <Form.Item
-            label="发件人"
-            name="sender"
-            rules={[{ required: true, message: '请输入发件人' }]}
-          >
-            <Input placeholder="请输入发件人" />
-          </Form.Item>
-          <Form.Item
-            label="收件人"
             name="receiver"
-            rules={[{ required: true, message: '请输入收件人' }]}
+            label={t('expressManagement.receiver')}
+            rules={[{ required: true }]}
           >
-            <Input placeholder="请输入收件人" />
+            <Input />
           </Form.Item>
           <Form.Item
-            label="收件电话"
             name="receiverPhone"
-            rules={[{ required: true, message: '请输入收件电话' }]}
+            label={t('expressManagement.receiverPhone')}
+            rules={[{ required: true }]}
           >
-            <Input placeholder="请输入收件电话" />
-          </Form.Item>
-          <Form.Item
-            label="收件地址"
-            name="receiverAddress"
-            rules={[{ required: true, message: '请输入收件地址' }]}
-          >
-            <Input placeholder="请输入收件地址" />
-          </Form.Item>
-          <Form.Item
-            label="预计送达时间"
-            name="estimatedTime"
-          >
-            <Input placeholder="例如：2025-11-12 14:00:00" />
+            <Input />
           </Form.Item>
         </Form>
       </Modal>

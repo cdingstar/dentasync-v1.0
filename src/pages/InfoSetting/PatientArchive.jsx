@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Card, Table, Button, Space, Modal, Form, Input, Select, DatePicker, message } from 'antd'
 import { PlusOutlined, EditOutlined, DeleteOutlined, CloseOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import './PatientArchive.css'
 import dayjs from 'dayjs'
 
@@ -9,6 +10,7 @@ const { Option } = Select
 const { TextArea } = Input
 
 function PatientArchive() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [editingRecord, setEditingRecord] = useState(null)
@@ -19,9 +21,9 @@ function PatientArchive() {
       patientName: 'lee siew ngoh',
       patientId: '22603908',
       phone: '+65 1234 5678',
-      gender: '女',
+      gender: 'female',
       birthday: '1985-06-15',
-      addPerson: '黄向荣',
+      addPerson: 'Tom Huang',
       clinic: 'ASIANTECH PTE. LTD.',
       notes: '',
       createTime: '2025-11-08 11:04:14'
@@ -31,9 +33,9 @@ function PatientArchive() {
       patientName: 'Roslan Bin Mohd Sayir',
       patientId: 'PA0296',
       phone: '+65 9876 5432',
-      gender: '男',
+      gender: 'male',
       birthday: '1978-03-22',
-      addPerson: '黄向荣',
+      addPerson: 'Tom Huang',
       clinic: 'ASIANTECH PTE. LTD.',
       notes: '',
       createTime: '2025-11-06 09:44:37'
@@ -43,9 +45,9 @@ function PatientArchive() {
       patientName: 'ONG QUNXIANG',
       patientId: '65601887',
       phone: '+65 6560 1887',
-      gender: '男',
+      gender: 'male',
       birthday: '1992-12-05',
-      addPerson: '黄向荣',
+      addPerson: 'Tom Huang',
       clinic: 'ASIANTECH PTE. LTD.',
       notes: '',
       createTime: '2025-11-01 13:00:45'
@@ -55,9 +57,9 @@ function PatientArchive() {
       patientName: 'ONG LOO ER',
       patientId: 'c65978',
       phone: '+65 6559 7800',
-      gender: '女',
+      gender: 'female',
       birthday: '1990-08-30',
-      addPerson: '黄向荣',
+      addPerson: 'Tom Huang',
       clinic: 'ASIANTECH PTE. LTD.',
       notes: '',
       createTime: '2025-10-30 18:49:56'
@@ -67,21 +69,21 @@ function PatientArchive() {
 
   const columns = [
     {
-      title: '序号',
+      title: t('patient.index'),
       key: 'index',
       width: 60,
       fixed: 'left',
       render: (_, __, index) => index + 1
     },
     {
-      title: '患者ID',
+      title: t('patient.id'),
       dataIndex: 'patientId',
       key: 'patientId',
       width: 120,
       fixed: 'left'
     },
     {
-      title: '患者姓名',
+      title: t('patient.name'),
       dataIndex: 'patientName',
       key: 'patientName',
       width: 180,
@@ -89,51 +91,52 @@ function PatientArchive() {
       render: (text) => <span style={{ fontWeight: 500 }}>{text}</span>
     },
     {
-      title: '手机号码',
+      title: t('patient.phone'),
       dataIndex: 'phone',
       key: 'phone',
       width: 150
     },
     {
-      title: '性别',
+      title: t('patient.gender'),
       dataIndex: 'gender',
       key: 'gender',
-      width: 80
+      width: 80,
+      render: (gender) => t(`common.gender.${gender}`)
     },
     {
-      title: '生日',
+      title: t('patient.birthday'),
       dataIndex: 'birthday',
       key: 'birthday',
       width: 120
     },
     {
-      title: '添加人',
+      title: t('patient.addPerson'),
       dataIndex: 'addPerson',
       key: 'addPerson',
       width: 120
     },
     {
-      title: '添加时间',
+      title: t('patient.createTime'),
       dataIndex: 'createTime',
       key: 'createTime',
       width: 160
     },
     {
-      title: '备注',
+      title: t('patient.notes'),
       dataIndex: 'notes',
       key: 'notes',
       width: 150,
       ellipsis: true
     },
     {
-      title: '操作',
+      title: t('personnel.action'),
       key: 'action',
       width: 250,
       fixed: 'right',
       render: (_, record) => (
         <Space size={0}>
           <Button type="link" size="small" onClick={() => handleViewOrders(record)}>
-            关联订单
+            {t('patient.viewOrders')}
           </Button>
           <Button 
             type="link" 
@@ -141,7 +144,7 @@ function PatientArchive() {
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           >
-            编辑
+            {t('patient.edit')}
           </Button>
           <Button 
             type="link" 
@@ -150,7 +153,7 @@ function PatientArchive() {
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record.key)}
           >
-            删除
+            {t('patient.delete')}
           </Button>
         </Space>
       )
@@ -160,9 +163,9 @@ function PatientArchive() {
   const handleAdd = () => {
     setEditingRecord(null)
     form.resetFields()
-    // 设置默认值
+    // Set default values
     form.setFieldsValue({
-      addPerson: '黄向荣'
+      addPerson: 'Tom Huang'
     })
     setIsModalVisible(true)
   }
@@ -182,22 +185,22 @@ function PatientArchive() {
 
   const handleDelete = (key) => {
     Modal.confirm({
-      title: '确认删除',
-      content: '确定要删除这个患者档案吗？删除后将无法恢复。',
-      okText: '确定',
-      cancelText: '取消',
+      title: t('patient.deleteConfirmTitle'),
+      content: t('patient.deleteConfirmContent'),
+      okText: t('common.confirm'),
+      cancelText: t('common.cancel'),
       onOk: () => {
         setDataSource(dataSource.filter(item => item.key !== key))
-        message.success('删除成功')
+        message.success(t('patient.deleteSuccess'))
       }
     })
   }
 
   const handleViewOrders = (record) => {
-    // 跳转到全部订单页面,并传递患者姓名或ID作为搜索关键词
+    // Jump to all orders page, and pass patient name or ID as search keyword
     navigate('/order-management/all', {
       state: {
-        searchKeyword: record.patientName // 可以使用 record.patientId 或 record.patientName
+        searchKeyword: record.patientName // Can use record.patientId or record.patientName
       }
     })
   }
@@ -210,28 +213,28 @@ function PatientArchive() {
       }
 
       if (editingRecord) {
-        // 编辑 - 保留原有的 patientId 和 clinic
+        // Edit - Keep original patientId and clinic
         const newData = dataSource.map(item => 
           item.key === editingRecord.key ? { 
             ...item, 
             ...formattedValues,
-            patientId: item.patientId,  // 保留原有患者ID
-            clinic: item.clinic  // 保留归属单位
+            patientId: item.patientId,  // Keep original patient ID
+            clinic: item.clinic  // Keep original clinic
           } : item
         )
         setDataSource(newData)
-        message.success('修改成功')
+        message.success(t('patient.editSuccess'))
       } else {
-        // 新增 - 自动生成患者ID
+        // Add - Auto-generate patient ID
         const newRecord = {
           key: Date.now().toString(),
           ...formattedValues,
-          patientId: `PA${Date.now().toString().slice(-6)}`,  // 自动生成患者ID
-          clinic: 'ASIANTECH PTE. LTD.',  // 默认归属单位
+          patientId: `PA${Date.now().toString().slice(-6)}`,  // Auto-generate patient ID
+          clinic: 'ASIANTECH PTE. LTD.',  // Default clinic
           createTime: new Date().toISOString().replace('T', ' ').substring(0, 19)
         }
         setDataSource([newRecord, ...dataSource])
-        message.success('添加成功')
+        message.success(t('patient.addSuccess'))
       }
       setIsModalVisible(false)
       form.resetFields()
@@ -239,7 +242,7 @@ function PatientArchive() {
   }
 
   const handleSearch = () => {
-    message.info(`搜索: ${searchText}`)
+    message.info(`${t('patient.search')}: ${searchText}`)
   }
 
   const filteredData = searchText 
@@ -253,19 +256,19 @@ function PatientArchive() {
   return (
     <div className="patient-archive-container">
       <Card
-        title={<span style={{ fontSize: '16px', fontWeight: 500 }}>患者档案</span>}
+        title={<span style={{ fontSize: '16px', fontWeight: 500 }}>{t('patient.title')}</span>}
         extra={
           <Space>
             <Input 
-              placeholder="患者姓名" 
+              placeholder={t('patient.searchPlaceholder')} 
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               style={{ width: 200 }}
               onPressEnter={handleSearch}
             />
-            <Button type="primary" onClick={handleSearch}>搜索</Button>
+            <Button type="primary" onClick={handleSearch}>{t('patient.search')}</Button>
             <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
-              添加患者档案
+              {t('patient.add')}
             </Button>
           </Space>
         }
@@ -276,7 +279,7 @@ function PatientArchive() {
           scroll={{ x: 1500 }}
           pagination={{
             pageSize: 20,
-            showTotal: (total) => `共 ${total} 条`,
+            showTotal: (total) => t('common.totalItems', { count: total }),
             showSizeChanger: true,
             showQuickJumper: true,
             pageSizeOptions: ['20', '50', '100']
@@ -284,11 +287,11 @@ function PatientArchive() {
         />
       </Card>
 
-      {/* 添加/编辑患者模态框 */}
+      {/* Add/Edit Patient Modal */}
       <Modal
         title={
           <div className="modal-title">
-            {editingRecord ? '编辑患者' : '添加患者'}
+            {editingRecord ? t('patient.modalEditTitle') : t('patient.modalAddTitle')}
             <CloseOutlined 
               className="modal-close-icon" 
               onClick={() => {
@@ -306,60 +309,60 @@ function PatientArchive() {
         }}
         width={800}
         closable={false}
-        okText="确定"
-        cancelText="取消"
+        okText={t('common.confirm')}
+        cancelText={t('common.cancel')}
         className="patient-modal"
       >
         <Form form={form} layout="vertical">
           <div className="patient-form-grid">
-            {/* 左列 */}
+            {/* Left Column */}
             <div className="patient-form-column">
               <Form.Item
-                label={<span className="required-label">患者姓名</span>}
+                label={<span className="required-label">{t('patient.name')}</span>}
                 name="patientName"
-                rules={[{ required: true, message: '请输入患者姓名' }]}
+                rules={[{ required: true, message: t('patient.nameRequired') }]}
               >
-                <Input placeholder="请输入患者姓名" />
+                <Input placeholder={t('patient.namePlaceholder')} />
               </Form.Item>
               
               <Form.Item
-                label="性别"
+                label={t('patient.gender')}
                 name="gender"
               >
-                <Select placeholder="请选择性别" allowClear>
-                  <Option value="男">男</Option>
-                  <Option value="女">女</Option>
-                  <Option value="未知">未知</Option>
+                <Select placeholder={t('patient.genderPlaceholder')} allowClear>
+                  <Option value="male">{t('patient.male')}</Option>
+                  <Option value="female">{t('patient.female')}</Option>
+                  <Option value="unknown">{t('patient.unknown')}</Option>
                 </Select>
               </Form.Item>
               
               <Form.Item
-                label="添加人"
+                label={t('patient.addPerson')}
                 name="addPerson"
               >
                 <Input disabled style={{ background: '#f5f5f5' }} />
               </Form.Item>
             </div>
             
-            {/* 右列 */}
+            {/* Right Column */}
             <div className="patient-form-column">
               <Form.Item
-                label={<span className="required-label">手机号码</span>}
+                label={<span className="required-label">{t('patient.phone')}</span>}
                 name="phone"
                 rules={[
-                  { required: true, message: '请输入手机号码' },
-                  { pattern: /^[0-9+\-\s()]+$/, message: '请输入有效的手机号码' }
+                  { required: true, message: t('patient.phoneRequired') },
+                  { pattern: /^[0-9+\-\s()]+$/, message: t('patient.phoneError') }
                 ]}
               >
-                <Input placeholder="请输入手机号码" />
+                <Input placeholder={t('patient.phonePlaceholder')} />
               </Form.Item>
               
               <Form.Item
-                label="生日"
+                label={t('patient.birthday')}
                 name="birthday"
               >
                 <DatePicker 
-                  placeholder="请选择生日" 
+                  placeholder={t('patient.birthdayPlaceholder')} 
                   style={{ width: '100%' }}
                   format="YYYY-MM-DD"
                 />
@@ -367,14 +370,14 @@ function PatientArchive() {
             </div>
           </div>
           
-          {/* 备注占满一行 */}
+          {/* Notes take up full width */}
           <Form.Item
-            label="备注"
+            label={t('patient.notes')}
             name="notes"
             className="patient-form-full-width"
           >
             <TextArea 
-              placeholder="请输入备注信息" 
+              placeholder={t('patient.notesPlaceholder')} 
               rows={2} 
               style={{ resize: 'none' }}
             />

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Button, Input } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 
 function ColorSettings({ 
   colorSettings, 
@@ -10,13 +11,15 @@ function ColorSettings({
   onUpdateColorSetting,
   onDeleteColorSetting 
 }) {
+  const { t } = useTranslation()
+
   return (
     <Card 
-      title="颜色设定"
+      title={t('quickOrder.colorSettings.title')}
       className="section-card"
       extra={
         <Button type="primary" icon={<PlusOutlined />} onClick={onAddColorSetting}>
-          添加一行
+          {t('quickOrder.colorSettings.actions.addRow')}
         </Button>
       }
     >
@@ -24,16 +27,16 @@ function ColorSettings({
         <table className="product-table">
           <thead>
             <tr>
-              <th>序号</th>
-              <th>牙位</th>
-              <th>主色</th>
-              <th>颈部颜色</th>
-              <th>中部颜色</th>
-              <th>切端颜色</th>
-              <th>基牙颜色</th>
-              <th>牙体颜色</th>
-              <th>自定义色</th>
-              <th>操作</th>
+              <th>{t('quickOrder.colorSettings.columns.no')}</th>
+              <th>{t('quickOrder.colorSettings.columns.toothPosition')}</th>
+              <th>{t('quickOrder.colorSettings.columns.mainColor')}</th>
+              <th>{t('quickOrder.colorSettings.columns.neckColor')}</th>
+              <th>{t('quickOrder.colorSettings.columns.middleColor')}</th>
+              <th>{t('quickOrder.colorSettings.columns.cuttingEdgeColor')}</th>
+              <th>{t('quickOrder.colorSettings.columns.baseColor')}</th>
+              <th>{t('quickOrder.colorSettings.columns.toothBodyColor')}</th>
+              <th>{t('quickOrder.colorSettings.columns.customColor')}</th>
+              <th>{t('quickOrder.colorSettings.columns.action')}</th>
             </tr>
           </thead>
           <tbody>
@@ -44,7 +47,7 @@ function ColorSettings({
                   <div 
                     className="tooth-grid clickable"
                     onClick={() => onOpenToothSelector(setting.id, 'color')}
-                    title="点击选择牙位"
+                    title={t('quickOrder.colorSettings.placeholders.clickToSelectTooth')}
                   >
                     <div className="tooth-row">
                       <div className="tooth-cell-display">
@@ -77,7 +80,7 @@ function ColorSettings({
                     value={setting.mainColor}
                     onClick={() => onOpenColorSelector(setting.id, 'mainColor')}
                     readOnly
-                    placeholder="点击选择"
+                    placeholder={t('quickOrder.colorSettings.placeholders.clickToSelect')}
                     style={{ cursor: 'pointer' }}
                   />
                 </td>
@@ -86,7 +89,7 @@ function ColorSettings({
                     value={setting.neckColor}
                     onClick={() => onOpenColorSelector(setting.id, 'neckColor')}
                     readOnly
-                    placeholder="点击选择"
+                    placeholder={t('quickOrder.colorSettings.placeholders.clickToSelect')}
                     style={{ cursor: 'pointer' }}
                   />
                 </td>
@@ -95,7 +98,7 @@ function ColorSettings({
                     value={setting.middleColor}
                     onClick={() => onOpenColorSelector(setting.id, 'middleColor')}
                     readOnly
-                    placeholder="点击选择"
+                    placeholder={t('quickOrder.colorSettings.placeholders.clickToSelect')}
                     style={{ cursor: 'pointer' }}
                   />
                 </td>
@@ -104,7 +107,7 @@ function ColorSettings({
                     value={setting.cuttingEdgeColor}
                     onClick={() => onOpenColorSelector(setting.id, 'cuttingEdgeColor')}
                     readOnly
-                    placeholder="点击选择"
+                    placeholder={t('quickOrder.colorSettings.placeholders.clickToSelect')}
                     style={{ cursor: 'pointer' }}
                   />
                 </td>
@@ -113,7 +116,7 @@ function ColorSettings({
                     value={setting.baseColor}
                     onClick={() => onOpenColorSelector(setting.id, 'baseColor')}
                     readOnly
-                    placeholder="点击选择"
+                    placeholder={t('quickOrder.colorSettings.placeholders.clickToSelect')}
                     style={{ cursor: 'pointer' }}
                   />
                 </td>
@@ -122,7 +125,7 @@ function ColorSettings({
                     value={setting.toothBodyColor}
                     onClick={() => onOpenColorSelector(setting.id, 'toothBodyColor')}
                     readOnly
-                    placeholder="点击选择"
+                    placeholder={t('quickOrder.colorSettings.placeholders.clickToSelect')}
                     style={{ cursor: 'pointer' }}
                   />
                 </td>
@@ -130,7 +133,7 @@ function ColorSettings({
                   <Input 
                     value={setting.customColor}
                     onChange={(e) => onUpdateColorSetting(setting.id, 'customColor', e.target.value)}
-                    placeholder="请输入自定义..."
+                    placeholder={t('quickOrder.colorSettings.placeholders.enterCustom')}
                   />
                 </td>
                 <td>
@@ -140,7 +143,7 @@ function ColorSettings({
                     size="small"
                     onClick={() => onDeleteColorSetting(setting.id)}
                   >
-                    删除
+                    {t('quickOrder.colorSettings.actions.delete')}
                   </Button>
                 </td>
               </tr>

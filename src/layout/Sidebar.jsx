@@ -1,11 +1,11 @@
 import { Layout, Menu } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import {
   HomeOutlined,
   ShoppingCartOutlined,
   OrderedListOutlined,
   UserOutlined,
-  SettingOutlined,
   ThunderboltOutlined,
   DatabaseOutlined,
   ClockCircleOutlined,
@@ -16,7 +16,8 @@ import {
   ApartmentOutlined,
   TeamOutlined,
   FolderOutlined,
-  EnvironmentOutlined
+  EnvironmentOutlined,
+  AppstoreOutlined
 } from '@ant-design/icons'
 import './Sidebar.css'
 
@@ -25,105 +26,107 @@ const { Sider } = Layout
 function Sidebar({ collapsed, onCollapse, currentUser }) {
   const navigate = useNavigate()
   const location = useLocation()
+  const { t } = useTranslation()
 
   const tempRole = currentUser?.tempRole
-  const isFactory = tempRole && tempRole.startsWith('工厂-')
-  const isFactoryAdmin = tempRole === '工厂-管理员'
-  const isClinicAdmin = tempRole === '诊所-管理员'
-  const isSuperAdmin = tempRole === '超级管理员'
+  const isFactory = tempRole && tempRole.startsWith('factory_')
+  const isFactoryAdmin = tempRole === 'factory_admin'
+  const isClinicAdmin = tempRole === 'clinic_admin'
+  const isSuperAdmin = tempRole === 'super_admin'
 
   let menuItems = [
     {
       key: '/',
       icon: <HomeOutlined />,
-      label: '首页'
+      label: t('menu.home')
     },
     {
       key: '/order',
       icon: <ShoppingCartOutlined />,
-      label: '下单',
+      label: t('menu.order'),
       children: [
         {
           key: '/order/quick',
           icon: <ThunderboltOutlined />,
-          label: '一键下单'
+          label: t('menu.quickOrder')
         },
         {
           key: '/order/product-library',
           icon: <DatabaseOutlined />,
-          label: '产品库下单'
+          label: t('menu.productLibraryOrder')
         }
       ]
     },
     {
       key: '/order-management',
       icon: <OrderedListOutlined />,
-      label: '订单管理',
+      label: t('menu.orderManagement'),
       children: [
         {
           key: '/order-management/all',
           icon: <FileTextOutlined />,
-          label: '全部订单'
+          label: t('menu.allOrders')
         },
         {
           key: '/order/pending',
           icon: <ClockCircleOutlined />,
-          label: '待下单'
+          label: t('menu.pendingOrder')
         },
         {
           key: '/order-management/pending',
           icon: <HourglassOutlined />,
-          label: '待处理订单'
+          label: t('menu.pendingHandling')
         }
       ]
     },
+
     {
       key: '/personal',
       icon: <UserOutlined />,
-      label: '信息设置',
+      label: t('menu.infoSettings'),
       children: [
         {
           key: '/personal/personnel-auth',
           icon: <TeamOutlined />,
-          label: '人员管理'
+          label: t('menu.personnel')
         },
         {
           key: '/personal/patient-archive',
           icon: <FolderOutlined />,
-          label: '患者档案'
+          label: t('menu.patientArchives')
         },
         {
           key: '/personal/unit-info',
           icon: <ShopOutlined />,
-          label: '诊所信息'
+          label: t('menu.clinicInfo')
         },
-        // 工厂信息（按角色显示）
+        // Factory info (Displayed by role)
         ...(isFactoryAdmin ? [{
           key: '/personal/factory-info',
           icon: <BankOutlined />,
-          label: '工厂信息'
+          label: t('menu.factoryInfo')
         }] : []),
         {
           key: '/personal/address-management',
           icon: <EnvironmentOutlined />,
-          label: '地址管理'
+          label: t('menu.addressManagement')
         }
       ]
     },
     {
       key: '/system',
-      icon: <SettingOutlined />,
-      label: '系统管理',
+      icon: <AppstoreOutlined />,
+      label: t('menu.systemManagement'),
       children: [
         {
           key: '/system/executing-unit',
           icon: <ApartmentOutlined />,
-          label: '诊所管理'
+          label: t('menu.clinicManagement')
         },
         {
           key: '/system/factory',
           icon: <BankOutlined />,
-          label: '工厂管理'
+          label: t('menu.factoryManagement')
         }
       ]
     }
@@ -131,7 +134,7 @@ function Sidebar({ collapsed, onCollapse, currentUser }) {
 
   if (isFactory) {
     menuItems = menuItems.filter(item => item.key !== '/order')
-    // 隐藏患者管理（患者档案）
+    // Hide patient management (Patient Archives)
     menuItems = menuItems.map(item => {
       if (item.key === '/personal') {
         return {
@@ -164,7 +167,7 @@ function Sidebar({ collapsed, onCollapse, currentUser }) {
     menuItems = menuItems.filter(item => !hideKeys.has(item.key))
   }
 
-  // 仅诊所管理员可见“诊所信息”
+  // Only clinic admin can see "Clinic Info"
   if (!isClinicAdmin) {
     menuItems = menuItems.map(item => {
       if (item.key === '/personal') {
@@ -177,7 +180,7 @@ function Sidebar({ collapsed, onCollapse, currentUser }) {
     })
   }
 
-  // 仅工厂管理员可见“工厂信息”（已在构建时受控，这里再次保护）
+  // Only factory admin can see "Factory Info" (Already controlled at build time, double protection here)
   if (!isFactoryAdmin) {
     menuItems = menuItems.map(item => {
       if (item.key === '/personal') {
@@ -194,12 +197,12 @@ function Sidebar({ collapsed, onCollapse, currentUser }) {
     navigate(key)
   }
 
-  // 获取当前选中的菜单项
+  // Get currently selected menu items
   const getSelectedKeys = () => {
     return [location.pathname]
   }
 
-  // 获取默认展开的菜单项
+  // Get default open menu items
   const getDefaultOpenKeys = () => {
     const path = location.pathname
     if (path.startsWith('/order/')) return ['/order']

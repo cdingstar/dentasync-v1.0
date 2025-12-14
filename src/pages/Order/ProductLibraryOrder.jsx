@@ -1,15 +1,17 @@
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import ProductLibrarySelector from '../../components/ProductLibrarySelector/ProductLibrarySelector'
 import './ProductLibraryOrder.css'
 
 function ProductLibraryOrder() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
-  // 处理产品选择 - 跳转到一键下单页面
+  // Handle product selection - navigate to Quick Order page
   const handleProductSelect = (product) => {
-    console.log('选择产品并跳转到一键下单:', product)
+    console.log('Select product and navigate to Quick Order:', product)
     
-    // 跳转到一键下单页面，并传递产品信息
+    // Navigate to Quick Order page and pass product info
     navigate('/order/quick', {
       state: {
         selectedProduct: {
@@ -23,10 +25,10 @@ function ProductLibraryOrder() {
 
   return (
     <div className="product-library-order-container">
-      {/* 使用封装的产品库选择器组件 */}
+      {/* Use encapsulated Product Library Selector component */}
       <ProductLibrarySelector 
         onProductSelect={handleProductSelect}
-        actionButtonText="下单"
+        actionButtonText={t('productLibraryOrder.actionButton')}
       />
     </div>
   )

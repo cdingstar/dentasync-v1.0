@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { Form, Input, Button, message, Select } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import './Login.css'
 
 const { Option } = Select
 
 function Login({ onLogin }) {
   const [loading, setLoading] = useState(false)
+  const { t } = useTranslation()
 
   const handleSubmit = (values) => {
     setLoading(true)
@@ -17,14 +19,14 @@ function Login({ onLogin }) {
     
     setTimeout(() => {
       if (values.username === correctUsername && values.password === correctPassword) {
-        message.success('登录成功！')
+        message.success(t('login.success'))
         onLogin({
           username: values.username,
           shortName: 'AD',
           tempRole: values.tempRole
         })
       } else {
-        message.error('用户名或密码错误！')
+        message.error(t('login.failed'))
         setLoading(false)
       }
     }, 500)
@@ -53,35 +55,35 @@ function Login({ onLogin }) {
         >
           <Form.Item
             name="username"
-            rules={[{ required: true, message: '请输入用户名' }]}
+            rules={[{ required: true, message: t('login.usernameRequired') }]}
           >
             <Input
               prefix={<UserOutlined className="input-icon" />}
-              placeholder="用户名"
+              placeholder={t('login.usernamePlaceholder')}
               size="large"
             />
           </Form.Item>
 
           <Form.Item
             name="password"
-            rules={[{ required: true, message: '请输入密码' }]}
+            rules={[{ required: true, message: t('login.passwordRequired') }]}
           >
             <Input.Password
               prefix={<LockOutlined className="input-icon" />}
-              placeholder="密码"
+              placeholder={t('login.passwordPlaceholder')}
               size="large"
             />
           </Form.Item>
 
           <Form.Item name="tempRole">
-            <Select placeholder="请选择临时角色（选填）" size="large">
-              <Option value="诊所-管理员">诊所-管理员</Option>
-              <Option value="诊所-医生">诊所-医生</Option>
-              <Option value="诊所-助理">诊所-助理</Option>
-              <Option value="工厂-管理员">工厂-管理员</Option>
-              <Option value="工厂-助理">工厂-助理</Option>
-              <Option value="工厂-技师">工厂-技师</Option>
-              <Option value="超级管理员">超级管理员</Option>
+            <Select placeholder={t('login.rolePlaceholder')} size="large">
+              <Option value="clinic_admin">{t('roles.clinicAdmin')}</Option>
+              <Option value="clinic_doctor">{t('roles.clinicDoctor')}</Option>
+              <Option value="clinic_assistant">{t('roles.clinicAssistant')}</Option>
+              <Option value="factory_admin">{t('roles.factoryAdmin')}</Option>
+              <Option value="factory_assistant">{t('roles.factoryAssistant')}</Option>
+              <Option value="factory_technician">{t('roles.factoryTechnician')}</Option>
+              <Option value="super_admin">{t('roles.superAdmin')}</Option>
             </Select>
           </Form.Item>
 
@@ -94,14 +96,14 @@ function Login({ onLogin }) {
               size="large"
               block
             >
-              登录
+              {t('login.loginButton')}
             </Button>
           </Form.Item>
         </Form>
 
         <div className="login-footer">
-          <p className="copyright">Copyright © 2025</p>
-          <p className="company">Premium Dental Services Pte. Ltd.</p>
+          <p className="copyright">{t('login.copyright')}</p>
+          <p className="company">{t('login.company')}</p>
         </div>
       </div>
     </div>

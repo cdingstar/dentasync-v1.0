@@ -1,139 +1,153 @@
 import React, { useState } from 'react'
 import { Card, Button, Row, Col, Tree, Pagination } from 'antd'
 import { ShoppingCartOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import './ProductLibrarySelector.css'
 
 /**
- * 可复用的产品库选择器组件
- * @param {Function} onProductSelect - 选择产品回调 (product) => void
- * @param {String} actionButtonText - 操作按钮文字，默认"下单"
+ * Reusable product library selector component
+ * @param {Function} onProductSelect - Select product callback (product) => void
+ * @param {String} actionButtonText - Action button text, default "Order"
  */
 function ProductLibrarySelector({ 
   onProductSelect,
-  actionButtonText = '下单'
+  actionButtonText
 }) {
-  const [selectedCategory, setSelectedCategory] = useState('种植类')
+  const { t } = useTranslation()
+  const [selectedCategory, setSelectedCategory] = useState('implant')
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
-  // 分类数据
+  const defaultActionText = t('productLibrary.actions.order')
+  const finalActionText = actionButtonText || defaultActionText
+
+  // Category Data
   const categoryTree = [
     {
-      title: '全部',
+      title: t('productLibrary.categories.all'),
       key: 'all'
     },
     {
-      title: '种植类',
+      title: t('productLibrary.categories.implant'),
       key: 'implant',
       children: [
-        { title: '固齿贝壳(T系列)', key: 'implant-1' },
-        { title: 'D2个性种植系统', key: 'implant-2', 
+        { title: t('productLibrary.categories.implantT'), key: 'implant-1' },
+        { title: t('productLibrary.categories.implantD2'), key: 'implant-2', 
           children: [
-            { title: '全瓷类', key: 'implant-2-1' },
-            { title: '全锆类', key: 'implant-2-2' },
-            { title: '全属烤瓷类', key: 'implant-2-3' },
-            { title: '全属冠类', key: 'implant-2-4' }
+            { title: t('productLibrary.categories.allCeramic'), key: 'implant-2-1' },
+            { title: t('productLibrary.categories.allZirconia'), key: 'implant-2-2' },
+            { title: t('productLibrary.categories.metalPorcelain'), key: 'implant-2-3' },
+            { title: t('productLibrary.categories.metalCrown'), key: 'implant-2-4' }
           ]
         },
-        { title: '传统种植', key: 'implant-3',
+        { title: t('productLibrary.categories.traditional'), key: 'implant-3',
           children: [
-            { title: '全瓷类', key: 'implant-3-1' },
-            { title: '全锆类', key: 'implant-3-2' }
+            { title: t('productLibrary.categories.allCeramic'), key: 'implant-3-1' },
+            { title: t('productLibrary.categories.allZirconia'), key: 'implant-3-2' }
           ]
         }
       ]
     }
   ]
 
-  // 分类标签
+  // Category Tabs
   const categoryTabs = [
-    '闪耀系列', '氧化锆类', '全属类', '铸瓷类', '活动类', '种植类', '正畸类', '萌大齐', '粘接类', '其他类'
+    { key: 'shine', label: t('productLibrary.categories.shine') },
+    { key: 'zirconia', label: t('productLibrary.categories.zirconia') },
+    { key: 'metal', label: t('productLibrary.categories.metal') },
+    { key: 'castPorcelain', label: t('productLibrary.categories.castPorcelain') },
+    { key: 'removable', label: t('productLibrary.categories.removable') },
+    { key: 'implant', label: t('productLibrary.categories.implant') },
+    { key: 'ortho', label: t('productLibrary.categories.ortho') },
+    { key: 'mengdaqi', label: t('productLibrary.categories.mengdaqi') },
+    { key: 'bonding', label: t('productLibrary.categories.bonding') },
+    { key: 'other', label: t('productLibrary.categories.other') }
   ]
 
-  // 产品库数据
+  // Product Library Data
   const allProducts = [
     {
       key: '1',
       productCode: 'DN-ZR-001',
-      name: '数码氧化锆种植全瓷牙',
-      category: '种植类',
-      material: '氧化锆',
+      name: t('productLibrary.products.digitalZirconia.name'),
+      category: 'implant',
+      material: t('productLibrary.products.digitalZirconia.material'),
       price: null,
-      unit: '颗',
-      description: '高强度氧化锆全瓷牙冠，美观耐用',
+      unit: t('productLibrary.products.digitalZirconia.unit'),
+      description: t('productLibrary.products.digitalZirconia.description'),
       image: null
     },
     {
       key: '2',
       productCode: 'DN-ZR-002',
-      name: '日本氧化锆种植全瓷牙',
-      category: '种植类',
-      material: '氧化锆',
+      name: t('productLibrary.products.japanZirconia.name'),
+      category: 'implant',
+      material: t('productLibrary.products.japanZirconia.material'),
       price: null,
-      unit: '颗',
-      description: '日本进口氧化锆材料',
+      unit: t('productLibrary.products.japanZirconia.unit'),
+      description: t('productLibrary.products.japanZirconia.description'),
       image: null
     },
     {
       key: '3',
       productCode: 'DN-ZR-003',
-      name: '德瓷氧化锆种植全瓷牙',
-      category: '种植类',
-      material: '氧化锆',
+      name: t('productLibrary.products.germanZirconia.name'),
+      category: 'implant',
+      material: t('productLibrary.products.germanZirconia.material'),
       price: null,
-      unit: '颗',
-      description: '德国工艺氧化锆',
+      unit: t('productLibrary.products.germanZirconia.unit'),
+      description: t('productLibrary.products.germanZirconia.description'),
       image: null
     },
     {
       key: '4',
       productCode: 'DN-BR-001',
-      name: '固定牙桥',
-      category: '铸瓷类',
-      material: '金属烤瓷',
+      name: t('productLibrary.products.fixedBridge.name'),
+      category: 'castPorcelain',
+      material: t('productLibrary.products.fixedBridge.material'),
       price: 4500,
-      unit: '组',
-      description: '3单位金属烤瓷固定桥',
+      unit: t('productLibrary.products.fixedBridge.unit'),
+      description: t('productLibrary.products.fixedBridge.description'),
       image: null
     },
     {
       key: '5',
       productCode: 'DN-VN-001',
-      name: '瓷贴面',
-      category: '贴面',
-      material: '全瓷',
+      name: t('productLibrary.products.veneer.name'),
+      category: 'veneer',
+      material: t('productLibrary.products.veneer.material'),
       price: 3200,
-      unit: '片',
-      description: '超薄全瓷贴面，自然美观',
+      unit: t('productLibrary.products.veneer.unit'),
+      description: t('productLibrary.products.veneer.description'),
       image: null
     }
   ]
 
-  // 根据选择的分类过滤产品
-  const products = allProducts.filter(p => 
-    selectedCategory === '种植类' ? p.category === '种植类' : true
+  // Filter products based on selected category
+  const products = allProducts.filter(p =>  
+    selectedCategory === 'all' ? true : p.category === selectedCategory
   )
 
-  // 处理分类选择
+  // Handle category selection
   const handleCategorySelect = (selectedKeys) => {
     if (selectedKeys.length > 0) {
       setSelectedCategory(selectedKeys[0])
     }
   }
 
-  // 分页显示的产品
+  // Products for current page
   const startIndex = (currentPage - 1) * pageSize
   const endIndex = startIndex + pageSize
   const displayProducts = products.slice(startIndex, endIndex)
 
   return (
     <div className="product-library-selector">
-      {/* 主内容区 */}
+      {/* Main Content Area */}
       <div className="content-wrapper">
         <Row gutter={16}>
-          {/* 左侧分类树 */}
+          {/* Left Category Tree */}
           <Col span={4}>
-            <Card title="全部类别" className="category-card">
+            <Card title={t('productLibrary.labels.allCategories')} className="category-card">
               <Tree
                 defaultExpandAll
                 defaultSelectedKeys={['implant']}
@@ -143,22 +157,22 @@ function ProductLibrarySelector({
             </Card>
           </Col>
 
-          {/* 右侧产品展示 */}
+          {/* Right Product Display */}
           <Col span={20}>
-            {/* 分类标签 */}
+            {/* Category Tabs */}
             <div className="category-tabs">
               {categoryTabs.map((tab, index) => (
                 <div 
                   key={index}
-                  className={`category-tab ${tab === selectedCategory ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory(tab)}
+                  className={`category-tab ${tab.key === selectedCategory ? 'active' : ''}`}
+                  onClick={() => setSelectedCategory(tab.key)}
                 >
-                  {tab}
+                  {tab.label}
                 </div>
               ))}
             </div>
 
-            {/* 产品卡片 */}
+            {/* Product Cards */}
             <div className="products-grid">
               <Row gutter={[16, 16]}>
                 {displayProducts.map(product => (
@@ -167,13 +181,13 @@ function ProductLibrarySelector({
                       <div className="product-image">
                         <div className="image-placeholder">
                           <div className="placeholder-icon">📦</div>
-                          <div className="placeholder-text">暂无图片</div>
+                          <div className="placeholder-text">{t('productLibrary.labels.noImage')}</div>
                         </div>
                       </div>
                       <div className="product-info">
                         <h3 className="product-name">{product.name}</h3>
                         <p className="product-price">
-                          {product.price ? `¥${product.price}` : '设置外部价格'}
+                          {product.price ? `¥${product.price}` : t('productLibrary.labels.externalPrice')}
                         </p>
                         <Button 
                           type="primary" 
@@ -181,7 +195,7 @@ function ProductLibrarySelector({
                           icon={<ShoppingCartOutlined />}
                           onClick={() => onProductSelect && onProductSelect(product)}
                         >
-                          {actionButtonText}
+                          {finalActionText}
                         </Button>
                       </div>
                     </Card>
@@ -190,7 +204,7 @@ function ProductLibrarySelector({
               </Row>
             </div>
 
-            {/* 分页 */}
+            {/* Pagination */}
             <div className="pagination-wrapper">
               <Pagination
                 current={currentPage}
@@ -202,7 +216,7 @@ function ProductLibrarySelector({
                 }}
                 showSizeChanger
                 showQuickJumper
-                showTotal={(total) => `共 ${total} 条`}
+                showTotal={(total) => t('productLibrary.labels.totalItems', { count: total })}
                 pageSizeOptions={[10, 20, 50]}
               />
             </div>

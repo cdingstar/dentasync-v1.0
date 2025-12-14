@@ -1,45 +1,61 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { CloseOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import './NaviBar.css'
 
 function NaviBar() {
   const navigate = useNavigate()
   const location = useLocation()
+  const { t } = useTranslation()
   
-  // 所有可能的页面配置
+  // All possible page configurations
   const allPages = useMemo(() => ({
-    '/': { label: '首页', closable: false },
-    '/order/quick': { label: '一键下单', closable: true },
-    '/order/product-library': { label: '产品库下单', closable: true },
-    '/order/pending': { label: '待下单', closable: true },
-    '/order-management/all': { label: '全部订单', closable: true },
-    '/order-management/pending': { label: '待处理订单', closable: true },
-    '/personal/personnel-auth': { label: '人员管理', closable: true },
-    '/personal/patient-archive': { label: '患者档案', closable: true },
-    '/personal/unit-info': { label: '诊所信息', closable: true },
-    '/personal/factory-info': { label: '工厂信息', closable: true },
-    '/personal/address-management': { label: '地址管理', closable: true },
-    '/system/executing-unit': { label: '诊所管理', closable: true },
-    '/system/factory': { label: '工厂管理', closable: true },
-  }), [])
+    '/': { label: t('menu.home'), closable: false },
+    '/order/quick': { label: t('menu.quickOrder'), closable: true },
+    '/order/product-library': { label: t('menu.productLibraryOrder'), closable: true },
+    '/order/pending': { label: t('menu.pendingOrder'), closable: true },
+    '/order-management/all': { label: t('menu.allOrders'), closable: true },
+    '/order-management/pending': { label: t('menu.pendingHandling'), closable: true },
+    '/personal/personnel-auth': { label: t('menu.personnel'), closable: true },
+    '/personal/patient-archive': { label: t('menu.patientArchives'), closable: true },
+    '/personal/unit-info': { label: t('menu.clinicInfo'), closable: true },
+    '/personal/factory-info': { label: t('menu.factoryInfo'), closable: true },
+    '/personal/address-management': { label: t('menu.addressManagement'), closable: true },
+    '/system/executing-unit': { label: t('menu.clinicManagement'), closable: true },
+    '/system/factory': { label: t('menu.factoryManagement'), closable: true },
+  }), [t])
   
-  // 获取动态路由的标签信息
+  // Get label info for dynamic routes
   const getDynamicPageLabel = useCallback((path) => {
-    // 订单详情页面
+    // Order detail page
     if (path.startsWith('/order-management/detail/')) {
       const orderNo = path.split('/').pop()
-      return `订单详情 - ${orderNo}`
+      return `${t('menu.orderDetail')} - ${orderNo}`
     }
     return null
-  }, [])
+  }, [t])
 
-  // 管理打开的标签页
+  // Manage open tabs
   const [openTabs, setOpenTabs] = useState([
-    { key: '/', label: '首页', closable: false },
+    { key: '/', label: t('menu.home'), closable: false },
   ])
 
-  // 当路由变化时，自动添加新标签页
+  // Update tab names when language changes
+  useEffect(() => {
+    setOpenTabs(prev => prev.map(tab => {
+      if (allPages[tab.key]) {
+        return { ...tab, label: allPages[tab.key].label }
+      }
+      const dynamicLabel = getDynamicPageLabel(tab.key)
+      if (dynamicLabel) {
+        return { ...tab, label: dynamicLabel }
+      }
+      return tab
+    }))
+  }, [t, allPages, getDynamicPageLabel])
+
+  // Automatically add new tab when route changes
   useEffect(() => {
     const currentPath = location.pathname
     
@@ -47,7 +63,7 @@ function NaviBar() {
       const pageExists = prev.find(tab => tab.key === currentPath)
       
       if (!pageExists) {
-        // 先检查是否是静态路由
+        // Check if it is a static route first
         if (allPages[currentPath]) {
           return [
             ...prev,
@@ -59,7 +75,7 @@ function NaviBar() {
           ]
         }
         
-        // 检查是否是动态路由
+        // Check if it is a dynamic route
         const dynamicLabel = getDynamicPageLabel(currentPath)
         if (dynamicLabel) {
           return [
@@ -77,12 +93,12 @@ function NaviBar() {
     })
   }, [location.pathname, allPages, getDynamicPageLabel])
 
-  // 点击标签页切换
+  // Click tab to switch
   const handleTabClick = useCallback((key) => {
     navigate(key)
   }, [navigate])
 
-  // 关闭标签页
+  // Close tab
   const handleTabClose = useCallback((e, key) => {
     e.stopPropagation()
     
@@ -90,9 +106,9 @@ function NaviBar() {
       const tabIndex = prev.findIndex(tab => tab.key === key)
       const newTabs = prev.filter(tab => tab.key !== key)
       
-      // 如果关闭的是当前页面，需要导航到其他页面
+      // If closing the current page, navigate to another page
       if (location.pathname === key) {
-        // 导航到前一个标签页，如果没有则导航到首页
+        // Navigate to the previous tab, or home if none
         const targetTab = newTabs[tabIndex - 1] || newTabs[0]
         navigate(targetTab.key)
       }
@@ -110,7 +126,9 @@ function NaviBar() {
             className={`navi-bar-tab ${location.pathname === tab.key ? 'active' : ''}`}
             onClick={() => handleTabClick(tab.key)}
           >
-            <span className="navi-bar-tab-label">{tab.label}</span>
+            <span className="navi-bar-tab-label">
+              {allPages[tab.key] ? allPages[tab.key].label : tab.label}
+            </span>
             {tab.closable && (
               <CloseOutlined
                 className="navi-bar-tab-close"

@@ -1,110 +1,112 @@
 import React, { useState } from 'react'
 import { Modal, Tabs, Badge } from 'antd'
 import { CloseCircleOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import './DesignSchemeModal.css'
 
 const { TabPane } = Tabs
 
 /**
- * 设计方案选择对话框
- * @param {Boolean} visible - 是否显示对话框
- * @param {Function} onClose - 关闭对话框回调
- * @param {Function} onConfirm - 确认选择回调，参数为选中的方案 { category: item }
- * @param {Object} initialSelection - 初始选中的方案
+ * Design scheme selection modal
+ * @param {Boolean} visible - Whether modal is visible
+ * @param {Function} onClose - Close callback
+ * @param {Function} onConfirm - Confirm callback, param is selected schemes { category: item }
+ * @param {Object} initialSelection - Initial selected schemes
  */
 function DesignSchemeModal({ visible, onClose, onConfirm, initialSelection = {} }) {
+  const { t } = useTranslation()
   const [selectedSchemes, setSelectedSchemes] = useState(initialSelection)
   const [activeTab, setActiveTab] = useState('design')
 
-  // 设计方案数据
+  // Design scheme data
   const schemeData = {
     design: {
-      label: '设计',
+      label: t('designScheme.tabs.design'),
       items: [
-        { id: 'design-1', name: '对颌合', image: null },
-        { id: 'design-2', name: '鼻基柱到', image: null },
-        { id: 'design-3', name: '正常覆合覆盖', image: null },
-        { id: 'design-4', name: '咬合', image: null }
+        { id: 'design-1', name: t('designScheme.options.design.opposing'), image: null },
+        { id: 'design-2', name: t('designScheme.options.design.nasal'), image: null },
+        { id: 'design-3', name: t('designScheme.options.design.normal'), image: null },
+        { id: 'design-4', name: t('designScheme.options.design.bite'), image: null }
       ]
     },
     color: {
-      label: '颜色',
+      label: t('designScheme.tabs.color'),
       items: [
-        { id: 'color-1', name: '窝沟不染色', image: null },
-        { id: 'color-2', name: '窝沟染色', image: null },
-        { id: 'color-3', name: '自然染色', image: null },
-        { id: 'color-4', name: '重度染色', image: null }
+        { id: 'color-1', name: t('designScheme.options.color.noStain'), image: null },
+        { id: 'color-2', name: t('designScheme.options.color.stain'), image: null },
+        { id: 'color-3', name: t('designScheme.options.color.natural'), image: null },
+        { id: 'color-4', name: t('designScheme.options.color.heavy'), image: null }
       ]
     },
     shape: {
-      label: '外形',
+      label: t('designScheme.tabs.shape'),
       items: [
-        { id: 'shape-1', name: '颌面沟嵴明显', image: null },
-        { id: 'shape-2', name: '颌面沟嵴平缓', image: null },
-        { id: 'shape-3', name: '功能尖锐', image: null },
-        { id: 'shape-4', name: '功能尖钝', image: null }
+        { id: 'shape-1', name: t('designScheme.options.shape.obvious'), image: null },
+        { id: 'shape-2', name: t('designScheme.options.shape.smooth'), image: null },
+        { id: 'shape-3', name: t('designScheme.options.shape.sharp'), image: null },
+        { id: 'shape-4', name: t('designScheme.options.shape.blunt'), image: null }
       ]
     },
     surface: {
-      label: '冠面设计',
+      label: t('designScheme.tabs.surface'),
       items: [
-        { id: 'surface-1', name: '光滑表面', image: null },
-        { id: 'surface-2', name: '纹理表面', image: null },
-        { id: 'surface-3', name: '自然表面', image: null }
+        { id: 'surface-1', name: t('designScheme.options.surface.smooth'), image: null },
+        { id: 'surface-2', name: t('designScheme.options.surface.texture'), image: null },
+        { id: 'surface-3', name: t('designScheme.options.surface.natural'), image: null }
       ]
     },
     edge: {
-      label: '螺孔头',
+      label: t('designScheme.tabs.edge'),
       items: [
-        { id: 'edge-1', name: '圆形螺孔', image: null },
-        { id: 'edge-2', name: '方形螺孔', image: null },
-        { id: 'edge-3', name: '封闭螺孔', image: null }
+        { id: 'edge-1', name: t('designScheme.options.edge.round'), image: null },
+        { id: 'edge-2', name: t('designScheme.options.edge.square'), image: null },
+        { id: 'edge-3', name: t('designScheme.options.edge.closed'), image: null }
       ]
     },
     collar: {
-      label: '邻接',
+      label: t('designScheme.tabs.collar'),
       items: [
-        { id: 'collar-1', name: '紧密邻接', image: null },
-        { id: 'collar-2', name: '标准邻接', image: null },
-        { id: 'collar-3', name: '宽松邻接', image: null }
+        { id: 'collar-1', name: t('designScheme.options.collar.tight'), image: null },
+        { id: 'collar-2', name: t('designScheme.options.collar.standard'), image: null },
+        { id: 'collar-3', name: t('designScheme.options.collar.loose'), image: null }
       ]
     },
     margin: {
-      label: '边缘',
+      label: t('designScheme.tabs.margin'),
       items: [
-        { id: 'margin-1', name: '刀刃边缘', image: null },
-        { id: 'margin-2', name: '标准边缘', image: null },
-        { id: 'margin-3', name: '厚重边缘', image: null }
+        { id: 'margin-1', name: t('designScheme.options.margin.knife'), image: null },
+        { id: 'margin-2', name: t('designScheme.options.margin.standard'), image: null },
+        { id: 'margin-3', name: t('designScheme.options.margin.thick'), image: null }
       ]
     },
     body: {
-      label: '坯体',
+      label: t('designScheme.tabs.body'),
       items: [
-        { id: 'body-1', name: '标准厚度', image: null },
-        { id: 'body-2', name: '加厚坯体', image: null },
-        { id: 'body-3', name: '减薄坯体', image: null }
+        { id: 'body-1', name: t('designScheme.options.body.standard'), image: null },
+        { id: 'body-2', name: t('designScheme.options.body.thick'), image: null },
+        { id: 'body-3', name: t('designScheme.options.body.thin'), image: null }
       ]
     },
     occlusion: {
-      label: '咬合',
+      label: t('designScheme.tabs.occlusion'),
       items: [
-        { id: 'occlusion-1', name: '正常咬合', image: null },
-        { id: 'occlusion-2', name: '浅咬合', image: null },
-        { id: 'occlusion-3', name: '深咬合', image: null }
+        { id: 'occlusion-1', name: t('designScheme.options.occlusion.normal'), image: null },
+        { id: 'occlusion-2', name: t('designScheme.options.occlusion.shallow'), image: null },
+        { id: 'occlusion-3', name: t('designScheme.options.occlusion.deep'), image: null }
       ]
     }
   }
 
-  // 处理方案选择
+  // Handle scheme selection
   const handleSelectScheme = (category, item) => {
     setSelectedSchemes(prev => {
       const newSelection = { ...prev }
       
-      // 如果点击的是已选中的项，则取消选中
+      // If clicking selected item, deselect it
       if (newSelection[category]?.id === item.id) {
         delete newSelection[category]
       } else {
-        // 否则选中该项（单选）
+        // Otherwise select it (single selection)
         newSelection[category] = item
       }
       
@@ -112,34 +114,34 @@ function DesignSchemeModal({ visible, onClose, onConfirm, initialSelection = {} 
     })
   }
 
-  // 处理确认
+  // Handle confirm
   const handleConfirm = () => {
     onConfirm && onConfirm(selectedSchemes)
     onClose()
   }
 
-  // 检查某个分类是否有选中项
+  // Check if a category has selection
   const hasSelection = (category) => {
     return !!selectedSchemes[category]
   }
 
-  // 检查某个项是否被选中
+  // Check if an item is selected
   const isSelected = (category, itemId) => {
     return selectedSchemes[category]?.id === itemId
   }
 
   return (
     <Modal
-      title="设计方案"
+      title={t('designScheme.title')}
       open={visible}
       onCancel={onClose}
       onOk={handleConfirm}
-      okText="确定"
-      cancelText="取消"
+      okText={t('common.confirm')}
+      cancelText={t('common.cancel')}
       width={900}
       className="design-scheme-modal"
     >
-      <div className="scheme-title">选择设计方案</div>
+      <div className="scheme-title">{t('designScheme.selectTitle')}</div>
       
       <Tabs 
         activeKey={activeTab} 

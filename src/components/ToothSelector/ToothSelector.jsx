@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Button } from 'antd'
+import { useTranslation } from 'react-i18next'
 import './ToothSelector.css'
 
 function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
+  const { t } = useTranslation()
   const [selectedTeeth, setSelectedTeeth] = useState([])
 
-  // 定义所有牙齿的编号
+  // Define all tooth numbers
   const topLeft = [18, 17, 16, 15, 14, 13, 12, 11]
   const topRight = [21, 22, 23, 24, 25, 26, 27, 28]
   const bottomLeft = [48, 47, 46, 45, 44, 43, 42, 41]
   const bottomRight = [31, 32, 33, 34, 35, 36, 37, 38]
 
-  // 当对话框打开时，解析初始值
+  // Parse initial value when modal opens
   useEffect(() => {
     if (visible && initialValue) {
       const allSelected = []
@@ -35,7 +37,7 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
     }
   }, [visible, initialValue])
 
-  // 切换牙齿选中状态
+  // Toggle tooth selection status
   const toggleTooth = (toothNumber) => {
     setSelectedTeeth(prev => {
       if (prev.includes(toothNumber)) {
@@ -46,17 +48,17 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
     })
   }
 
-  // 检查牙齿是否被选中
+  // Check if tooth is selected
   const isToothSelected = (toothNumber) => {
     return selectedTeeth.includes(toothNumber)
   }
 
-  // 全口选择
+  // Select full mouth
   const selectAll = () => {
     setSelectedTeeth([...topLeft, ...topRight, ...bottomLeft, ...bottomRight])
   }
 
-  // 上颌选择
+  // Select upper jaw
   const selectUpperJaw = () => {
     const upperTeeth = [...topLeft, ...topRight]
     const allUpperSelected = upperTeeth.every(t => selectedTeeth.includes(t))
@@ -73,7 +75,7 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
     }
   }
 
-  // 下颌选择
+  // Select lower jaw
   const selectLowerJaw = () => {
     const lowerTeeth = [...bottomLeft, ...bottomRight]
     const allLowerSelected = lowerTeeth.every(t => selectedTeeth.includes(t))
@@ -90,12 +92,12 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
     }
   }
 
-  // 清空选择
+  // Clear all selections
   const clearAll = () => {
     setSelectedTeeth([])
   }
 
-  // 确认选择
+  // Confirm selection
   const handleConfirm = () => {
     const result = {
       topLeft: selectedTeeth.filter(t => topLeft.includes(t)).map(t => t % 10).sort((a, b) => b - a),
@@ -107,7 +109,7 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
     onClose()
   }
 
-  // 获取中间十字架显示的牙位号码
+  // Get displayed tooth numbers for the central cross
   const getQuadrantDisplay = (quadrant) => {
     const teeth = selectedTeeth
       .filter(t => quadrant.includes(t))
@@ -117,17 +119,17 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
     return teeth
   }
 
-  // 绘制单个牙齿
+  // Draw single tooth
   const Tooth = ({ number, x, y, rotation = 0 }) => {
     const selected = isToothSelected(number)
     const toothNumber = number % 10
     const is3rdTooth = toothNumber === 3
     
-    // 判断3号牙齿的象限，以确定三角形方向
-    const isUpperLeft = number === 13  // 左上3
-    const isUpperRight = number === 23 // 右上3
-    const isLowerLeft = number === 43  // 左下3
-    const isLowerRight = number === 33 // 右下3
+    // Determine quadrant for 3rd tooth to set triangle direction
+    const isUpperLeft = number === 13  // Upper Left 3
+    const isUpperRight = number === 23 // Upper Right 3
+    const isLowerLeft = number === 43  // Lower Left 3
+    const isLowerRight = number === 33 // Lower Right 3
     
     return (
       <g 
@@ -136,7 +138,7 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
         className="tooth-group"
       >
         {is3rdTooth ? (
-          // 3号牙齿：带弧度的三角形（缩小10%）
+          // 3rd tooth: Triangle with curvature (scaled down 10%)
           <path
             d={
               isLowerLeft || isUpperLeft
@@ -150,7 +152,7 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
             }}
           />
         ) : (
-          // 其他牙齿：正常矩形（缩小10%：68 * 0.9 = 61.2）
+          // Other teeth: Normal rectangle (scaled down 10%: 68 * 0.9 = 61.2)
           <rect
             x="-30.5"
             y="-30.5"
@@ -174,7 +176,7 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
 
   return (
     <Modal
-      title="选择牙位"
+      title={t('toothSelector.title')}
       open={visible}
       onCancel={onClose}
       width={600}
@@ -183,54 +185,54 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
       centered
     >
       <div className="tooth-selector-container">
-        {/* SVG牙齿环形图 - 再缩小30% */}
+        {/* SVG Tooth Diagram - Scaled down another 30% */}
         <div className="teeth-diagram-wrapper">
           <svg width="500" height="500" viewBox="0 0 1000 1000">
-            {/* 左上象限 - 18到11，从下到上：8→7→6→5→4→3→2→1 */}
-            <Tooth number={18} x={180} y={448} rotation={-85} />  {/* 8 - 左侧底部 */}
+            {/* Upper Left Quadrant - 18 to 11, Bottom to Top: 8→7→6→5→4→3→2→1 */}
+            <Tooth number={18} x={180} y={448} rotation={-85} />  {/* 8 - Left Bottom */}
             <Tooth number={17} x={180} y={358} rotation={-80} />  {/* 7 */}
             <Tooth number={16} x={185} y={268} rotation={-70} />  {/* 6 */}
             <Tooth number={15} x={200} y={183} rotation={-55} />  {/* 5 */}
             <Tooth number={14} x={235} y={113} rotation={-40} />  {/* 4 */}
             <Tooth number={13} x={295} y={68} rotation={-25} />   {/* 3 */}
             <Tooth number={12} x={370} y={43} rotation={-12} />   {/* 2 */}
-            <Tooth number={11} x={455} y={33} rotation={-3} />    {/* 1 - 顶部右侧 */}
+            <Tooth number={11} x={455} y={33} rotation={-3} />    {/* 1 - Top Right */}
             
-            {/* 右上象限 - 21到28，镜像对称：1→2→3→4→5→6→7→8 */}
-            <Tooth number={21} x={545} y={33} rotation={3} />     {/* 1 - 顶部左侧 */}
+            {/* Upper Right Quadrant - 21 to 28, Mirror Symmetric: 1→2→3→4→5→6→7→8 */}
+            <Tooth number={21} x={545} y={33} rotation={3} />     {/* 1 - Top Left */}
             <Tooth number={22} x={630} y={43} rotation={12} />    {/* 2 */}
             <Tooth number={23} x={705} y={68} rotation={25} />    {/* 3 */}
             <Tooth number={24} x={765} y={113} rotation={40} />   {/* 4 */}
             <Tooth number={25} x={800} y={183} rotation={55} />   {/* 5 */}
             <Tooth number={26} x={815} y={268} rotation={70} />   {/* 6 */}
             <Tooth number={27} x={820} y={358} rotation={80} />   {/* 7 */}
-            <Tooth number={28} x={820} y={448} rotation={85} />   {/* 8 - 右侧底部 */}
+            <Tooth number={28} x={820} y={448} rotation={85} />   {/* 8 - Right Bottom */}
             
-            {/* 左下象限 - 48到41，垂直镜像：8→7→6→5→4→3→2→1 */}
-            <Tooth number={48} x={180} y={552} rotation={-95} />  {/* 8 - 左侧顶部 */}
+            {/* Lower Left Quadrant - 48 to 41, Vertical Mirror: 8→7→6→5→4→3→2→1 */}
+            <Tooth number={48} x={180} y={552} rotation={-95} />  {/* 8 - Left Top */}
             <Tooth number={47} x={180} y={642} rotation={-100} /> {/* 7 */}
             <Tooth number={46} x={185} y={732} rotation={-110} /> {/* 6 */}
             <Tooth number={45} x={200} y={817} rotation={-125} /> {/* 5 */}
             <Tooth number={44} x={235} y={887} rotation={-140} /> {/* 4 */}
             <Tooth number={43} x={295} y={932} rotation={-155} /> {/* 3 */}
             <Tooth number={42} x={370} y={957} rotation={-168} /> {/* 2 */}
-            <Tooth number={41} x={455} y={967} rotation={-177} /> {/* 1 - 底部右侧 */}
+            <Tooth number={41} x={455} y={967} rotation={-177} /> {/* 1 - Bottom Right */}
             
-            {/* 右下象限 - 31到38，完全对称：1→2→3→4→5→6→7→8 */}
-            <Tooth number={31} x={545} y={967} rotation={177} />  {/* 1 - 底部左侧 */}
+            {/* Lower Right Quadrant - 31 to 38, Fully Symmetric: 1→2→3→4→5→6→7→8 */}
+            <Tooth number={31} x={545} y={967} rotation={177} />  {/* 1 - Bottom Left */}
             <Tooth number={32} x={630} y={957} rotation={168} />  {/* 2 */}
             <Tooth number={33} x={705} y={932} rotation={155} />  {/* 3 */}
             <Tooth number={34} x={765} y={887} rotation={140} />  {/* 4 */}
             <Tooth number={35} x={800} y={817} rotation={125} />  {/* 5 */}
             <Tooth number={36} x={815} y={732} rotation={110} />  {/* 6 */}
             <Tooth number={37} x={820} y={642} rotation={100} />  {/* 7 */}
-            <Tooth number={38} x={820} y={552} rotation={95} />   {/* 8 - 右侧顶部 */}
+            <Tooth number={38} x={820} y={552} rotation={95} />   {/* 8 - Right Top */}
             
-            {/* 中间十字架 */}
+            {/* Center Cross */}
             <line x1="300" y1="500" x2="700" y2="500" stroke="#d9d9d9" strokeWidth="2" strokeDasharray="8,4" />
             <line x1="500" y1="300" x2="500" y2="700" stroke="#d9d9d9" strokeWidth="2" />
             
-            {/* 中间显示的选中牙位 */}
+            {/* Selected Teeth Display in Center */}
             <text x="440" y="440" className="selected-numbers-svg" textAnchor="end">
               {getQuadrantDisplay(topLeft)}
             </text>
@@ -246,25 +248,25 @@ function ToothSelector({ visible, onClose, onConfirm, initialValue }) {
           </svg>
         </div>
 
-        {/* 快捷操作按钮 */}
+        {/* Quick Action Buttons */}
         <div className="quick-actions">
           <div className="quick-actions-left">
             <Button type="primary" onClick={selectAll} className="btn-primary" size="small">
-              🦷 全口
+              🦷 {t('toothSelector.actions.fullMouth')}
             </Button>
             <Button type="primary" onClick={selectUpperJaw} className="btn-primary" size="small">
-              🦷 上颌
+              🦷 {t('toothSelector.actions.upperJaw')}
             </Button>
             <Button type="primary" onClick={selectLowerJaw} className="btn-primary" size="small">
-              🦷 下颌
+              🦷 {t('toothSelector.actions.lowerJaw')}
             </Button>
           </div>
           <div className="quick-actions-right">
             <Button onClick={onClose} size="small">
-              取消
+              {t('common.cancel')}
             </Button>
             <Button type="primary" onClick={handleConfirm} size="small">
-              确定
+              {t('common.confirm')}
             </Button>
           </div>
         </div>

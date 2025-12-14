@@ -1,46 +1,55 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Modal, Form, Input, Button, Upload, message, Avatar } from 'antd'
 import { UserOutlined, PlusOutlined, SaveOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import './PersonalInfoModal.css'
 
 const { TextArea } = Input
 
 function PersonalInfoModal({ visible, onClose, currentUser }) {
+  const { t } = useTranslation()
   const [form] = Form.useForm()
   const [avatarUrl, setAvatarUrl] = useState('')
 
   const initialValues = {
     username: currentUser?.username || 'admin',
-    realName: currentUser?.shortName || '管理员',
+    realName: currentUser?.shortName || t('personalInfo.mockData.admin'),
     email: currentUser?.username || 'admin@asiantech.com',
     phone: '+65 1234 5678',
     clinic: 'ASIANTECH PTE. LTD.',
-    role: '诊所管理员',
+    role: t('personalInfo.mockData.clinicAdmin'),
     address: 'Singapore'
   }
 
+  // 当语言改变或模态框打开时更新表单值
+  useEffect(() => {
+    if (visible) {
+      form.setFieldsValue(initialValues)
+    }
+  }, [visible, t, form])
+
   const handleSubmit = (values) => {
     console.log('保存个人信息:', values)
-    message.success('保存成功！')
+    message.success(t('personalInfo.saveSuccess'))
     onClose()
   }
 
   const handleAvatarUpload = (file) => {
     const isImage = file.type.startsWith('image/')
     if (!isImage) {
-      message.error('只能上传图片文件！')
+      message.error(t('personalInfo.uploadError'))
       return false
     }
     
     const url = URL.createObjectURL(file)
     setAvatarUrl(url)
-    message.success('头像上传成功')
+    message.success(t('personalInfo.uploadSuccess'))
     return false
   }
 
   return (
     <Modal
-      title="个人信息"
+      title={t('personalInfo.title')}
       open={visible}
       onCancel={onClose}
       width={800}
@@ -80,43 +89,43 @@ function PersonalInfoModal({ visible, onClose, currentUser }) {
         >
           <div className="form-grid">
             <div className="form-row">
-              <label className="form-label">用户名:</label>
+              <label className="form-label">{t('personalInfo.username')}:</label>
               <div className="form-control">
                 <Form.Item name="username" noStyle>
                   <Input disabled />
                 </Form.Item>
               </div>
-              <label className="form-label">真实姓名:</label>
+              <label className="form-label">{t('personalInfo.realName')}:</label>
               <div className="form-control">
                 <Form.Item name="realName" noStyle>
-                  <Input placeholder="请输入真实姓名" />
+                  <Input placeholder={t('personalInfo.realNamePlaceholder')} />
                 </Form.Item>
               </div>
             </div>
 
             <div className="form-row">
-              <label className="form-label">邮箱:</label>
+              <label className="form-label">{t('personalInfo.email')}:</label>
               <div className="form-control">
                 <Form.Item name="email" noStyle>
-                  <Input placeholder="请输入邮箱" />
+                  <Input placeholder={t('personalInfo.emailPlaceholder')} />
                 </Form.Item>
               </div>
-              <label className="form-label">联系电话:</label>
+              <label className="form-label">{t('personalInfo.phone')}:</label>
               <div className="form-control">
                 <Form.Item name="phone" noStyle>
-                  <Input placeholder="请输入联系电话" />
+                  <Input placeholder={t('personalInfo.phonePlaceholder')} />
                 </Form.Item>
               </div>
             </div>
 
             <div className="form-row">
-              <label className="form-label">所属诊所:</label>
+              <label className="form-label">{t('personalInfo.clinic')}:</label>
               <div className="form-control">
                 <Form.Item name="clinic" noStyle>
                   <Input disabled />
                 </Form.Item>
               </div>
-              <label className="form-label">角色:</label>
+              <label className="form-label">{t('personalInfo.role')}:</label>
               <div className="form-control">
                 <Form.Item name="role" noStyle>
                   <Input disabled />
@@ -125,11 +134,11 @@ function PersonalInfoModal({ visible, onClose, currentUser }) {
             </div>
 
             <div className="form-row full-width">
-              <label className="form-label">地址:</label>
+              <label className="form-label">{t('personalInfo.address')}:</label>
               <div className="form-control-full">
                 <Form.Item name="address" noStyle>
                   <TextArea 
-                    placeholder="请输入地址" 
+                    placeholder={t('personalInfo.addressPlaceholder')} 
                     rows={2}
                     style={{ resize: 'none' }}
                   />
@@ -140,10 +149,10 @@ function PersonalInfoModal({ visible, onClose, currentUser }) {
 
           <div className="form-actions">
             <Button type="primary" htmlType="submit" icon={<SaveOutlined />} size="large">
-              保存
+              {t('personalInfo.save')}
             </Button>
             <Button size="large" onClick={onClose} style={{ marginLeft: 12 }}>
-              取消
+              {t('common.cancel')}
             </Button>
           </div>
         </Form>

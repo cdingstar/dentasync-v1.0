@@ -62,7 +62,7 @@ function MainLayout({ currentUser, onLogout }) {
         </div>
       </div>
 
-      {/* 消息对话框 */}
+      {/* Message Modal */}
       <MessagesModal
         visible={isMessagesModalVisible}
         onClose={() => setIsMessagesModalVisible(false)}

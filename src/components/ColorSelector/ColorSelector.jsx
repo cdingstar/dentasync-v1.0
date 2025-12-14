@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { Modal, Tabs, Button, Row, Col, Upload, message } from 'antd'
 import { PictureOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import './ColorSelector.css'
 
 const { TabPane } = Tabs
 
 function ColorSelector({ visible, onClose, onSelect, currentValue, fieldType }) {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState('vita-classic')
 
-  // VITA Classic 色卡数据 - 按ABCD分组
+  // VITA Classic Color Data - Grouped by ABCD
   const vitaClassicColors = {
     'A': ['A1', 'A2', 'A3', 'A3.5', 'A4'],
     'B': ['B1', 'B2', 'B3', 'B4'],
@@ -16,7 +18,7 @@ function ColorSelector({ visible, onClose, onSelect, currentValue, fieldType }) 
     'D': ['D2', 'D3', 'D4']
   }
 
-  // VITA 3D-Master 色卡数据 - 按12345分组
+  // VITA 3D-Master Color Data - Grouped by 12345
   const vita3DMasterColors = {
     '1': ['1M1', '1M2'],
     '2': ['2L1.5', '2L2.5', '2M1', '2M2', '2M3', '2R1.5', '2R2.5'],
@@ -25,28 +27,28 @@ function ColorSelector({ visible, onClose, onSelect, currentValue, fieldType }) 
     '5': ['5M1', '5M2', '5M3']
   }
 
-  // 特殊色数据
+  // Special Color Data
   const specialColors = [
-    { id: 'fluorosis', label: '氟斑牙' },
-    { id: 'tetracycline', label: '四环素牙' },
-    { id: 'metal-post', label: '金属桩' },
-    { id: 'fiber-post', label: '纤维桩' }
+    { id: 'fluorosis', label: t('colorSelector.specialColors.fluorosis') },
+    { id: 'tetracycline', label: t('colorSelector.specialColors.tetracycline') },
+    { id: 'metal-post', label: t('colorSelector.specialColors.metalPost') },
+    { id: 'fiber-post', label: t('colorSelector.specialColors.fiberPost') }
   ]
 
-  // 处理颜色选择
+  // Handle color selection
   const handleColorSelect = (color) => {
     onSelect(color)
     onClose()
   }
 
-  // 判断是否为基牙颜色字段
+  // Check if it is a base color field
   const isBaseColorField = fieldType === 'baseColor'
 
-  // 处理图片上传
+  // Handle image upload
   const handleImageUpload = (info) => {
     if (info.file.status === 'done') {
-      message.success('图片上传成功')
-      onSelect(`图片:${info.file.name}`)
+      message.success(t('colorSelector.messages.uploadSuccess'))
+      onSelect(`Image:${info.file.name}`)
       onClose()
     }
   }
@@ -58,18 +60,18 @@ function ColorSelector({ visible, onClose, onSelect, currentValue, fieldType }) 
     beforeUpload: (file) => {
       const isImage = file.type.startsWith('image/')
       if (!isImage) {
-        message.error('只能上传图片文件！')
+        message.error(t('colorSelector.messages.onlyImages'))
         return false
       }
-      // 模拟上传成功
-      handleColorSelect(`图片:${file.name}`)
+      // Simulate upload success
+      handleColorSelect(`Image:${file.name}`)
       return false
     }
   }
 
   return (
     <Modal
-      title="选择颜色"
+      title={t('colorSelector.title')}
       open={visible}
       onCancel={onClose}
       footer={null}
@@ -77,8 +79,8 @@ function ColorSelector({ visible, onClose, onSelect, currentValue, fieldType }) 
       className="color-selector-modal"
     >
       <Tabs activeKey={activeTab} onChange={setActiveTab}>
-        {/* VITA Classic 标签页 - 4x5布局 */}
-        <TabPane tab="VITA Classic (16色)" key="vita-classic">
+        {/* VITA Classic Tab - 4x5 Layout */}
+        <TabPane tab={t('colorSelector.tabs.vitaClassic')} key="vita-classic">
           <div className="color-grid-container">
             {Object.entries(vitaClassicColors).map(([group, colors]) => (
               <div key={group} className="color-row-group">
@@ -102,8 +104,8 @@ function ColorSelector({ visible, onClose, onSelect, currentValue, fieldType }) 
           </div>
         </TabPane>
 
-        {/* VITA 3D-Master 标签页 - 5x7布局 */}
-        <TabPane tab="VITA 3D MASTER (29色)" key="vita-3d-master">
+        {/* VITA 3D-Master Tab - 5x7 Layout */}
+        <TabPane tab={t('colorSelector.tabs.vita3DMaster')} key="vita-3d-master">
           <div className="color-grid-container">
             {Object.entries(vita3DMasterColors).map(([group, colors]) => (
               <div key={group} className="color-row-group">
@@ -127,8 +129,8 @@ function ColorSelector({ visible, onClose, onSelect, currentValue, fieldType }) 
           </div>
         </TabPane>
 
-        {/* 特殊色标签页 - 仅在基牙颜色时可用 */}
-        <TabPane tab="特殊色" key="special-colors" disabled={!isBaseColorField}>
+        {/* Special Colors Tab - Only available for base color */}
+        <TabPane tab={t('colorSelector.tabs.special')} key="special-colors" disabled={!isBaseColorField}>
           <div className="special-color-container">
             <Row gutter={[16, 16]}>
               {specialColors.map(color => (
@@ -146,8 +148,8 @@ function ColorSelector({ visible, onClose, onSelect, currentValue, fieldType }) 
           </div>
         </TabPane>
 
-        {/* 图片标签页 */}
-        <TabPane tab="图片" key="image">
+        {/* Image Tab */}
+        <TabPane tab={t('colorSelector.tabs.image')} key="image">
           <div className="image-upload-container">
             <Upload {...uploadProps}>
               <Button 
@@ -156,10 +158,10 @@ function ColorSelector({ visible, onClose, onSelect, currentValue, fieldType }) 
                 size="large"
                 className="upload-image-btn"
               >
-                上传图片
+                {t('colorSelector.actions.upload')}
               </Button>
             </Upload>
-            <p className="upload-tip">支持 JPG、PNG 等图片格式</p>
+            <p className="upload-tip">{t('colorSelector.messages.uploadTip')}</p>
           </div>
         </TabPane>
       </Tabs>

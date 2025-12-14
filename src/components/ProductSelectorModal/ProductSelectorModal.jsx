@@ -1,15 +1,18 @@
 import React from 'react'
 import { Modal } from 'antd'
+import { useTranslation } from 'react-i18next'
 import ProductLibrarySelector from '../ProductLibrarySelector/ProductLibrarySelector'
 import './ProductSelectorModal.css'
 
 /**
- * 产品选择器对话框组件
- * @param {Boolean} visible - 是否显示对话框
- * @param {Function} onClose - 关闭对话框回调
- * @param {Function} onSelect - 选择产品回调 (product) => void
+ * Product selector modal component
+ * @param {Boolean} visible - Whether modal is visible
+ * @param {Function} onClose - Close callback
+ * @param {Function} onSelect - Select product callback (product) => void
  */
 function ProductSelectorModal({ visible, onClose, onSelect }) {
+  const { t } = useTranslation()
+
   const handleProductSelect = (product) => {
     if (onSelect) {
       onSelect(product)
@@ -19,7 +22,7 @@ function ProductSelectorModal({ visible, onClose, onSelect }) {
 
   return (
     <Modal
-      title="选择产品"
+      title={t('productLibrary.title')}
       open={visible}
       onCancel={onClose}
       footer={null}
@@ -28,7 +31,7 @@ function ProductSelectorModal({ visible, onClose, onSelect }) {
     >
       <ProductLibrarySelector 
         onProductSelect={handleProductSelect}
-        actionButtonText="选择"
+        actionButtonText={t('productLibrary.actions.select')}
       />
     </Modal>
   )

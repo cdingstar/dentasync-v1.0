@@ -1,41 +1,43 @@
 import React, { useState } from 'react'
 import { Card, Form, Input, Button, Modal, Table, Space, message } from 'antd'
 import { PlusOutlined, DeleteOutlined, EditOutlined, CloseOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import './AddressManagement.css'
 
 const { TextArea } = Input
 
 function AddressManagement() {
+  const { t } = useTranslation()
   const [addressForm] = Form.useForm()
   const [addressList, setAddressList] = useState([
     {
       key: '1',
-      receiver: '朱华昌',
+      receiver: 'Zhu Huachang',
       phone: '13410490092',
-      region: '中国 / 广东省 / 深圳市 / 宝安区',
-      detailAddress: '福海街道荔园路56号恺辉茂工业园A411(请转:黄总)',
+      region: 'China / Guangdong / Shenzhen / Bao\'an District',
+      detailAddress: 'No. 56 Liyuan Road, Fuhai Street, Kaihuimao Industrial Park A411 (Attn: Mr. Huang)',
       isDefault: true
     },
     {
       key: '2',
-      receiver: '黄向荣',
+      receiver: 'Tom Huang',
       phone: '006598625613',
       region: 'Singapore',
-      detailAddress: '东区 Bendemeer 994 Bendemeer Road, #02-04 B-Central',
+      detailAddress: '994 Bendemeer Road, #02-04 B-Central',
       isDefault: false
     }
   ])
   const [isAddressModalVisible, setIsAddressModalVisible] = useState(false)
   const [editingAddress, setEditingAddress] = useState(null)
 
-  // 新增地址
+  // Add Address
   const handleAddAddress = () => {
     setEditingAddress(null)
     addressForm.resetFields()
     setIsAddressModalVisible(true)
   }
 
-  // 编辑地址
+  // Edit Address
   const handleEditAddress = (record) => {
     setEditingAddress(record)
     addressForm.setFieldsValue({
@@ -47,83 +49,85 @@ function AddressManagement() {
     setIsAddressModalVisible(true)
   }
 
-  // 删除地址
+  // Delete Address
   const handleDeleteAddress = (key) => {
     Modal.confirm({
-      title: '确认删除',
-      content: '确定要删除这个地址吗？',
+      title: t('address.deleteConfirmTitle'),
+      content: t('address.deleteConfirmContent'),
+      okText: t('common.confirm'),
+      cancelText: t('common.cancel'),
       onOk: () => {
         setAddressList(addressList.filter(item => item.key !== key))
-        message.success('删除成功')
+        message.success(t('address.deleteSuccess'))
       }
     })
   }
 
-  // 保存地址
+  // Save Address
   const handleAddressModalOk = () => {
     addressForm.validateFields().then(values => {
       if (editingAddress) {
-        // 编辑地址
+        // Edit Address
         const newList = addressList.map(item =>
           item.key === editingAddress.key
             ? { ...item, ...values }
             : item
         )
         setAddressList(newList)
-        message.success('修改成功')
+        message.success(t('address.editSuccess'))
       } else {
-        // 新增地址
+        // Add Address
         const newAddress = {
           key: Date.now().toString(),
           ...values,
           isDefault: addressList.length === 0
         }
         setAddressList([...addressList, newAddress])
-        message.success('添加成功')
+        message.success(t('address.addSuccess'))
       }
       setIsAddressModalVisible(false)
       addressForm.resetFields()
     })
   }
 
-  // 设置默认地址
+  // Set Default Address
   const handleSetDefault = (key) => {
     const newList = addressList.map(item => ({
       ...item,
       isDefault: item.key === key
     }))
     setAddressList(newList)
-    message.success('已设置为默认地址')
+    message.success(t('address.setDefaultSuccess'))
   }
 
-  // 地址列表表格列配置
+  // Address Table Columns Configuration
   const addressColumns = [
     {
-      title: '收货人',
+      title: t('address.receiver'),
       dataIndex: 'receiver',
       key: 'receiver',
       width: 100
     },
     {
-      title: '联系电话',
+      title: t('address.phone'),
       dataIndex: 'phone',
       key: 'phone',
       width: 140
     },
     {
-      title: '所在地区',
+      title: t('address.region'),
       dataIndex: 'region',
       key: 'region',
       width: 200
     },
     {
-      title: '详细地址',
+      title: t('address.detailAddress'),
       dataIndex: 'detailAddress',
       key: 'detailAddress',
       ellipsis: true
     },
     {
-      title: '操作',
+      title: t('address.action'),
       key: 'action',
       width: 200,
       fixed: 'right',
@@ -135,7 +139,7 @@ function AddressManagement() {
             icon={<EditOutlined />}
             onClick={() => handleEditAddress(record)}
           >
-            编辑
+            {t('address.edit')}
           </Button>
           <Button
             type="link"
@@ -144,7 +148,7 @@ function AddressManagement() {
             icon={<DeleteOutlined />}
             onClick={() => handleDeleteAddress(record.key)}
           >
-            删除
+            {t('address.delete')}
           </Button>
           {!record.isDefault && (
             <Button
@@ -152,11 +156,11 @@ function AddressManagement() {
               size="small"
               onClick={() => handleSetDefault(record.key)}
             >
-              设为默认
+              {t('address.setDefault')}
             </Button>
           )}
           {record.isDefault && (
-            <span style={{ color: '#1890ff', fontSize: '12px' }}>默认地址</span>
+            <span style={{ color: '#1890ff', fontSize: '12px' }}>{t('address.default')}</span>
           )}
         </Space>
       )
@@ -166,11 +170,11 @@ function AddressManagement() {
   return (
     <div className="address-management-container">
       <Card 
-        title={<span className="section-title">地址管理</span>} 
+        title={<span className="section-title">{t('address.title')}</span>} 
         className="section-card"
         extra={
           <Button type="primary" icon={<PlusOutlined />} onClick={handleAddAddress}>
-            新增地址
+            {t('address.add')}
           </Button>
         }
       >
@@ -181,18 +185,18 @@ function AddressManagement() {
             pageSize: 10,
             showSizeChanger: true,
             showQuickJumper: true,
-            showTotal: (total) => `共 ${total} 条`
+            showTotal: (total) => t('common.totalItems', { count: total })
           }}
           scroll={{ x: 800 }}
           size="middle"
         />
       </Card>
 
-      {/* 地址编辑/新增弹窗 */}
+      {/* Address Edit/Add Modal */}
       <Modal
         title={
           <div className="modal-title">
-            {editingAddress ? '编辑地址' : '新增地址'}
+            {editingAddress ? t('address.edit') : t('address.add')}
             <CloseOutlined 
               className="modal-close-icon" 
               onClick={() => setIsAddressModalVisible(false)}
@@ -204,55 +208,55 @@ function AddressManagement() {
         onCancel={() => setIsAddressModalVisible(false)}
         width={800}
         closable={false}
-        okText="确定"
-        cancelText="取消"
+        okText={t('common.confirm')}
+        cancelText={t('common.cancel')}
         className="address-modal"
       >
         <Form form={addressForm} layout="vertical">
           <div className="address-form-grid">
-            {/* 左列 */}
+            {/* Left Column */}
             <div className="address-form-column">
               <Form.Item
-                label={<span className="required-label">收货人</span>}
+                label={<span className="required-label">{t('address.receiver')}</span>}
                 name="receiver"
-                rules={[{ required: true, message: '请输入收货人' }]}
+                rules={[{ required: true, message: t('address.receiverRequired') }]}
               >
-                <Input placeholder="请输入收货人" />
+                <Input placeholder={t('address.receiverPlaceholder')} />
               </Form.Item>
               
               <Form.Item
-                label={<span className="required-label">所在地区</span>}
+                label={<span className="required-label">{t('address.region')}</span>}
                 name="region"
-                rules={[{ required: true, message: '请选择所在地区' }]}
+                rules={[{ required: true, message: t('address.regionRequired') }]}
               >
-                <Input placeholder="中国 / 广东省 / 深圳市 / 宝安区" />
+                <Input placeholder={t('address.regionPlaceholder')} />
               </Form.Item>
             </div>
             
-            {/* 右列 */}
+            {/* Right Column */}
             <div className="address-form-column">
               <Form.Item
-                label={<span className="required-label">联系电话</span>}
+                label={<span className="required-label">{t('address.phone')}</span>}
                 name="phone"
                 rules={[
-                  { required: true, message: '请输入联系电话' },
-                  { pattern: /^[0-9+\-\s()]+$/, message: '请输入有效的电话号码' }
+                  { required: true, message: t('address.phoneRequired') },
+                  { pattern: /^[0-9+\-\s()]+$/, message: t('address.phoneError') }
                 ]}
               >
-                <Input placeholder="请输入联系电话" />
+                <Input placeholder={t('address.phonePlaceholder')} />
               </Form.Item>
             </div>
           </div>
           
-          {/* 详细地址占满一行 */}
+          {/* Detailed Address Full Width */}
           <Form.Item
-            label={<span className="required-label">详细地址</span>}
+            label={<span className="required-label">{t('address.detailAddress')}</span>}
             name="detailAddress"
-            rules={[{ required: true, message: '请输入详细地址' }]}
+            rules={[{ required: true, message: t('address.detailAddressRequired') }]}
             className="address-form-full-width"
           >
             <TextArea 
-              placeholder="请输入详细地址" 
+              placeholder={t('address.detailAddressPlaceholder')} 
               rows={3} 
               style={{ resize: 'none' }}
             />

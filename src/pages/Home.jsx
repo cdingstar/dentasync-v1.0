@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Row, Col, Statistic, Table, Badge } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import {
   ShoppingCartOutlined,
   DatabaseOutlined,
@@ -13,25 +14,26 @@ import {
 import './Home.css'
 
 function Home({ onOpenMessages }) {
+  const { t } = useTranslation()
   const navigate = useNavigate()
-  // 快捷入口数据
+  // Quick entry data
   const quickEntries = [
     {
-      title: '立即下单',
+      title: t('home.quickEntries.orderNow'),
       icon: <ShoppingCartOutlined />,
       color: '#ff9800',
       path: '/order/quick',
       isRoute: true
     },
     {
-      title: '产品库',
+      title: t('home.quickEntries.productLibrary'),
       icon: <DatabaseOutlined />,
       color: '#2196f3',
       path: '/order/product-library',
       isRoute: true
     },
     {
-      title: '我的消息',
+      title: t('home.quickEntries.myMessages'),
       icon: <MessageOutlined />,
       color: '#f50',
       badge: 99,
@@ -39,21 +41,21 @@ function Home({ onOpenMessages }) {
       action: onOpenMessages
     },
     {
-      title: '患者档案',
+      title: t('home.quickEntries.patientArchive'),
       icon: <UserOutlined />,
       color: '#9c27b0',
       path: '/personal/patient-archive',
       isRoute: true
     },
     {
-      title: '已发货',
+      title: t('home.quickEntries.shipped'),
       icon: <CheckCircleOutlined />,
       color: '#00bcd4',
       path: '/order-management/all',
       isRoute: true
     },
     {
-      title: '全部订单',
+      title: t('home.quickEntries.allOrders'),
       icon: <HourglassOutlined />,
       color: '#ff5722',
       path: '/order-management/all',
@@ -69,7 +71,7 @@ function Home({ onOpenMessages }) {
     }
   }
 
-  // 已出厂订单数据
+  // Shipped orders data
   const upcomingOrders = [
     {
       key: '1',
@@ -77,46 +79,46 @@ function Home({ onOpenMessages }) {
       patient: 'lee siew ngoh/2280390',
       orderNo: '102511084444301',
       deliveryTime: '2025-11-12 12:30:00',
-      doctor: '黄向荣'
+      doctor: t('allOrders.mockData.doctors.huang')
     }
   ]
 
-  // 待处理订单数据
+  // Pending orders data
   const pendingOrders = [
     {
       key: '1',
       sequence: 1,
       patient: '',
       orderNo: '',
-      operation: '暂无数据'
+      operation: t('home.operation.noData')
     }
   ]
 
   const orderColumns = [
     {
-      title: '序号',
+      title: t('home.columns.sequence'),
       dataIndex: 'sequence',
       key: 'sequence',
       width: 80
     },
     {
-      title: '患者',
+      title: t('home.columns.patient'),
       dataIndex: 'patient',
       key: 'patient'
     },
     {
-      title: '订单编号',
+      title: t('home.columns.orderNo'),
       dataIndex: 'orderNo',
       key: 'orderNo',
       render: (text) => text ? <a>{text}</a> : '-'
     },
     {
-      title: '出货时间',
+      title: t('home.columns.deliveryTime'),
       dataIndex: 'deliveryTime',
       key: 'deliveryTime'
     },
     {
-      title: '医生',
+      title: t('home.columns.doctor'),
       dataIndex: 'doctor',
       key: 'doctor'
     }
@@ -124,23 +126,23 @@ function Home({ onOpenMessages }) {
 
   const pendingColumns = [
     {
-      title: '序号',
+      title: t('home.columns.sequence'),
       dataIndex: 'sequence',
       key: 'sequence',
       width: 80
     },
     {
-      title: '患者',
+      title: t('home.columns.patient'),
       dataIndex: 'patient',
       key: 'patient'
     },
     {
-      title: '订单编号',
+      title: t('home.columns.orderNo'),
       dataIndex: 'orderNo',
       key: 'orderNo'
     },
     {
-      title: '操作',
+      title: t('home.columns.operation'),
       dataIndex: 'operation',
       key: 'operation',
       render: (text) => <span style={{ color: '#999' }}>{text}</span>
@@ -149,12 +151,12 @@ function Home({ onOpenMessages }) {
 
   return (
     <div className="home-container">
-      {/* 统计卡片 */}
+      {/* Statistics cards */}
       <Row gutter={16} className="stats-row">
         <Col span={6}>
           <Card>
             <Statistic
-              title="全部订单"
+              title={t('home.stats.allOrders')}
               value={47}
               valueStyle={{ color: '#1890ff' }}
               prefix={<FileTextOutlined />}
@@ -164,7 +166,7 @@ function Home({ onOpenMessages }) {
         <Col span={6}>
           <Card>
             <Statistic
-              title="待处理订单"
+              title={t('home.stats.pendingHandling')}
               value={0}
               valueStyle={{ color: '#cf1322' }}
               prefix={<HourglassOutlined />}
@@ -174,7 +176,7 @@ function Home({ onOpenMessages }) {
         <Col span={6}>
           <Card>
             <Statistic
-              title="已完成订单"
+              title={t('home.stats.completedOrders')}
               value={15}
               valueStyle={{ color: '#3f8600' }}
               prefix={<ShoppingCartOutlined />}
@@ -184,7 +186,7 @@ function Home({ onOpenMessages }) {
         <Col span={6}>
           <Card>
             <Statistic
-              title="待处理订单"
+              title={t('home.stats.pendingHandling')}
               value={32}
               valueStyle={{ color: '#52c41a' }}
               prefix={<CheckCircleOutlined />}
@@ -193,8 +195,8 @@ function Home({ onOpenMessages }) {
         </Col>
       </Row>
 
-      {/* 快捷入口 */}
-      <Card title="快捷入口" className="quick-entry-card">
+      {/* Quick access */}
+      <Card title={t('home.quickEntries.title')} className="quick-entry-card">
         <Row gutter={[24, 24]}>
           {quickEntries.map((entry, index) => (
             <Col span={4} key={index}>
@@ -221,10 +223,10 @@ function Home({ onOpenMessages }) {
         </Row>
       </Card>
 
-      {/* 订单列表 */}
+      {/* Orders list */}
       <Row gutter={16}>
         <Col span={12}>
-          <Card title="已出厂订单" className="order-card">
+          <Card title={t('home.orders.shippedOrders')} className="order-card">
             <Table
               columns={orderColumns}
               dataSource={upcomingOrders}
@@ -234,7 +236,7 @@ function Home({ onOpenMessages }) {
           </Card>
         </Col>
         <Col span={12}>
-          <Card title="待处理订单" className="order-card">
+          <Card title={t('home.orders.pendingOrders')} className="order-card">
             <Table
               columns={pendingColumns}
               dataSource={pendingOrders}

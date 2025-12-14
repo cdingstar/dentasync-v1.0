@@ -1,35 +1,37 @@
 import { useState, useMemo } from 'react'
 import { Card, Table, Button, Space, Modal, Form, Input, Select, message, Popconfirm, Checkbox, Tag } from 'antd'
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import './PersonnelAuth.css'
 
 const { Option } = Select
 
 function PersonnelAuth({ currentUser }) {
+  const { t } = useTranslation()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [editingRecord, setEditingRecord] = useState(null)
   const [form] = Form.useForm()
 
   const tempRole = currentUser?.tempRole
-  const isFactoryAdmin = tempRole === '工厂-管理员'
-  const isClinicAdmin = tempRole === '诊所-管理员'
-  const isSuperAdmin = tempRole === '超级管理员'
+  const isFactoryAdmin = tempRole === 'factory_admin'
+  const isClinicAdmin = tempRole === 'clinic_admin'
+  const isSuperAdmin = tempRole === 'super_admin'
   const allowedRoles = useMemo(() => {
-    if (isFactoryAdmin) return ['助理', '技师']
-    if (isClinicAdmin || isSuperAdmin) return ['医生', '助理', '行政']
-    return ['医生', '助理', '行政']
+    if (isFactoryAdmin) return ['assistant', 'technician']
+    if (isClinicAdmin || isSuperAdmin) return ['doctor', 'assistant', 'admin']
+    return ['doctor', 'assistant', 'admin']
   }, [isFactoryAdmin, isClinicAdmin, isSuperAdmin])
 
-  // 人员数据
+  // Personnel data
   const [personnel, setPersonnel] = useState([
     {
       key: '1',
       username: 'huang_xr',
-      name: '黄向荣',
+      name: 'Tom Huang',
       phone: '006598625613',
       email: 'huang_xr@asiantech.com',
       createTime: '2019-02-19 10:30:00',
-      role: '医生',
+      role: 'doctor',
       isAdmin: true
     },
     {
@@ -39,7 +41,7 @@ function PersonnelAuth({ currentUser }) {
       phone: '6588094949',
       email: 'pacific@asiantech.com',
       createTime: '2019-03-15 14:20:00',
-      role: '医生',
+      role: 'doctor',
       isAdmin: false
     },
     {
@@ -49,7 +51,7 @@ function PersonnelAuth({ currentUser }) {
       phone: '6586918170',
       email: 'joey.chen@asiantech.com',
       createTime: '2018-08-24 09:15:00',
-      role: '医生',
+      role: 'doctor',
       isAdmin: false
     },
     {
@@ -59,78 +61,78 @@ function PersonnelAuth({ currentUser }) {
       phone: '6598166631',
       email: 'joel.goh@asiantech.com',
       createTime: '2019-02-19 16:45:00',
-      role: '医生',
+      role: 'doctor',
       isAdmin: false
     }
   ])
 
   const columns = [
     {
-      title: '序号',
+      title: t('personnel.index'),
       key: 'index',
       width: 80,
       render: (_, __, index) => index + 1
     },
     {
-      title: '用户名',
+      title: t('personnel.username'),
       dataIndex: 'username',
       key: 'username',
       width: 150
     },
     {
-      title: '姓名',
+      title: t('personnel.name'),
       dataIndex: 'name',
       key: 'name',
       width: 180
     },
     {
-      title: '手机',
+      title: t('personnel.phone'),
       dataIndex: 'phone',
       key: 'phone',
       width: 150
     },
     {
-      title: '邮箱',
+      title: t('personnel.email'),
       dataIndex: 'email',
       key: 'email',
       width: 200
     },
     {
-      title: '角色',
+      title: t('personnel.role'),
       dataIndex: 'role',
       key: 'role',
       width: 120,
       render: (role) => (
         <span style={{ 
-          color: role === '医生' ? '#1890ff' : role === '助理' ? '#52c41a' : '#fa8c16',
+          color: role === 'doctor' ? '#1890ff' : role === 'assistant' ? '#52c41a' : '#fa8c16',
           fontWeight: 500
         }}>
-          {role}
+          {t(`personnel.roles.${role}`)}
         </span>
       )
     },
     {
-      title: '管理员',
+      title: t('personnel.isAdmin'),
       dataIndex: 'isAdmin',
       key: 'isAdmin',
       width: 100,
       align: 'center',
       render: (isAdmin) => (
         isAdmin ? (
-          <Tag color="red">管理员</Tag>
+          <Tag color="red">{t('personnel.admin')}</Tag>
         ) : (
-          <Tag color="default">普通用户</Tag>
+          <Tag color="default">{t('personnel.user')}</Tag>
         )
       )
     },
     {
-      title: '创建时间',
+      title: t('personnel.createTime'),
       dataIndex: 'createTime',
       key: 'createTime',
       width: 180
     },
     {
-      title: '操作',
+      title: t('personnel.action'),
       key: 'action',
       width: 150,
       fixed: 'right',
@@ -142,13 +144,13 @@ function PersonnelAuth({ currentUser }) {
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           >
-            编辑
+            {t('personnel.editAction')}
           </Button>
           <Popconfirm
-            title="确定要删除此人员吗？"
+            title={t('personnel.deleteConfirm')}
             onConfirm={() => handleDelete(record.key)}
-            okText="确定"
-            cancelText="取消"
+            okText={t('common.confirm')}
+            cancelText={t('common.cancel')}
           >
             <Button 
               type="link" 
@@ -156,7 +158,7 @@ function PersonnelAuth({ currentUser }) {
               danger
               icon={<DeleteOutlined />}
             >
-              删除
+              {t('personnel.deleteAction')}
             </Button>
           </Popconfirm>
         </Space>
@@ -187,21 +189,21 @@ function PersonnelAuth({ currentUser }) {
 
   const handleDelete = (key) => {
     setPersonnel(personnel.filter(item => item.key !== key))
-    message.success('删除成功')
+    message.success(t('personnel.deleteSuccess'))
   }
 
   const handleOk = () => {
     form.validateFields().then(values => {
       if (editingRecord) {
-        // 编辑
+        // Edit
         setPersonnel(personnel.map(item => 
           item.key === editingRecord.key 
             ? { ...item, name: values.name, phone: values.phone, role: values.role, isAdmin: values.isAdmin }
             : item
         ))
-        message.success('编辑成功')
+        message.success(t('personnel.editSuccess'))
       } else {
-        // 新增
+        // Add
         const now = new Date()
         const createTime = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`
         const newRecord = {
@@ -210,7 +212,7 @@ function PersonnelAuth({ currentUser }) {
           createTime
         }
         setPersonnel([...personnel, newRecord])
-        message.success('添加成功')
+        message.success(t('personnel.addSuccess'))
       }
       setIsModalVisible(false)
       form.resetFields()
@@ -225,14 +227,14 @@ function PersonnelAuth({ currentUser }) {
   return (
     <div className="personnel-auth-container">
       <Card 
-        title={<span style={{ fontSize: '16px', fontWeight: 500 }}>人员管理</span>}
+        title={<span style={{ fontSize: '16px', fontWeight: 500 }}>{t('personnel.title')}</span>}
         extra={
           <Button 
             type="primary" 
             icon={<PlusOutlined />}
             onClick={handleAdd}
           >
-            新建人员
+            {t('personnel.create')}
           </Button>
         }
       >
@@ -242,99 +244,99 @@ function PersonnelAuth({ currentUser }) {
           pagination={{
             pageSize: 20,
             showSizeChanger: true,
-            showTotal: (total) => `共 ${total} 条`
+            showTotal: (total) => t('common.totalItems', { count: total })
           }}
           scroll={{ x: 1400 }}
         />
       </Card>
 
       <Modal
-        title={editingRecord ? '编辑人员' : '新建人员'}
+        title={editingRecord ? t('personnel.edit') : t('personnel.create')}
         open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
         width={800}
-        okText="确定"
-        cancelText="取消"
+        okText={t('common.confirm')}
+        cancelText={t('common.cancel')}
       >
         <Form
           form={form}
           layout="vertical"
-          initialValues={{ role: isFactoryAdmin ? '助理' : '医生', isAdmin: false }}
+          initialValues={{ role: isFactoryAdmin ? 'assistant' : 'doctor', isAdmin: false }}
         >
           <div className="personnel-form-grid">
             <div className="personnel-form-row">
-              <label className="personnel-form-label">用户名:</label>
+              <label className="personnel-form-label">{t('personnel.username')}:</label>
               <div className="personnel-form-control">
                 <Form.Item
                   name="username"
                   noStyle
                   rules={[
-                    { required: true, message: '请输入用户名' },
-                    { min: 3, message: '用户名至少3位' }
+                    { required: true, message: t('personnel.usernameRequired') },
+                    { min: 3, message: t('personnel.usernameMin') }
                   ]}
                 >
-                  <Input placeholder="请输入用户名" disabled={!!editingRecord} />
+                  <Input placeholder={t('personnel.username')} disabled={!!editingRecord} />
                 </Form.Item>
               </div>
-              <label className="personnel-form-label">真实姓名:</label>
+              <label className="personnel-form-label">{t('personnel.name')}:</label>
               <div className="personnel-form-control">
                 <Form.Item
                   name="name"
                   noStyle
-                  rules={[{ required: true, message: '请输入真实姓名' }]}
+                  rules={[{ required: true, message: t('personnel.nameRequired') }]}
                 >
-                  <Input placeholder="请输入真实姓名" />
+                  <Input placeholder={t('personnel.namePlaceholder')} />
                 </Form.Item>
               </div>
             </div>
 
             <div className="personnel-form-row">
-              <label className="personnel-form-label">邮箱:</label>
+              <label className="personnel-form-label">{t('personnel.email')}:</label>
               <div className="personnel-form-control">
                 <Form.Item
                   name="email"
                   noStyle
                   rules={[
-                    { required: true, message: '请输入邮箱' },
-                    { type: 'email', message: '请输入有效的邮箱地址' }
+                    { required: true, message: t('personnel.emailRequired') },
+                    { type: 'email', message: t('personnel.emailInvalid') }
                   ]}
                 >
-                  <Input placeholder="请输入邮箱" />
+                  <Input placeholder={t('personnel.email')} />
                 </Form.Item>
               </div>
-              <label className="personnel-form-label">联系电话:</label>
+              <label className="personnel-form-label">{t('personnel.phone')}:</label>
               <div className="personnel-form-control">
                 <Form.Item
                   name="phone"
                   noStyle
                   rules={[
-                    { required: true, message: '请输入手机号' },
-                    { pattern: /^[0-9]+$/, message: '请输入有效的手机号' }
+                    { required: true, message: t('personnel.phoneRequired') },
+                    { pattern: /^[0-9]+$/, message: t('personnel.phoneInvalid') }
                   ]}
                 >
-                  <Input placeholder="请输入手机号" />
+                  <Input placeholder={t('personnel.phone')} />
                 </Form.Item>
               </div>
             </div>
 
             <div className="personnel-form-row">
-              <label className="personnel-form-label">{isFactoryAdmin ? '所属工厂:' : '所属诊所:'}</label>
+              <label className="personnel-form-label">{isFactoryAdmin ? t('personnel.factoryLabel') : t('personnel.clinicLabel')}</label>
               <div className="personnel-form-control">
                 <Form.Item name="clinic" noStyle initialValue="ASIANTECH PTE. LTD.">
                   <Input disabled />
                 </Form.Item>
               </div>
-              <label className="personnel-form-label">角色:</label>
+              <label className="personnel-form-label">{t('personnel.role')}:</label>
               <div className="personnel-form-control">
                 <Form.Item
                   name="role"
                   noStyle
-                  rules={[{ required: true, message: '请选择角色' }]}
+                  rules={[{ required: true, message: t('personnel.roleRequired') }]}
                 >
-                  <Select placeholder="请选择角色">
+                  <Select placeholder={t('personnel.rolePlaceholder')}>
                     {allowedRoles.map(r => (
-                      <Option key={r} value={r}>{r}</Option>
+                      <Option key={r} value={r}>{t(`personnel.roles.${r}`)}</Option>
                     ))}
                   </Select>
                 </Form.Item>
@@ -342,11 +344,11 @@ function PersonnelAuth({ currentUser }) {
             </div>
 
             <div className="personnel-form-row full-width">
-              <label className="personnel-form-label">地址:</label>
+              <label className="personnel-form-label">{t('personnel.address')}</label>
               <div className="personnel-form-control-full">
                 <Form.Item name="address" noStyle>
                   <Input.TextArea 
-                    placeholder="请输入地址" 
+                    placeholder={t('personnel.addressPlaceholder')} 
                     rows={2}
                     style={{ resize: 'none' }}
                   />
@@ -362,7 +364,7 @@ function PersonnelAuth({ currentUser }) {
                   valuePropName="checked"
                   noStyle
                 >
-                  <Checkbox>设为管理员</Checkbox>
+                  <Checkbox>{t('personnel.setAdmin')}</Checkbox>
                 </Form.Item>
               </div>
             </div>
@@ -370,17 +372,17 @@ function PersonnelAuth({ currentUser }) {
             {!editingRecord && (
               <>
                 <div className="personnel-form-row">
-                  <label className="personnel-form-label">密码:</label>
+                  <label className="personnel-form-label">{t('personnel.password')}</label>
                   <div className="personnel-form-control">
                     <Form.Item
                       name="password"
                       noStyle
                       rules={[
-                        { required: true, message: '请输入密码' },
-                        { min: 6, message: '密码至少6位' }
+                        { required: true, message: t('personnel.passwordRequired') },
+                        { min: 6, message: t('personnel.passwordMin') }
                       ]}
                     >
-                      <Input.Password placeholder="请输入密码" />
+                      <Input.Password placeholder={t('personnel.password')} />
                     </Form.Item>
                   </div>
                 </div>

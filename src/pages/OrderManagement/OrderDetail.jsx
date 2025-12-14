@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react'
 import { Card, Descriptions, Tag, Button, Tabs, Select, InputNumber, Timeline, Upload, Modal, Form, Input, message } from 'antd'
 import { useParams, useLocation } from 'react-router-dom'
 import { MessageOutlined, PlusOutlined, UploadOutlined, ClockCircleOutlined, CheckCircleOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import MessagesModal from '../../components/MessagesModal/MessagesModal'
 import './OrderDetail.css'
 
 function OrderDetail() {
   const { orderNo } = useParams()
   const location = useLocation()
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState('detail')
   const [isMessagesModalVisible, setIsMessagesModalVisible] = useState(false)
   const [currentStatus, setCurrentStatus] = useState('')
@@ -18,135 +20,150 @@ function OrderDetail() {
   const [uploadedNodeImages, setUploadedNodeImages] = useState([])
   const [uploadedNodeFiles, setUploadedNodeFiles] = useState([])
 
-  // 从路由状态中获取订单数据，如果没有则使用模拟数据
+  // Helper for action translation
+  const getActionText = (action) => {
+    const map = {
+      'accepted': t('orderDetail.progress.actions.accepted'),
+      'scheduleProduction': t('orderDetail.progress.actions.scheduleProduction'),
+      'startProduction': t('orderDetail.progress.actions.startProduction'),
+      'productionCompleted': t('orderDetail.progress.actions.productionCompleted'),
+      'qualityCheck': t('orderDetail.progress.actions.qualityCheck'),
+      'shipping': t('orderDetail.progress.actions.shipping'),
+      'received': t('orderDetail.progress.actions.received'),
+      'other': t('orderDetail.progress.actions.other')
+    }
+    return map[action] || action
+  }
+
+  // Get order data from route state or use mock data
   const orderData = location.state?.orderData || {
     orderNo: orderNo,
-    patientName: 'lee siew ngoh',
-    doctor: '黄向荣',
+    patientName: 'Lee Siew Ngoh',
+    doctor: 'Dr. Huang',
     createTime: '2025-11-10 10:30:00',
     practiceUnit: 'ASIANTECH PTE. LTD.',
-    responsibleUnit: '后齐科技',
+    responsibleUnit: 'HOUQI TECH',
     deliveryTime: '2025-11-12 12:30:00',
     progress: 65,
     status: 'processing',
-    orderType: '标准订单',
-    orderCategory: '全瓷牙冠',
-    // 订单详细信息
+    orderType: t('allOrders.mockData.orderTypes.standard'),
+    orderCategory: t('allOrders.mockData.orderCategories.zirconia'),
+    // Order details
     clinic: 'ASIANTECH PTE. LTD.',
-    factory: '南宁市后齐科技',
-    receiver: '朱华昌',
-    address: '中国广东省深圳市宝安区福海街道展城社区',
+    factory: 'Nanning HOUQI TECH',
+    receiver: 'Zhu Huachang',
+    address: 'Fuhai Street, Baoan District, Shenzhen, China',
     patientPhone: '13800138000',
-    gender: '女',
+    gender: 'female',
     age: '45',
-    // 产品信息
-    productName: '全瓷牙冠',
+    // Product info
+    productName: t('allOrders.mockData.orderCategories.zirconia'),
     toothPosition: '11, 12, 13',
-    repairMethod: '新做',
-    moldingMethod: '口扫',
-    scanDevice: '先临',
-    connectionMethod: '单冠',
-    // 颜色设定
+    repairMethod: 'New',
+    moldingMethod: 'Oral Scan',
+    scanDevice: 'Shining 3D',
+    connectionMethod: 'Single Crown',
+    // Color settings
     mainColor: 'A2',
     neckColor: 'A1',
     middleColor: 'A2',
     cuttingEdgeColor: 'A3',
-    // 备注
-    remarks: '请注意患者对颜色要求较高，需要特别注意颜色匹配',
-    // 其他设置
-    trialStatus: '试戴蜡型外形',
-    designSchemes: ['前牙美学设计', '咬合重建'],
+    // Remarks
+    remarks: t('orderDetail.mockData.remarks'),
+    // Other settings
+    trialStatus: t('orderDetail.mockData.trialStatus.waxTrial'),
+    designSchemes: [t('orderDetail.mockData.designSchemes.esthetic'), t('orderDetail.mockData.designSchemes.occlusion')],
     attachments: [
-      { name: '旧模', count: 2 },
-      { name: '咬胶', count: 1 },
-      { name: '定位柱', count: 3 }
+      { name: t('orderDetail.mockData.attachments.oldCast'), count: 2 },
+      { name: t('orderDetail.mockData.attachments.biteBlock'), count: 1 },
+      { name: t('orderDetail.mockData.attachments.positioningPost'), count: 3 }
     ],
     uploadedImages: [
-      { name: '口内照片1.jpg', url: 'https://via.placeholder.com/200x200/1890ff/ffffff?text=口内照片1' },
-      { name: '口内照片2.jpg', url: 'https://via.placeholder.com/200x200/52c41a/ffffff?text=口内照片2' },
-      { name: 'X光片.jpg', url: 'https://via.placeholder.com/200x200/faad14/ffffff?text=X光片' }
+      { name: 'Intraoral 1.jpg', url: 'https://via.placeholder.com/200x200/1890ff/ffffff?text=Intraoral1' },
+      { name: 'Intraoral 2.jpg', url: 'https://via.placeholder.com/200x200/52c41a/ffffff?text=Intraoral2' },
+      { name: 'X-Ray.jpg', url: 'https://via.placeholder.com/200x200/faad14/ffffff?text=X-Ray' }
     ],
     uploadedFiles: [
-      { name: '扫描文件.stl' },
-      { name: '设计方案.pdf' },
-      { name: '患者病历.doc' }
+      { name: 'Scan.stl' },
+      { name: 'Design.pdf' },
+      { name: 'MedicalRecord.doc' }
     ],
     threeDFile: 'https://example.com/3d-model.stl',
-    // 生产进度节点
+    // Production progress nodes
     progressNodes: [
       {
         id: 1,
         time: '2025-11-10 10:35:00',
-        operator: '张三',
-        action: '已接单',
-        description: '订单已被接单，准备安排生产',
+        operator: 'Zhang San',
+        action: 'accepted',
+        description: t('orderDetail.mockData.descriptions.accepted'),
         images: [],
         files: []
       },
       {
         id: 2,
         time: '2025-11-10 14:20:00',
-        operator: '张三',
-        action: '安排生产',
-        description: '已安排给李四开始生产',
+        operator: 'Zhang San',
+        action: 'scheduleProduction',
+        description: t('orderDetail.mockData.descriptions.scheduleProduction'),
         images: [],
         files: []
       },
       {
         id: 3,
         time: '2025-11-11 09:15:00',
-        operator: '李四',
-        action: '生产完成',
-        description: '生产进度达到100%，完成生产',
+        operator: 'Li Si',
+        action: 'productionCompleted',
+        description: t('orderDetail.mockData.descriptions.productionCompleted'),
         images: [],
         files: []
       }
     ]
   }
 
-  // 初始化状态和进度
+  // Initialize state and progress
   useEffect(() => {
     setCurrentStatus(orderData.status)
     setCurrentProgress(orderData.progress)
     setProgressNodes(orderData.progressNodes || [])
   }, [orderData])
 
-  // 订单状态映射
+  // Order status map
   const getOrderStatus = (status) => {
     const statusMap = {
-      'pending': { text: '待接单', color: 'default' },
-      'accepted': { text: '已接单', color: 'processing' },
-      'production_33': { text: '生产进度-33%', color: 'processing' },
-      'production_66': { text: '生产进度-66%', color: 'processing' },
-      'production_100': { text: '生产进度-100%', color: 'success' },
-      'shipped': { text: '已发货', color: 'warning' },
-      'received': { text: '已收货', color: 'success' },
-      'processing': { text: '制作中', color: 'processing' },
-      'completed': { text: '已完成', color: 'success' }
+      'pending': { text: t('orderDetail.status.pending'), color: 'default' },
+      'accepted': { text: t('orderDetail.status.accepted'), color: 'processing' },
+      'production_33': { text: t('orderDetail.status.production_33'), color: 'processing' },
+      'production_66': { text: t('orderDetail.status.production_66'), color: 'processing' },
+      'production_100': { text: t('orderDetail.status.production_100'), color: 'success' },
+      'shipped': { text: t('orderDetail.status.shipped'), color: 'warning' },
+      'received': { text: t('orderDetail.status.received'), color: 'success' },
+      'processing': { text: t('orderDetail.status.processing'), color: 'processing' },
+      'completed': { text: t('orderDetail.status.completed'), color: 'success' }
     }
-    return statusMap[status] || { text: '未知状态', color: 'default' }
+    return statusMap[status] || { text: t('orderDetail.status.unknown'), color: 'default' }
   }
 
   const statusInfo = getOrderStatus(currentStatus)
 
-  // 打开医技沟通
+  // Open messages
   const handleOpenMessages = () => {
     setIsMessagesModalVisible(true)
   }
 
-  // 处理状态变更
+  // Handle status change
   const handleStatusChange = (value) => {
     setCurrentStatus(value)
-    message.success('订单状态已更新')
+    message.success(t('orderDetail.status.updateSuccess'))
   }
 
-  // 处理进度变更
+  // Handle progress change
   const handleProgressChange = (value) => {
     setCurrentProgress(value)
-    message.success(`订单进度已更新为 ${value}%`)
+    message.success(t('orderDetail.status.progressUpdateSuccess', { value }))
   }
 
-  // 打开添加节点对话框
+  // Open add node modal
   const handleAddNode = () => {
     setIsAddNodeModalVisible(true)
     nodeForm.resetFields()
@@ -154,22 +171,14 @@ function OrderDetail() {
     setUploadedNodeFiles([])
   }
 
-  // 添加节点
+  // Submit node
   const handleNodeSubmit = async () => {
     try {
       const values = await nodeForm.validateFields()
       const newNode = {
         id: progressNodes.length + 1,
-        time: new Date().toLocaleString('zh-CN', { 
-          year: 'numeric', 
-          month: '2-digit', 
-          day: '2-digit', 
-          hour: '2-digit', 
-          minute: '2-digit', 
-          second: '2-digit',
-          hour12: false 
-        }).replace(/\//g, '-'),
-        operator: values.operator || '当前用户',
+        time: new Date().toLocaleString(),
+        operator: values.operator || t('common.currentUser'),
         action: values.action,
         description: values.description,
         images: uploadedNodeImages,
@@ -177,18 +186,18 @@ function OrderDetail() {
       }
       setProgressNodes([...progressNodes, newNode])
       setIsAddNodeModalVisible(false)
-      message.success('节点添加成功')
+      message.success(t('orderDetail.progress.success'))
     } catch (error) {
-      console.error('表单验证失败:', error)
+      console.error('Validation failed:', error)
     }
   }
 
-  // 图片上传配置
+  // Image upload props
   const nodeImageUploadProps = {
     beforeUpload: (file) => {
       const isImage = file.type.startsWith('image/')
       if (!isImage) {
-        message.error('只能上传图片文件！')
+        message.error(t('orderDetail.progress.onlyImages'))
         return false
       }
       const reader = new FileReader()
@@ -204,7 +213,7 @@ function OrderDetail() {
     showUploadList: false
   }
 
-  // 文件上传配置
+  // File upload props
   const nodeFileUploadProps = {
     beforeUpload: (file) => {
       setUploadedNodeFiles([...uploadedNodeFiles, {
@@ -216,130 +225,130 @@ function OrderDetail() {
     showUploadList: false
   }
 
-  // 移除节点图片
+  // Remove node image
   const handleRemoveNodeImage = (index) => {
     setUploadedNodeImages(uploadedNodeImages.filter((_, i) => i !== index))
   }
 
-  // 移除节点文件
+  // Remove node file
   const handleRemoveNodeFile = (index) => {
     setUploadedNodeFiles(uploadedNodeFiles.filter((_, i) => i !== index))
   }
 
-  // Tab页内容
+  // Tab items
   const tabItems = [
     {
       key: 'detail',
       label: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span>订单详情</span>
+          <span>{t('orderDetail.tabs.detail')}</span>
         </div>
       ),
       children: (
         <div className="order-detail-content">
-          {/* 基础信息 */}
+          {/* Base Info */}
           <Card 
-            title="基础信息" 
+            title={t('orderDetail.sections.baseInfo')}
             className="detail-section" 
             size="small"
           >
             <Descriptions bordered column={2} size="small">
-              <Descriptions.Item label="订单编号" span={2}>
+              <Descriptions.Item label={t('orderDetail.fields.orderNo')} span={2}>
                 {orderData.orderNo}
               </Descriptions.Item>
-              <Descriptions.Item label="订单类型">
+              <Descriptions.Item label={t('orderDetail.fields.orderType')}>
                 {orderData.orderType}
               </Descriptions.Item>
-              <Descriptions.Item label="订单类别">
+              <Descriptions.Item label={t('orderDetail.fields.orderCategory')}>
                 {orderData.orderCategory}
               </Descriptions.Item>
-              <Descriptions.Item label="诊所">
+              <Descriptions.Item label={t('orderDetail.fields.clinic')}>
                 {orderData.clinic || orderData.practiceUnit}
               </Descriptions.Item>
-              <Descriptions.Item label="医生">
+              <Descriptions.Item label={t('orderDetail.fields.doctor')}>
                 {orderData.doctor}
               </Descriptions.Item>
-              <Descriptions.Item label="生产单位">
+              <Descriptions.Item label={t('orderDetail.fields.factory')}>
                 {orderData.factory || orderData.responsibleUnit}
               </Descriptions.Item>
-              <Descriptions.Item label="收件人">
+              <Descriptions.Item label={t('orderDetail.fields.receiver')}>
                 {orderData.receiver || '-'}
               </Descriptions.Item>
-              <Descriptions.Item label="收件地址" span={2}>
+              <Descriptions.Item label={t('orderDetail.fields.address')} span={2}>
                 {orderData.address || '-'}
               </Descriptions.Item>
-              <Descriptions.Item label="下单时间">
+              <Descriptions.Item label={t('orderDetail.fields.createTime')}>
                 {orderData.createTime}
               </Descriptions.Item>
-              <Descriptions.Item label="预计到货时间">
+              <Descriptions.Item label={t('orderDetail.fields.deliveryTime')}>
                 {orderData.deliveryTime}
               </Descriptions.Item>
             </Descriptions>
           </Card>
 
-          {/* 患者信息 */}
-          <Card title="患者信息" className="detail-section" size="small">
+          {/* Patient Info */}
+          <Card title={t('orderDetail.sections.patientInfo')} className="detail-section" size="small">
             <Descriptions bordered column={2} size="small">
-              <Descriptions.Item label="患者姓名">
+              <Descriptions.Item label={t('orderDetail.fields.patientName')}>
                 {orderData.patientName}
               </Descriptions.Item>
-              <Descriptions.Item label="患者手机号">
+              <Descriptions.Item label={t('orderDetail.fields.patientPhone')}>
                 {orderData.patientPhone || '-'}
               </Descriptions.Item>
-              <Descriptions.Item label="性别">
-                {orderData.gender === 'male' ? '男' : orderData.gender === 'female' ? '女' : '-'}
+              <Descriptions.Item label={t('orderDetail.fields.gender')}>
+                {orderData.gender === 'male' ? t('quickOrder.baseInfo.options.male') : orderData.gender === 'female' ? t('quickOrder.baseInfo.options.female') : '-'}
               </Descriptions.Item>
-              <Descriptions.Item label="年龄">
+              <Descriptions.Item label={t('orderDetail.fields.age')}>
                 {orderData.age || '-'}
               </Descriptions.Item>
             </Descriptions>
           </Card>
 
-          {/* 产品信息 */}
-          <Card title="产品信息" className="detail-section" size="small">
+          {/* Product Info */}
+          <Card title={t('orderDetail.sections.productInfo')} className="detail-section" size="small">
             <Descriptions bordered column={2} size="small">
-              <Descriptions.Item label="产品名称" span={2}>
+              <Descriptions.Item label={t('orderDetail.fields.productName')} span={2}>
                 {orderData.productName || orderData.orderCategory}
               </Descriptions.Item>
-              <Descriptions.Item label="牙位">
+              <Descriptions.Item label={t('orderDetail.fields.toothPosition')}>
                 {orderData.toothPosition || '-'}
               </Descriptions.Item>
-              <Descriptions.Item label="修复方式">
+              <Descriptions.Item label={t('orderDetail.fields.repairMethod')}>
                 {orderData.repairMethod || '-'}
               </Descriptions.Item>
-              <Descriptions.Item label="取模方式">
+              <Descriptions.Item label={t('orderDetail.fields.moldingMethod')}>
                 {orderData.moldingMethod || '-'}
               </Descriptions.Item>
-              <Descriptions.Item label="扫描设备">
+              <Descriptions.Item label={t('orderDetail.fields.scanDevice')}>
                 {orderData.scanDevice || '-'}
               </Descriptions.Item>
-              <Descriptions.Item label="连接方式">
+              <Descriptions.Item label={t('orderDetail.fields.connectionMethod')}>
                 {orderData.connectionMethod || '-'}
               </Descriptions.Item>
             </Descriptions>
           </Card>
 
-          {/* 颜色设定 */}
+          {/* Color Settings */}
           {(orderData.mainColor || orderData.neckColor) && (
-            <Card title="颜色设定" className="detail-section" size="small">
+            <Card title={t('orderDetail.sections.colorSettings')} className="detail-section" size="small">
               <Descriptions bordered column={2} size="small">
                 {orderData.mainColor && (
-                  <Descriptions.Item label="主体颜色">
+                  <Descriptions.Item label={t('orderDetail.fields.mainColor')}>
                     {orderData.mainColor}
                   </Descriptions.Item>
                 )}
                 {orderData.neckColor && (
-                  <Descriptions.Item label="颈部颜色">
+                  <Descriptions.Item label={t('orderDetail.fields.neckColor')}>
                     {orderData.neckColor}
                   </Descriptions.Item>
                 )}
                 {orderData.middleColor && (
-                  <Descriptions.Item label="中部颜色">
+                  <Descriptions.Item label={t('orderDetail.fields.middleColor')}>
                     {orderData.middleColor}
                   </Descriptions.Item>
                 )}
                 {orderData.cuttingEdgeColor && (
-                  <Descriptions.Item label="切端颜色">
+                  <Descriptions.Item label={t('orderDetail.fields.cuttingEdgeColor')}>
                     {orderData.cuttingEdgeColor}
                   </Descriptions.Item>
                 )}
@@ -347,34 +356,34 @@ function OrderDetail() {
             </Card>
           )}
 
-          {/* 备注信息 */}
+          {/* Remarks */}
           {orderData.remarks && (
-            <Card title="备注信息" className="detail-section" size="small">
+            <Card title={t('orderDetail.sections.remarks')} className="detail-section" size="small">
               <div style={{ padding: '8px' }}>
                 {orderData.remarks}
               </div>
             </Card>
           )}
 
-          {/* 其他设置 */}
-          <Card title="其他设置" className="detail-section" size="small">
+          {/* Other Settings */}
+          <Card title={t('orderDetail.sections.otherSettings')} className="detail-section" size="small">
             <Descriptions bordered column={2} size="small">
-              <Descriptions.Item label="试戴情况">
+              <Descriptions.Item label={t('orderDetail.fields.trialStatus')}>
                 {orderData.trialStatus || '-'}
               </Descriptions.Item>
-              <Descriptions.Item label="3D文件">
+              <Descriptions.Item label={t('orderDetail.fields.threeDFile')}>
                 {orderData.threeDFile ? (
                   <a href={orderData.threeDFile} target="_blank" rel="noopener noreferrer">
-                    查看文件
+                    {t('orderDetail.fields.viewFile')}
                   </a>
                 ) : '-'}
               </Descriptions.Item>
             </Descriptions>
 
-            {/* 设计方案 */}
+            {/* Design Schemes */}
             {orderData.designSchemes && orderData.designSchemes.length > 0 && (
               <div style={{ marginTop: '16px' }}>
-                <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>设计方案：</div>
+                <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{t('orderDetail.fields.designScheme')}</div>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                   {orderData.designSchemes.map((scheme, index) => (
                     <div key={index} style={{ 
@@ -392,10 +401,10 @@ function OrderDetail() {
               </div>
             )}
 
-            {/* 附件 */}
+            {/* Attachments */}
             {orderData.attachments && orderData.attachments.length > 0 && (
               <div style={{ marginTop: '16px' }}>
-                <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>附件：</div>
+                <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{t('orderDetail.fields.attachments')}</div>
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   {orderData.attachments.map((attachment, index) => (
                     <Tag key={index} color="blue">
@@ -406,10 +415,10 @@ function OrderDetail() {
               </div>
             )}
 
-            {/* 上传的图片 */}
+            {/* Uploaded Images */}
             {orderData.uploadedImages && orderData.uploadedImages.length > 0 && (
               <div style={{ marginTop: '16px' }}>
-                <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>上传的图片：</div>
+                <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{t('orderDetail.fields.uploadedImages')}</div>
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   {orderData.uploadedImages.map((img, index) => (
                     <div 
@@ -425,16 +434,16 @@ function OrderDetail() {
                       }}
                       onClick={() => {
                         Modal.info({
-                          title: img.name || `图片${index + 1}`,
+                          title: img.name || `Image ${index + 1}`,
                           content: <img src={img.url || img} alt="" style={{ width: '100%' }} />,
                           width: 800,
-                          okText: '关闭'
+                          okText: t('common.close')
                         })
                       }}
                     >
                       <img 
                         src={img.url || img} 
-                        alt={img.name || `图片${index + 1}`}
+                        alt={img.name || `Image ${index + 1}`}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       />
                       <div style={{
@@ -450,7 +459,7 @@ function OrderDetail() {
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap'
                       }}>
-                        {img.name || `图片${index + 1}`}
+                        {img.name || `Image ${index + 1}`}
                       </div>
                     </div>
                   ))}
@@ -458,10 +467,10 @@ function OrderDetail() {
               </div>
             )}
 
-            {/* 上传的文件 */}
+            {/* Uploaded Files */}
             {orderData.uploadedFiles && orderData.uploadedFiles.length > 0 && (
               <div style={{ marginTop: '16px' }}>
-                <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>上传的文件：</div>
+                <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{t('orderDetail.fields.uploadedFiles')}</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {orderData.uploadedFiles.map((file, index) => (
                     <div 
@@ -493,12 +502,12 @@ function OrderDetail() {
     },
     {
       key: 'progress',
-      label: '订单状态',
+      label: t('orderDetail.tabs.progress'),
       children: (
         <div className="order-detail-content">
-          {/* 订单状态记录 */}
+          {/* Status History */}
           <Card 
-            title="订单状态记录" 
+            title={t('orderDetail.sections.statusHistory')}
             className="detail-section" 
             size="small"
             extra={
@@ -507,7 +516,7 @@ function OrderDetail() {
                 icon={<PlusOutlined />}
                 onClick={handleAddNode}
               >
-                添加节点
+                {t('orderDetail.progress.addNode')}
               </Button>
             }
           >
@@ -518,7 +527,7 @@ function OrderDetail() {
                 children: (
                   <div className="timeline-node">
                     <div className="node-header">
-                      <span className="node-action">{node.action}</span>
+                      <span className="node-action">{getActionText(node.action)}</span>
                       <span className="node-time">{node.time}</span>
                     </div>
                     <div className="node-description">
@@ -526,7 +535,7 @@ function OrderDetail() {
                     </div>
                     {node.operator && (
                       <div className="node-operator">
-                        操作人：{node.operator}
+                        {t('orderDetail.progress.operator')} {node.operator}
                       </div>
                     )}
                     {node.images && node.images.length > 0 && (
@@ -535,7 +544,7 @@ function OrderDetail() {
                           <img 
                             key={idx}
                             src={img.url || img}
-                            alt={img.name || `图片${idx + 1}`}
+                            alt={img.name || `Image ${idx + 1}`}
                             style={{ 
                               width: '80px', 
                               height: '80px', 
@@ -546,10 +555,10 @@ function OrderDetail() {
                             }}
                             onClick={() => {
                               Modal.info({
-                                title: '查看图片',
+                                title: t('orderDetail.fields.viewImage'),
                                 content: <img src={img.url || img} alt="" style={{ width: '100%' }} />,
                                 width: 800,
-                                okText: '关闭'
+                                okText: t('orderDetail.progress.close')
                               })
                             }}
                           />
@@ -577,7 +586,7 @@ function OrderDetail() {
 
   return (
     <div className="order-detail-container">
-      {/* Tab页 */}
+      {/* Tabs */}
       <Tabs
         activeKey={activeTab}
         onChange={setActiveTab}
@@ -589,95 +598,95 @@ function OrderDetail() {
             icon={<MessageOutlined />}
             onClick={handleOpenMessages}
           >
-            医技沟通
+            {t('orderDetail.messages.open')}
           </Button>
         }
       />
 
-      {/* 消息对话框 */}
+      {/* Messages Modal */}
       <MessagesModal
         visible={isMessagesModalVisible}
         onClose={() => setIsMessagesModalVisible(false)}
       />
 
-      {/* 添加节点对话框 */}
+      {/* Add Node Modal */}
       <Modal
-        title="添加进度节点"
+        title={t('orderDetail.progress.modalTitle')}
         open={isAddNodeModalVisible}
         onOk={handleNodeSubmit}
         onCancel={() => setIsAddNodeModalVisible(false)}
         width={800}
-        okText="确定"
-        cancelText="取消"
+        okText={t('orderDetail.progress.submit')}
+        cancelText={t('orderDetail.progress.cancel')}
       >
         <Form
           form={nodeForm}
           layout="vertical"
         >
           <div style={{ display: 'flex', gap: '24px' }}>
-            {/* 左列 */}
+            {/* Left Column */}
             <div style={{ flex: 1 }}>
               <Form.Item
-                label="操作人"
+                label={t('orderDetail.progress.operatorLabel')}
                 name="operator"
-                rules={[{ required: true, message: '请输入操作人' }]}
+                rules={[{ required: true, message: t('orderDetail.progress.operatorPlaceholder') }]}
               >
-                <Input placeholder="请输入操作人姓名" />
+                <Input placeholder={t('orderDetail.progress.operatorPlaceholder')} />
               </Form.Item>
 
               <Form.Item
-                label="操作动作"
+                label={t('orderDetail.progress.actionLabel')}
                 name="action"
-                rules={[{ required: true, message: '请输入操作动作' }]}
+                rules={[{ required: true, message: t('orderDetail.progress.actionPlaceholder') }]}
               >
-                <Select placeholder="请选择操作动作">
-                  <Select.Option value="已接单">已接单</Select.Option>
-                  <Select.Option value="安排生产">安排生产</Select.Option>
-                  <Select.Option value="开始生产">开始生产</Select.Option>
-                  <Select.Option value="生产完成">生产完成</Select.Option>
-                  <Select.Option value="质检完成">质检完成</Select.Option>
-                  <Select.Option value="打包发货">打包发货</Select.Option>
-                  <Select.Option value="已签收">已签收</Select.Option>
-                  <Select.Option value="其他">其他</Select.Option>
+                <Select placeholder={t('orderDetail.progress.actionPlaceholder')}>
+                  <Select.Option value="accepted">{t('orderDetail.progress.actions.accepted')}</Select.Option>
+                  <Select.Option value="scheduleProduction">{t('orderDetail.progress.actions.scheduleProduction')}</Select.Option>
+                  <Select.Option value="startProduction">{t('orderDetail.progress.actions.startProduction')}</Select.Option>
+                  <Select.Option value="productionCompleted">{t('orderDetail.progress.actions.productionCompleted')}</Select.Option>
+                  <Select.Option value="qualityCheck">{t('orderDetail.progress.actions.qualityCheck')}</Select.Option>
+                  <Select.Option value="shipping">{t('orderDetail.progress.actions.shipping')}</Select.Option>
+                  <Select.Option value="received">{t('orderDetail.progress.actions.received')}</Select.Option>
+                  <Select.Option value="other">{t('orderDetail.progress.actions.other')}</Select.Option>
                 </Select>
               </Form.Item>
 
               <Form.Item
-                label="当前状态"
+                label={t('orderDetail.progress.statusLabel')}
                 name="status"
-                rules={[{ required: true, message: '请选择当前状态' }]}
+                rules={[{ required: true, message: t('orderDetail.progress.statusPlaceholder') }]}
               >
-                <Select placeholder="请选择当前状态">
-                  <Select.Option value="pending">待接单</Select.Option>
-                  <Select.Option value="accepted">已接单</Select.Option>
-                  <Select.Option value="processing">制作中</Select.Option>
-                  <Select.Option value="production_33">生产进度-33%</Select.Option>
-                  <Select.Option value="production_66">生产进度-66%</Select.Option>
-                  <Select.Option value="production_100">生产进度-100%</Select.Option>
-                  <Select.Option value="shipped">已发货</Select.Option>
-                  <Select.Option value="received">已收货</Select.Option>
-                  <Select.Option value="completed">已完成</Select.Option>
+                <Select placeholder={t('orderDetail.progress.statusPlaceholder')}>
+                  <Select.Option value="pending">{t('orderDetail.status.pending')}</Select.Option>
+                  <Select.Option value="accepted">{t('orderDetail.status.accepted')}</Select.Option>
+                  <Select.Option value="processing">{t('orderDetail.status.processing')}</Select.Option>
+                  <Select.Option value="production_33">{t('orderDetail.status.production_33')}</Select.Option>
+                  <Select.Option value="production_66">{t('orderDetail.status.production_66')}</Select.Option>
+                  <Select.Option value="production_100">{t('orderDetail.status.production_100')}</Select.Option>
+                  <Select.Option value="shipped">{t('orderDetail.status.shipped')}</Select.Option>
+                  <Select.Option value="received">{t('orderDetail.status.received')}</Select.Option>
+                  <Select.Option value="completed">{t('orderDetail.status.completed')}</Select.Option>
                 </Select>
               </Form.Item>
 
               <Form.Item
-                label="详细描述"
+                label={t('orderDetail.progress.descriptionLabel')}
                 name="description"
-                rules={[{ required: true, message: '请输入详细描述' }]}
+                rules={[{ required: true, message: t('orderDetail.progress.descriptionPlaceholder') }]}
               >
                 <Input.TextArea 
                   rows={4} 
-                  placeholder="请输入详细描述，如:已安排给张三开始生产"
+                  placeholder={t('orderDetail.progress.descriptionPlaceholder')}
                 />
               </Form.Item>
             </div>
 
-            {/* 右列 */}
+            {/* Right Column */}
             <div style={{ flex: 1 }}>
-              <Form.Item label="上传图片">
+              <Form.Item label={t('orderDetail.progress.uploadImage')}>
                 <div>
                   <Upload {...nodeImageUploadProps} multiple>
-                    <Button icon={<UploadOutlined />}>选择图片</Button>
+                    <Button icon={<UploadOutlined />}>{t('orderDetail.progress.selectImages')}</Button>
                   </Upload>
                   {uploadedNodeImages.length > 0 && (
                     <div style={{ marginTop: '12px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -716,10 +725,10 @@ function OrderDetail() {
                 </div>
               </Form.Item>
 
-              <Form.Item label="上传文件">
+              <Form.Item label={t('orderDetail.progress.uploadFile')}>
                 <div>
                   <Upload {...nodeFileUploadProps} multiple>
-                    <Button icon={<UploadOutlined />}>选择文件</Button>
+                    <Button icon={<UploadOutlined />}>{t('orderDetail.progress.selectFiles')}</Button>
                   </Upload>
                   {uploadedNodeFiles.length > 0 && (
                     <div style={{ marginTop: '12px' }}>
@@ -743,7 +752,7 @@ function OrderDetail() {
                             size="small"
                             onClick={() => handleRemoveNodeFile(index)}
                           >
-                            删除
+                            {t('orderDetail.progress.delete')}
                           </Button>
                         </div>
                       ))}

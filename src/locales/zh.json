@@ -1,0 +1,1410 @@
+{
+  "common": {
+    "confirm": "确认",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "save": "保存",
+    "submit": "提交",
+    "reset": "重置",
+    "search": "搜索",
+    "action": "操作",
+    "view": "查看",
+    "close": "关闭",
+    "totalItems": "共 {{count}} 条",
+    "gender": {
+      "male": "男",
+      "female": "女"
+    },
+    "time": {
+      "yesterday": "昨天",
+      "daysAgo": "{{count}}天前"
+    }
+  },
+  "menu": {
+    "home": "首页",
+    "order": "下单",
+    "quickOrder": "一键下单",
+    "productLibraryOrder": "产品库下单",
+    "orderManagement": "订单管理",
+    "allOrders": "全部订单",
+    "pendingOrder": "待下单",
+    "pendingHandling": "待处理订单",
+    "infoSettings": "信息设置",
+    "personnel": "人员管理",
+    "patientArchives": "患者档案",
+    "clinicInfo": "诊所信息",
+    "factoryInfo": "工厂信息",
+    "addressManagement": "地址管理",
+    "systemManagement": "系统管理",
+    "clinicManagement": "诊所管理",
+    "factoryManagement": "工厂管理",
+    "systemSettings": "系统设置",
+    "language": "语言设置",
+    "chinese": "中文",
+    "english": "英文",
+    "orderDetail": "订单详情"
+  },
+  "login": {
+    "success": "登录成功！",
+    "failed": "用户名或密码错误！",
+    "usernameRequired": "请输入用户名",
+    "passwordRequired": "请输入密码",
+    "usernamePlaceholder": "用户名",
+    "passwordPlaceholder": "密码",
+    "rolePlaceholder": "请选择临时角色（选填）",
+    "loginButton": "登录",
+    "copyright": "Copyright © 2025",
+    "company": "Premium Dental Services Pte. Ltd."
+  },
+  "roles": {
+    "clinicAdmin": "诊所-管理员",
+    "clinicDoctor": "诊所-医生",
+    "clinicAssistant": "诊所-助理",
+    "factoryAdmin": "工厂-管理员",
+    "factoryAssistant": "工厂-助理",
+    "factoryTechnician": "工厂-技师",
+    "superAdmin": "超级管理员"
+  },
+  "header": {
+    "brandName": "DentaSync",
+    "companyNameValue": "Premier Dental Service Pte. Ltd.",
+    "operatingUnitValue": "ASIANTECH PTE. LTD.",
+    "poweredBy": "技术支持：后棋智能科技有限公司",
+    "rightsReserved": "版权所有。",
+    "contactEmail": "asiantechdentallab@gmail.com",
+    "contactPersonValue": "Tom Huang",
+    "contactPhoneValue": "+65 98625613",
+    "techEmail": "cdingstar@gmail.com",
+    "personalInfo": "个人信息",
+    "changePassword": "修改密码",
+    "aboutUs": "关于我们",
+    "logout": "退出登录",
+    "enterpriseComm": "企业通信",
+    "joinUs": "加入我们",
+    "operationManagement": "运营管理",
+    "productTech": "产品技术",
+    "companyInfo": "公司信息",
+    "contactUs": "联系我们",
+    "version": "系统版本",
+    "systemVersion": "系统版本：Build 1.0.1121",
+    "copyright": "版权所有2025.",
+    "contactUsTitle": "联系我们（反馈问题或意见）",
+    "logoutSuccess": "已退出登录",
+    "confirmLogout": "确定要退出登录吗？",
+    "changePasswordTitle": "修改密码",
+    "oldPassword": "原密码",
+    "oldPasswordPlaceholder": "请输入原密码",
+    "newPassword": "新密码",
+    "newPasswordPlaceholder": "请输入新密码",
+    "confirmPassword": "确认新密码",
+    "confirmPasswordPlaceholder": "请再次输入新密码",
+    "passwordMinLength": "密码至少6位",
+    "confirmPasswordRequired": "请确认新密码",
+    "passwordMismatch": "两次输入的密码不一致",
+    "passwordChanged": "密码修改成功！",
+    "validationFailed": "验证失败",
+    "aboutUsTitle": "关于我们",
+    "companyNameLabel": "公司名称：",
+    "operatingUnitLabel": "运营单位：",
+    "businessContact": "业务联系",
+    "contactPersonLabel": "联系人：",
+    "phoneLabel": "电话：",
+    "emailLabel": "邮箱：",
+    "techFeedback": "产品技术反馈",
+    "feedbackNote": "如有任何产品问题或改进建议，欢迎反馈",
+    "pleaseContact": "请联系："
+  },
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确定",
+    "close": "关闭",
+    "dropdown": "(下拉)",
+    "totalItems": "共 {{count}} 条"
+  },
+  "messages": {
+    "title": "企业通信",
+    "search": "搜索",
+    "tabs": {
+      "message": "消息",
+      "assistant": "助理",
+      "organization": "组织",
+      "members": "群成员",
+      "announcement": "订单公告",
+      "files": "群文件"
+    },
+    "placeholder": "输入消息...",
+    "send": "发 送",
+    "download": "下载",
+    "noMessages": "暂无消息记录",
+    "selectChat": "请选择一个对话",
+    "memberCount": "共 {{count}} 人",
+    "me": "我",
+    "keywords": {
+      "doctor": "医生",
+      "master": "师傅"
+    },
+    "roles": {
+      "contact": "联系人",
+      "doctor": "医生",
+      "assistant": "助理",
+      "technician": "技师",
+      "order": "订单",
+      "clinicAdmin": "诊所管理员"
+    },
+    "labels": {
+      "patient": "患者",
+      "order": "订单"
+    },
+    "attachment": {
+      "image": "图片",
+      "model": "3D模型",
+      "file": "附件",
+      "designScheme": "设计方案"
+    },
+
+    "mock": {
+      "orderAvatar": "订",
+      "senderNameYitu": "医图博约",
+      "unitA": "生产单位A",
+      "unitB": "生产单位B",
+      "unitC": "生产单位C",
+      "unitD": "生产单位D",
+      "assistantLi": "李助理",
+      "assistantWang": "王助理",
+      "assistantZhang": "张助理",
+      "assistantChen": "陈助理",
+      "assistantLiu": "刘助理",
+      "assistantZhao": "赵助理",
+      "assistantSun": "孙助理",
+      "assistantZhou": "周助理",
+      "assistantWu": "吴助理",
+      "assistantZheng": "郑助理",
+      "assistantHuang": "黄助理",
+      "assistantQian": "钱助理",
+      "doctorHuang": "黄向荣医生",
+      "doctorLi": "李医生",
+      "technicianWang": "王师傅",
+      "subtitleDoctor": "主治医师",
+      "subtitleDoctor2": "副主任医师",
+      "subtitleTechnician": "技师 - 生产单位A",
+      "msgDelivery": "发货通知",
+      "msgDeliveryContent": "订单已发货，请查收",
+      "msgProduction": "生产进度正常",
+      "msgQualityPass": "质量检测通过",
+      "msgDesignUploaded": "设计方案已上传",
+      "msgConfirm": "订单确认无误，可以开始制作",
+      "msgConfirmContent": "订单102511144444301的设计方案我已确认，可以开始制作了",
+      "msgDoneTech": "订单制作完成，请安排检验",
+      "msgDoneTechContent": "订单102511144444301已完成制作，请安排质检",
+      "msgFeedback": "患者反馈很满意",
+      "msgUpdate": "订单进度更新",
+      "msgDone": "订单102511144444301已完成",
+      "msgDesign": "设计方案需要确认",
+      "msgMaterial": "材料已备齐",
+      "msgQuality": "质检报告",
+      "msgSchedule": "订单排期确认",
+      "msgMaintain": "设备维护通知",
+      "msgUrgent": "紧急订单",
+      "msg3D": "3D模型已完成",
+      "msgSample": "打样完成",
+      "msgContentUpdate": "您好，订单102511144444301已经完成生产，正在安排发货",
+      "msgContentUrgent": "您好，有一个紧急订单需要加急处理，请确认",
+      "msgDesignReview": "尊敬的主任，客户的设计方案已准备好供您审查。谢谢！",
+      "msgProceed": "好的，请继续。:)",
+      "announcement": {
+              "completed": "订单已完成",
+              "inProduction": "订单制作中",
+              "designConfirmed": "设计方案已确认",
+              "contentCompleted": "订单{{orderId}}已完成所有制作流程，已发货。",
+              "contentInProduction": "订单{{orderId}}正在制作中。",
+              "contentDesignConfirmed": "订单{{orderId}}设计方案已获得医生确认。"
+            },
+            "files": {
+      "training": "2024年度培训计划.pdf",
+      "manual": "设备操作手册.docx",
+      "finishedPhoto": "成品照片.jpg",
+      "uploaderLi": "李主管",
+      "uploaderTech": "技术部"
+    }
+  }
+  },
+  "address": {
+    "title": "地址管理",
+    "add": "新增地址",
+    "edit": "编辑地址",
+    "deleteConfirmTitle": "确认删除",
+    "deleteConfirmContent": "确定要删除这个地址吗？",
+    "deleteSuccess": "删除成功",
+    "editSuccess": "修改成功",
+    "addSuccess": "添加成功",
+    "setDefault": "设为默认",
+    "setDefaultSuccess": "已设置为默认地址",
+    "isDefault": "默认地址",
+    "receiver": "收货人",
+    "phone": "联系电话",
+    "region": "所在地区",
+    "detailAddress": "详细地址",
+    "receiverPlaceholder": "请输入收货人",
+    "regionPlaceholder": "中国 / 广东省 / 深圳市 / 宝安区",
+    "phonePlaceholder": "请输入联系电话",
+    "detailAddressPlaceholder": "请输入详细地址",
+    "phoneError": "请输入有效的电话号码",
+    "regionRequired": "请选择所在地区",
+    "detailAddressRequired": "请输入详细地址",
+    "action": "操作"
+  },
+  "patient": {
+    "title": "患者档案",
+    "add": "添加患者档案",
+    "searchPlaceholder": "患者姓名",
+    "search": "搜索",
+    "index": "序号",
+    "id": "患者ID",
+    "name": "患者姓名",
+    "phone": "手机号码",
+    "gender": "性别",
+    "birthday": "生日",
+    "addPerson": "添加人",
+    "createTime": "添加时间",
+    "notes": "备注",
+    "action": "操作",
+    "viewOrders": "关联订单",
+    "edit": "编辑",
+    "delete": "删除",
+    "deleteConfirmTitle": "确认删除",
+    "deleteConfirmContent": "确定要删除这个患者档案吗？删除后将无法恢复。",
+    "deleteSuccess": "删除成功",
+    "editSuccess": "修改成功",
+    "addSuccess": "添加成功",
+    "modalAddTitle": "添加患者",
+    "modalEditTitle": "编辑患者",
+    "nameRequired": "请输入患者姓名",
+    "namePlaceholder": "请输入患者姓名",
+    "genderPlaceholder": "请选择性别",
+    "male": "男",
+    "female": "女",
+    "unknown": "未知",
+    "phoneRequired": "请输入手机号码",
+    "phonePlaceholder": "请输入手机号码",
+    "phoneError": "请输入有效的手机号码",
+    "birthdayPlaceholder": "请选择生日",
+    "notesPlaceholder": "请输入备注信息"
+  },
+  "personalInfo": {
+    "title": "个人信息",
+    "basicInfo": "基本信息",
+    "username": "用户名",
+    "realName": "真实姓名",
+    "realNamePlaceholder": "请输入真实姓名",
+    "email": "邮箱",
+    "emailPlaceholder": "请输入邮箱",
+    "phone": "联系电话",
+    "phonePlaceholder": "请输入联系电话",
+    "clinic": "所属诊所",
+    "position": "职位",
+    "positionPlaceholder": "请输入职位",
+    "address": "地址",
+    "addressPlaceholder": "请输入地址",
+    "save": "保存",
+    "saveLog": "保存个人信息:",
+    "saveSuccess": "保存成功！",
+    "uploadSuccess": "头像上传成功",
+    "uploadError": "只能上传图片文件！",
+    "mockData": {
+      "admin": "管理员",
+      "clinicAdmin": "诊所管理员"
+    }
+  },
+  "factoryInfo": {
+    "title": "工厂信息",
+    "basicInfo": "基础信息",
+    "qualificationInfo": "资质信息",
+    "certificates": "资质证件",
+    "detailedAddress": "详细地址:",
+    "detailedAddressPlaceholder": "请输入详细地址",
+    "manager": "负责人:",
+    "managerPlaceholder": "请输入负责人",
+    "managerPhone": "负责人电话:",
+    "managerPhonePlaceholder": "请输入负责人电话",
+    "displayName": "招牌名称:",
+    "displayNamePlaceholder": "请输入招牌名称",
+    "shortName": "简称:",
+    "shortNamePlaceholder": "请输入简称",
+    "simpleAddress": "简略地址:",
+    "simpleAddressPlaceholder": "请输入简略地址",
+    "businessLicenseExpiry": "营业执照期限:",
+    "businessLicenseExpiryPlaceholder": "请输入营业执照期限",
+    "productionLicense": "生产许可证编号:",
+    "productionLicensePlaceholder": "请输入生产许可证编号",
+    "joinDate": "加入时间:",
+    "joinDatePlaceholder": "请选择加入时间",
+    "licenseValidity": "许可证有效期:",
+    "licenseValidityPlaceholder": "请输入许可证有效期",
+    "factoryArea": "工厂面积(平方):",
+    "factoryAreaPlaceholder": "请输入工厂面积",
+    "businessLicense": "营业执照号码:",
+    "businessLicensePlaceholder": "请输入营业执照号码",
+    "openingDate": "开业时间:",
+    "openingDatePlaceholder": "请选择开业时间",
+    "factoryPhone": "工厂电话:",
+    "factoryPhonePlaceholder": "请输入工厂电话",
+    "deviceCount": "设备数(台):",
+    "deviceCountPlaceholder": "请输入设备数",
+    "uploadCertificate": "上传证件",
+    "delete": "删除",
+    "save": "保存",
+    "saveSuccess": "保存成功！",
+    "uploadSuccess": "上传成功",
+    "deleteSuccess": "删除成功",
+    "onlyImages": "只能上传图片文件！",
+    "longTerm": "长期",
+    "license1": "营业执照",
+    "license2": "生产许可证",
+    "managerDefault": "工厂负责人",
+    "mockData": {
+      "asiantech": "ASIANTECH FACTORY",
+      "atf": "ATF",
+      "detailedAddress": "Bendemeer 994 Bendemeer Road, #02-04 B-Central, Singapore 339943."
+    }
+  },
+  "clinicInfo": {
+    "title": "诊所信息",
+    "clinicArea": "诊所面积(平方):",
+    "clinicAreaPlaceholder": "请输入诊所面积",
+    "clinicPhone": "门诊电话:",
+    "clinicPhonePlaceholder": "请输入门诊电话",
+    "chairCount": "牙椅数(台):",
+    "chairCountPlaceholder": "请输入牙椅数",
+    "medicalLicense": "医疗机构执业许可证",
+    "mockData": {
+        "clinicName": "卓越牙科诊所",
+        "detailedAddress": "新加坡市中心路123号",
+      "tomHuang": "Tom Huang",
+      "contactPerson": "黄向荣",
+      "longTerm": "长期"
+    }
+  },
+  "personnel": {
+    "title": "人员管理",
+    "create": "新建人员",
+    "deleteSuccess": "删除成功",
+    "editSuccess": "编辑成功",
+    "addSuccess": "添加成功",
+    "edit": "编辑人员",
+    "index": "序号",
+    "username": "用户名",
+    "name": "姓名",
+    "phone": "手机",
+    "email": "邮箱",
+    "role": "角色",
+    "isAdmin": "管理员",
+    "admin": "管理员",
+    "user": "普通用户",
+    "createTime": "创建时间",
+    "action": "操作",
+    "editAction": "编辑",
+    "deleteAction": "删除",
+    "deleteConfirm": "确定要删除此人员吗？",
+    "usernameRequired": "请输入用户名",
+    "usernameMin": "用户名至少3位",
+    "nameRequired": "请输入真实姓名",
+    "namePlaceholder": "请输入真实姓名",
+    "emailRequired": "请输入邮箱",
+    "emailInvalid": "请输入有效的邮箱地址",
+    "phoneRequired": "请输入手机号",
+    "phoneInvalid": "请输入有效的手机号",
+    "factoryLabel": "所属工厂:",
+    "clinicLabel": "所属诊所:",
+    "roleRequired": "请选择角色",
+    "rolePlaceholder": "请选择角色",
+    "address": "地址:",
+    "addressPlaceholder": "请输入地址",
+    "setAdmin": "设为管理员",
+    "password": "密码:",
+    "passwordRequired": "请输入密码",
+    "passwordMin": "密码至少6位",
+    "roles": {
+      "doctor": "医生",
+      "assistant": "助理",
+      "technician": "技师",
+      "admin": "行政"
+    }
+  },
+  "implantParams": {
+    "title": "种植参数选择",
+    "editTitle": "修改种植参数",
+    "system": "种植系统",
+    "systemPlaceholder": "请选择种植系统",
+    "model": "植体型号",
+    "modelPlaceholder": "请选择植体型号",
+    "healingCap": "愈合帽直径",
+    "healingCapPlaceholder": "请选择愈合帽",
+    "impressionPost": "取模杆",
+    "impressionPostPlaceholder": "请选择取模杆",
+    "repairMethod": "修复方式",
+    "repairMethodPlaceholder": "请选择修复方式",
+    "options": {
+      "systems": {
+        "carls": "卡尔斯系统",
+        "implant": "种植系统"
+      },
+      "models": {
+        "wide50": "宽型 5.0",
+        "wide45": "宽型 4.5",
+        "standard40": "标准型 4.0",
+        "narrow35": "窄型 3.5"
+      },
+      "healingCaps": {
+        "d45": "4.5mm",
+        "d50": "5.0mm",
+        "d55": "5.5mm",
+        "d60": "6.0mm"
+      },
+      "impressionPosts": {
+        "open": "开放式取模杆",
+        "closed": "闭合式取模杆"
+      },
+      "repairMethods": {
+        "screw": "螺丝固位",
+        "cement": "粘接固位",
+        "hybrid": "混合固位"
+      }
+    }
+  },
+  "attachmentSelector": {
+    "title": "选择附件",
+    "selectedHeader": "已选附件",
+    "emptyTip": "请从左侧选择附件",
+    "items": {
+      "factoryArticulator": "工厂颌架",
+      "articulatorPad": "颌架垫片",
+      "screwAttachment": "螺丝附件",
+      "faceBow": "颜面弓",
+      "bracket": "托槽",
+      "screw": "螺旋",
+      "band": "带环",
+      "impressionPost": "取模杆",
+      "oldMold": "旧模",
+      "analog": "替代体",
+      "doctorArticulator": "医生颌架",
+      "usbDisk": "U盘",
+      "waxCrown": "蜡冠",
+      "refMold": "参考模",
+      "biteWax": "咬合蜡",
+      "locatorPin": "定位柱",
+      "transferScrew": "转移杆螺丝",
+      "warrantyCard": "保证卡",
+      "abutmentNote": "基台发货单",
+      "locator": "定位器",
+      "impressionCap": "印模帽",
+      "abutment": "基台",
+      "oldTooth": "旧牙",
+      "transferPost": "转移杆",
+      "impressionPostScrew": "取模杆螺丝",
+      "waxRim": "蜡堤",
+      "tray": "托盘",
+      "oldTray": "旧托",
+      "abutmentScrew": "基台螺丝",
+      "diagnosticWax": "诊断蜡型"
+    }
+  },
+  "designScheme": {
+    "title": "设计方案",
+    "selectTitle": "选择设计方案",
+    "tabs": {
+      "design": "设计",
+      "color": "颜色",
+      "shape": "外形",
+      "surface": "冠面设计",
+      "edge": "螺孔头",
+      "collar": "邻接",
+      "margin": "边缘",
+      "body": "坯体",
+      "occlusion": "咬合"
+    },
+    "options": {
+      "design": {
+        "opposing": "对颌合",
+        "nasal": "鼻基柱到",
+        "normal": "正常覆合覆盖",
+        "bite": "咬合"
+      },
+      "color": {
+        "noStain": "窝沟不染色",
+        "stain": "窝沟染色",
+        "natural": "自然染色",
+        "heavy": "重度染色"
+      },
+      "shape": {
+        "obvious": "颌面沟嵴明显",
+        "smooth": "颌面沟嵴平缓",
+        "sharp": "功能尖锐",
+        "blunt": "功能尖钝"
+      },
+      "surface": {
+        "smooth": "光滑表面",
+        "texture": "纹理表面",
+        "natural": "自然表面"
+      },
+      "edge": {
+        "round": "圆形螺孔",
+        "square": "方形螺孔",
+        "closed": "封闭螺孔"
+      },
+      "collar": {
+        "tight": "紧密邻接",
+        "standard": "标准邻接",
+        "loose": "宽松邻接"
+      },
+      "margin": {
+        "knife": "刀刃边缘",
+        "standard": "标准边缘",
+        "thick": "厚重边缘"
+      },
+      "body": {
+        "standard": "标准厚度",
+        "thick": "加厚坯体",
+        "thin": "减薄坯体"
+      },
+      "occlusion": {
+        "normal": "正常咬合",
+        "shallow": "浅咬合",
+        "deep": "深咬合"
+      }
+    }
+  },
+  "productLibrary": {
+    "title": "选择产品",
+    "actions": {
+      "select": "选择",
+      "order": "下单"
+    },
+    "categories": {
+      "all": "全部",
+      "implant": "种植类",
+      "implantT": "固齿贝壳(T系列)",
+      "implantD2": "D2个性种植系统",
+      "allCeramic": "全瓷类",
+      "allZirconia": "全锆类",
+      "metalPorcelain": "全属烤瓷类",
+      "metalCrown": "全属冠类",
+      "traditional": "传统种植",
+      "shine": "闪耀系列",
+      "zirconia": "氧化锆类",
+      "metal": "全属类",
+      "castPorcelain": "铸瓷类",
+      "removable": "活动类",
+      "ortho": "正畸类",
+      "mengdaqi": "萌大齐",
+      "bonding": "粘接类",
+      "other": "其他类",
+      "veneer": "贴面"
+    },
+    "labels": {
+      "allCategories": "全部类别",
+      "noImage": "暂无图片",
+      "externalPrice": "设置外部价格",
+      "totalItems": "共 {{count}} 条"
+    },
+    "products": {
+      "digitalZirconia": {
+        "name": "数码氧化锆种植全瓷牙",
+        "material": "氧化锆",
+        "unit": "颗",
+        "description": "高强度氧化锆全瓷牙冠，美观耐用"
+      },
+      "japanZirconia": {
+        "name": "日本氧化锆种植全瓷牙",
+        "material": "氧化锆",
+        "unit": "颗",
+        "description": "日本进口氧化锆材料"
+      },
+      "germanZirconia": {
+        "name": "德瓷氧化锆种植全瓷牙",
+        "material": "氧化锆",
+        "unit": "颗",
+        "description": "德国工艺氧化锆"
+      },
+      "fixedBridge": {
+        "name": "固定牙桥",
+        "material": "金属烤瓷",
+        "unit": "组",
+        "description": "3单位金属烤瓷固定桥"
+      },
+      "veneer": {
+        "name": "瓷贴面",
+        "material": "全瓷",
+        "unit": "片",
+        "description": "超薄全瓷贴面，自然美观"
+      }
+    }
+  },
+  "toothSelector": {
+    "title": "选择牙位",
+    "actions": {
+      "fullMouth": "全口",
+      "upperJaw": "上颌",
+      "lowerJaw": "下颌"
+    }
+  },
+  "colorSelector": {
+    "title": "选择颜色",
+    "tabs": {
+      "vitaClassic": "VITA Classic (16色)",
+      "vita3DMaster": "VITA 3D MASTER (29色)",
+      "special": "特殊色",
+      "image": "图片"
+    },
+    "actions": {
+      "upload": "上传图片"
+    },
+    "messages": {
+      "uploadTip": "支持 JPG、PNG 等图片格式",
+      "onlyImages": "只能上传图片文件！",
+      "uploadSuccess": "图片上传成功"
+    },
+    "specialColors": {
+      "fluorosis": "氟斑牙",
+      "tetracycline": "四环素牙",
+      "metalPost": "金属桩",
+      "fiberPost": "纤维桩"
+    }
+  },
+  "quickOrder": {
+    "baseInfo": {
+      "title": "基础信息",
+      "clinic": "诊所",
+      "doctor": "医生",
+      "factory": "生产单位",
+      "receiver": "收件人",
+      "address": "收件地址",
+      "placeholders": {
+        "selectDoctor": "请选择医生",
+        "enterReceiver": "请输入收件人",
+        "enterAddress": "请输入收件地址"
+      },
+      "mockData": {
+        "clinicName": "ASIANTECH PTE. LTD.",
+        "doctorHuang": "黄向荣",
+        "doctorLi": "李医生",
+        "doctorWang": "王医生",
+        "factoryNanning": "南宁"
+      }
+    },
+    "patientInfo": {
+      "title": "患者信息",
+      "name": "患者",
+      "phone": "患者手机号",
+      "gender": "性别",
+      "age": "年龄",
+      "placeholders": {
+        "enterName": "请输入患者姓名",
+        "enterPhone": "请输入手机号",
+        "selectGender": "请选择性别",
+        "enterAge": "请输入年龄"
+      },
+      "options": {
+        "male": "男",
+        "female": "女"
+      }
+    },
+    "productInfo": {
+      "title": "产品信息",
+      "actions": {
+        "add": "新增产品",
+        "delete": "删除"
+      },
+      "columns": {
+        "no": "序号",
+        "name": "产品名称",
+        "toothPosition": "牙位",
+        "moldingMethod": "取模方式",
+        "scanDevice": "扫描设备",
+        "connectionMethod": "连接方式",
+        "repairMethod": "修复方式",
+        "action": "操作"
+      },
+      "placeholders": {
+        "selectScanDevice": "选择扫描设备",
+        "clickToSelectTooth": "点击选择牙位",
+        "clickToSelectProduct": "点击选择产品"
+      },
+      "options": {
+        "normalMolding": "常规取模",
+        "intraoralScan": "口内扫描",
+        "singleCrown": "单冠",
+        "bridge": "桥体",
+        "new": "新做",
+        "repair": "返修",
+        "redo": "重做",
+        "shining3d": "先临"
+      }
+    },
+    "defaults": {
+      "clickToSelect": "点击选择"
+    },
+    "implantParams": {
+      "title": "种植参数",
+      "columns": {
+        "no": "序号",
+        "params": "种植参数",
+        "action": "操作"
+      },
+      "labels": {
+        "system": "种植系统",
+        "model": "植体型号",
+        "diameter": "愈合帽直径",
+        "post": "取模杆",
+        "repair": "修复方式"
+      },
+      "actions": {
+        "edit": "修改",
+        "delete": "删除"
+      }
+    },
+    "colorSettings": {
+      "title": "颜色设定",
+      "actions": {
+        "addRow": "添加一行",
+        "delete": "删除"
+      },
+      "columns": {
+        "no": "序号",
+        "toothPosition": "牙位",
+        "mainColor": "主色",
+        "neckColor": "颈部颜色",
+        "middleColor": "中部颜色",
+        "cuttingEdgeColor": "切端颜色",
+        "baseColor": "基牙颜色",
+        "toothBodyColor": "牙体颜色",
+        "customColor": "自定义色",
+        "action": "操作"
+      },
+      "placeholders": {
+        "clickToSelect": "点击选择",
+        "clickToSelectTooth": "点击选择牙位",
+        "enterCustom": "请输入自定义..."
+      }
+    },
+    "otherSettings": {
+      "title": "其他设置",
+      "labels": {
+        "trialStatus": "试戴情况",
+        "designScheme": "设计方案",
+        "attachments": "选择附件",
+        "imageUpload": "图片上传",
+        "fileUpload": "上传文件",
+        "file3d": "3D文件",
+        "remarks": "文字备注"
+      },
+      "placeholders": {
+        "selectTrialStatus": "请选择试戴情况",
+        "enterRemarks": "请输入文字备注"
+      },
+      "actions": {
+        "selectScheme": "选择方案",
+        "selectAttachment": "选择附件",
+        "uploadImage": "图片上传",
+        "uploadFile": "上传文件",
+        "upload3d": "3D文件"
+      },
+      "trialOptions": {
+        "waxShape": "试戴蜡型外形",
+        "innerCrown": "试戴内冠",
+        "color": "试戴颜色",
+        "porcelainShape": "试戴车瓷外形",
+        "abutment": "试戴基台",
+        "abutmentWaxCrown": "试戴基台蜡冠"
+      }
+    },
+    "modes": {
+      "direct": {
+        "title": "一键下单",
+        "button": "提交订单"
+      },
+      "create": {
+        "title": "新建订单（保存）",
+        "button": "保存订单"
+      },
+      "edit": {
+        "title": "编辑订单",
+        "button": "保存订单"
+      }
+    },
+    "messages": {
+      "imageOnly": "只能上传图片文件！",
+      "productSelected": "已选择产品: {{name}}",
+      "paramsUpdated": "种植参数已更新",
+      "paramsDeleted": "已删除种植参数",
+      "openScanDevice": "打开扫描设备选择弹窗",
+      "orderUpdated": "订单更新成功！正在返回...",
+      "orderSaved": "订单保存成功！正在返回...",
+      "orderSubmitted": "订单提交成功！"
+    },
+    "actions": {
+      "reset": "重置"
+    },
+    "defaults": {
+      "clickToSelect": "点击选择产品"
+    }
+  },
+  "pendingOrders": {
+    "columns": {
+      "index": "序号",
+      "orderNo": "订单编号",
+      "doctor": "医生",
+      "patient": "患者",
+      "createTime": "下单时间",
+      "clinic": "诊所",
+      "responsibleUnit": "责任单位",
+      "deliveryTime": "预计到货时间",
+      "progress": "完成总进度",
+      "status": "订单状态",
+      "action": "操作"
+    },
+    "status": {
+      "pending": "待处理",
+      "waitingAccept": "待接单"
+    },
+    "actions": {
+      "view": "详情",
+      "approve": "通过",
+      "reject": "拒绝"
+    },
+    "messages": {
+      "processed": "订单 {{orderNo}} 已{{action}}"
+    },
+    "counts": {
+      "pending": "待处理: {{count}}"
+    },
+    "pagination": {
+      "total": "共 {{total}} 条待处理订单"
+    },
+    "modal": {
+      "approveTitle": "确认通过订单",
+      "rejectTitle": "确认拒绝订单",
+      "labels": {
+        "orderNo": "订单编号",
+        "patient": "患者姓名",
+        "doctor": "医生",
+        "clinic": "诊所",
+        "status": "订单状态"
+      },
+      "approveContent": "确认通过后，订单将进入制作流程",
+      "processTypePlaceholder": "选择处理方式",
+      "processTypes": {
+        "normal": "正常处理",
+        "urgent": "加急处理"
+      },
+      "rejectContent": "请填写拒绝原因：",
+      "rejectReasonPlaceholder": "请输入拒绝原因，将通知诊所"
+    }
+  },
+  "orderDetail": {
+    "tabs": {
+      "detail": "订单详情",
+      "progress": "订单状态"
+    },
+    "sections": {
+      "baseInfo": "基础信息",
+      "patientInfo": "患者信息",
+      "productInfo": "产品信息",
+      "colorSettings": "颜色设定",
+      "remarks": "备注信息",
+      "otherSettings": "其他设置",
+      "statusHistory": "订单状态记录"
+    },
+    "fields": {
+      "orderNo": "订单编号",
+      "orderType": "订单类型",
+      "orderCategory": "订单类别",
+      "clinic": "诊所",
+      "doctor": "医生",
+      "factory": "生产单位",
+      "receiver": "收件人",
+      "address": "收件地址",
+      "createTime": "下单时间",
+      "deliveryTime": "预计到货时间",
+      "patientName": "患者姓名",
+      "patientPhone": "患者手机号",
+      "gender": "性别",
+      "age": "年龄",
+      "productName": "产品名称",
+      "toothPosition": "牙位",
+      "repairMethod": "修复方式",
+      "moldingMethod": "取模方式",
+      "scanDevice": "扫描设备",
+      "connectionMethod": "连接方式",
+      "mainColor": "主体颜色",
+      "neckColor": "颈部颜色",
+      "middleColor": "中部颜色",
+      "cuttingEdgeColor": "切端颜色",
+      "trialStatus": "试戴情况",
+      "threeDFile": "3D文件",
+      "viewFile": "查看文件",
+      "viewImage": "查看图片",
+      "designScheme": "设计方案：",
+      "attachments": "附件：",
+      "uploadedImages": "上传的图片：",
+      "uploadedFiles": "上传的文件："
+    },
+    "status": {
+      "pending": "待接单",
+      "accepted": "已接单",
+      "production_33": "生产进度-33%",
+      "production_66": "生产进度-66%",
+      "production_100": "生产进度-100%",
+      "shipped": "已发货",
+      "received": "已收货",
+      "processing": "制作中",
+      "completed": "已完成",
+      "unknown": "未知状态",
+      "updateSuccess": "订单状态已更新",
+      "progressUpdateSuccess": "订单进度已更新为 {{value}}%"
+    },
+    "progress": {
+      "addNode": "添加节点",
+      "operator": "操作人：",
+      "modalTitle": "添加进度节点",
+      "actionLabel": "动作",
+      "actionPlaceholder": "请输入动作（如：开始生产）",
+      "statusLabel": "当前状态",
+      "statusPlaceholder": "请选择当前状态",
+      "descriptionLabel": "描述",
+      "descriptionPlaceholder": "请输入详细描述",
+      "operatorLabel": "操作人",
+      "operatorPlaceholder": "请输入操作人姓名",
+      "uploadImage": "上传图片",
+      "selectImages": "选择图片",
+      "uploadFile": "上传文件",
+      "selectFiles": "选择文件",
+      "submit": "提交",
+      "delete": "删除",
+      "close": "关闭",
+      "cancel": "取消",
+      "success": "节点添加成功",
+      "onlyImages": "只能上传图片文件！",
+      "actions": {
+        "accepted": "已接单",
+        "scheduleProduction": "安排生产",
+        "startProduction": "开始生产",
+        "productionCompleted": "生产完成",
+        "qualityCheck": "质检完成",
+        "shipping": "打包发货",
+        "received": "已签收",
+        "other": "其他"
+      }
+    },
+    "messages": {
+      "open": "医技沟通"
+    },
+    "mockData": {
+      "trialStatus": {
+        "waxTrial": "试戴蜡型"
+      },
+      "designSchemes": {
+        "esthetic": "美学设计",
+        "occlusion": "咬合重建"
+      },
+      "attachments": {
+        "oldCast": "旧牙模",
+        "biteBlock": "咬合块",
+        "positioningPost": "定位杆"
+      },
+      "descriptions": {
+        "accepted": "订单已接单，准备开始生产",
+        "scheduleProduction": "已安排李四开始生产",
+        "productionCompleted": "生产进度达到100%，已完成"
+      },
+      "remarks": "患者对颜色匹配度要求较高，请特别注意。"
+    }
+  },
+  "allOrders": {
+    "columns": {
+      "index": "序号",
+      "orderNo": "订单编号",
+      "doctor": "医生",
+      "patient": "患者",
+      "createTime": "下单时间",
+      "clinic": "诊所",
+      "responsibleUnit": "责任单位",
+      "deliveryTime": "预计到货时间",
+      "progress": "完成总进度",
+      "status": "订单状态",
+      "action": "操作"
+    },
+    "search": {
+      "keywordPlaceholder": "订单编号/患者姓名",
+      "statusPlaceholder": "订单状态",
+      "startDate": "开始日期",
+      "endDate": "结束日期",
+      "search": "搜索",
+      "reset": "重置"
+    },
+    "status": {
+      "pending": "待处理",
+      "processing": "制作中",
+      "shipped": "已发货",
+      "completed": "已完成"
+    },
+    "actions": {
+      "communication": "医技沟通",
+      "cancel": "取消",
+      "complete": "完成",
+      "receive": "收货",
+      "return": "返厂"
+    },
+    "pagination": {
+      "total": "共 {{total}} 条订单"
+    },
+    "mockData": {
+      "doctors": {
+        "huang": "黄向荣",
+        "li": "李医生",
+        "zhang": "张医生",
+        "wang": "王医生"
+      },
+      "orderTypes": {
+        "standard": "标准订单",
+        "urgent": "加急订单"
+      },
+      "orderCategories": {
+        "zirconia": "全瓷牙冠",
+        "bridge": "固定牙桥",
+        "veneer": "瓷贴面",
+        "implant": "种植牙冠"
+      },
+      "units": {
+        "houqi": "后齐科技",
+        "asiantech": "ASIANTECH PTE. LTD."
+      },
+      "patients": {
+        "lee": "Lee Siew Ngoh",
+        "wang": "王小明",
+        "chen": "陈红",
+        "liu": "刘强",
+        "zhao": "赵敏",
+        "zhang": "张伟"
+      }
+    }
+  },
+  "pendingOrderPage": {
+    "columns": {
+      "index": "序号",
+      "orderNo": "订单编号",
+      "doctor": "医生",
+      "patient": "患者",
+      "createTime": "下单时间",
+      "clinic": "诊所",
+      "responsibleUnit": "责任单位",
+      "deliveryTime": "预计到货时间",
+      "progress": "完成总进度",
+      "status": "订单状态",
+      "action": "操作"
+    },
+    "status": {
+      "pending": "待处理",
+      "waitingAccept": "待接单",
+      "unknown": "未知"
+    },
+    "actions": {
+      "delete": "删除",
+      "edit": "编辑",
+      "goToOrder": "去下单",
+      "createOrder": "建单"
+    },
+    "search": {
+      "doctorPlaceholder": "医生姓名",
+      "patientPlaceholder": "患者姓名",
+      "creatorPlaceholder": "建单人",
+      "startDate": "开始日期",
+      "endDate": "结束日期",
+      "search": "搜索",
+      "reset": "重置"
+    },
+    "messages": {
+      "searchNotImplemented": "搜索功能待实现",
+      "resetSuccess": "已重置搜索条件",
+      "confirmDeleteTitle": "确认删除",
+      "confirmDeleteContent": "确定要删除这条待下单记录吗？",
+      "deleteSuccess": "删除成功",
+      "goToOrderMessage": "前往下单页面，患者：{{name}}",
+      "orderUpdated": "订单已更新！医生：{{doctor}}，患者：{{patient}}",
+      "orderSaved": "订单已保存！医生：{{doctor}}，患者：{{patient}}"
+    },
+    "pagination": {
+      "total": "共 {{total}} 条"
+    },
+    "defaults": {
+      "notSpecified": "未填写",
+      "houqiTech": "南宁市后齐科技",
+      "standardOrder": "标准订单",
+      "zirconiaCrown": "全瓷牙冠"
+    }
+  },
+  "productLibraryOrder": {
+    "actionButton": "下单"
+  },
+  "home": {
+    "stats": {
+      "allOrders": "全部订单",
+      "pendingHandling": "待处理订单",
+      "completedOrders": "已完成订单"
+    },
+    "quickEntries": {
+      "title": "快捷入口",
+      "orderNow": "立即下单",
+      "productLibrary": "产品库",
+      "myMessages": "我的消息",
+      "patientArchive": "患者档案",
+      "shipped": "已发货",
+      "allOrders": "全部订单"
+    },
+    "orders": {
+      "shippedOrders": "已出厂订单",
+      "pendingOrders": "待处理订单"
+    },
+    "columns": {
+      "sequence": "序号",
+      "patient": "患者",
+      "orderNo": "订单编号",
+      "deliveryTime": "出货时间",
+      "doctor": "医生",
+      "operation": "操作"
+    },
+    "operation": {
+      "noData": "暂无数据"
+    }
+  },
+  "factoryManagement": {
+    "title": "工厂管理",
+    "addFactory": "新增工厂",
+    "editFactory": "编辑工厂",
+    "factoryId": "工厂ID",
+    "factoryName": "工厂名称",
+    "administrator": "管理员",
+    "phone": "联系电话",
+    "email": "邮箱",
+    "address": "地址",
+    "createTime": "创建时间",
+    "status": "状态",
+    "active": "合作中",
+    "inactive": "已停止",
+    "deleteConfirm": "确认删除",
+    "deleteMessage": "确定要删除这个工厂吗？删除后将无法恢复。",
+    "idAutoGenerated": "工厂ID将自动生成（如：{{id}}）",
+    "mockData": {
+      "factory1": {
+        "name": "优牙义齿加工厂",
+        "admin": "王厂长",
+        "address": "广东省深圳市宝安区福海街道"
+      },
+      "factory2": {
+        "name": "精工义齿制造",
+        "admin": "李总",
+        "address": "浙江省杭州市滨江区"
+      }
+    },
+    "placeholders": {
+      "factoryName": "请输入工厂名称",
+      "administrator": "请输入管理员姓名",
+      "phone": "请输入联系电话",
+      "email": "请输入邮箱（选填）",
+      "address": "请输入地址（选填）"
+    },
+    "validation": {
+      "factoryName": "请输入工厂名称",
+      "administrator": "请输入管理员姓名",
+      "phone": "请输入联系电话",
+      "phoneInvalid": "请输入有效的电话号码",
+      "emailInvalid": "请输入有效的邮箱地址"
+    },
+    "success": {
+      "add": "添加成功",
+      "edit": "修改成功",
+      "delete": "删除成功"
+    }
+  },
+  "clinicManagement": {
+    "title": "诊所管理",
+    "addClinic": "新增诊所",
+    "editClinic": "编辑诊所",
+    "clinicId": "诊所ID",
+    "clinicName": "诊所名称",
+    "administrator": "管理员",
+    "phone": "联系电话",
+    "email": "邮箱",
+    "address": "地址",
+    "createTime": "创建时间",
+    "status": "状态",
+    "active": "正常",
+    "inactive": "停用",
+    "deleteConfirm": "确认删除",
+    "deleteMessage": "确定要删除这个诊所吗？删除后将无法恢复。",
+    "idAutoGenerated": "诊所ID将自动生成（如：{{id}}）",
+    "mockData": {
+      "clinic1": {
+        "name": "ASIANTECH PTE. LTD.",
+        "admin": "Tom Huang",
+        "address": "Bendemeer 994 Bendemeer Road, #02-04 B-Central, Singapore 339943."
+      },
+      "clinic2": {
+        "name": "优牙口腔诊所",
+        "admin": "李医生",
+        "address": "广东省深圳市福田区某街道"
+      }
+    },
+    "placeholders": {
+      "clinicName": "请输入诊所名称",
+      "administrator": "请输入管理员姓名",
+      "phone": "请输入联系电话",
+      "email": "请输入邮箱（选填）",
+      "address": "请输入地址（选填）"
+    },
+    "validation": {
+      "clinicName": "请输入诊所名称",
+      "administrator": "请输入管理员姓名",
+      "phone": "请输入联系电话",
+      "phoneInvalid": "请输入有效的电话号码",
+      "emailInvalid": "请输入有效的邮箱地址"
+    },
+    "success": {
+      "add": "添加成功",
+      "edit": "修改成功",
+      "delete": "删除成功"
+    }
+  },
+  "clinicInfo": {
+    "basicInfo": "基础信息",
+    "qualificationInfo": "资质信息",
+    "certificates": "资质证件",
+    "detailedAddress": "详细地址",
+    "contactPerson": "负责人",
+    "contactPhone": "负责人电话",
+    "displayName": "招牌名称",
+    "shortName": "简称",
+    "simpleAddress": "简略地址",
+    "productionLicense": "生产许可证编号",
+    "joinDate": "加入时间",
+    "licenseValidity": "许可证有效期",
+    "businessLicense": "营业执照号码",
+    "clinicArea": "诊所面积(平方)",
+    "businessLicenseExpiry": "营业执照期限",
+    "openingDate": "开业时间",
+    "phoneNumber": "门诊电话",
+    "chairCount": "牙椅数(台)",
+    "medicalLicense": "医疗机构执业许可证",
+    "mockData": {
+      "contactPerson": "黄向荣",
+      "detailedAddress": "东区 Bendemeer 994 Bendemeer Road, #02-04 B-Central, Singapore 339943.",
+      "longTerm": "长期"
+    },
+    "uploadCertificate": "上传证件",
+    "delete": "删除",
+    "save": "保存",
+    "reset": "重置",
+    "placeholders": {
+      "detailedAddress": "请输入详细地址",
+      "contactPerson": "请输入负责人",
+      "contactPhone": "请输入负责人电话",
+      "displayName": "请输入招牌名称",
+      "shortName": "请输入简称",
+      "simpleAddress": "请输入简略地址",
+      "productionLicense": "请输入生产许可证编号",
+      "joinDate": "请选择加入时间",
+      "licenseValidity": "请输入许可证有效期",
+      "businessLicense": "请输入营业执照号码",
+      "clinicArea": "请输入诊所面积",
+      "businessLicenseExpiry": "请输入营业执照期限",
+      "openingDate": "请选择开业时间",
+      "phoneNumber": "请输入门诊电话",
+      "chairCount": "请输入牙椅数"
+    },
+    "messages": {
+      "saveSuccess": "保存成功！",
+      "uploadSuccess": "上传成功",
+      "deleteSuccess": "删除成功",
+      "onlyImages": "只能上传图片文件！"
+    },
+    "mockData": {
+      "contactPerson": "黄向荣",
+      "tomHuang": "Tom Huang",
+      "detailedAddress": "东区 Bendemeer 994 Bendemeer Road, #02-04 B-Central, Singapore 339943.",
+      "longTerm": "长期"
+    }
+  },
+  "expressManagement": {
+    "title": "快递管理",
+    "addExpress": "添加快递",
+    "expressNo": "快递单号",
+    "orderNo": "关联订单",
+    "company": "快递公司",
+    "sender": "发件人",
+    "receiver": "收件人",
+    "receiverPhone": "收件电话",
+    "status": "状态",
+    "sendTime": "发货时间",
+    "estimatedTime": "预计送达",
+    "track": "追踪",
+    "statusMap": {
+      "pending": "待发货",
+      "in_transit": "运输中",
+      "delivered": "已送达",
+      "returned": "已退回"
+    },
+    "deleteConfirm": "确认删除",
+    "deleteMessage": "确定要删除这条快递记录吗？",
+    "success": {
+      "delete": "删除成功",
+      "add": "添加成功",
+      "edit": "修改成功"
+    },
+    "companies": {
+      "sf": "顺丰速运",
+      "yto": "圆通速递",
+      "zto": "中通快递",
+      "dhl": "DHL"
+    },
+    "mockData": {
+      "sender1": "优牙义齿加工厂",
+      "receiver1": "ASIANTECH PTE. LTD.",
+      "sender2": "精工义齿制造",
+      "receiver2": "优牙诊所"
+    }
+  },
+  "executingUnit": {
+    "title": "执行单位",
+    "content": "执行单位管理页面"
+  },
+  "executingDoctor": {
+    "title": "执业医生",
+    "content": "执业医生管理页面"
+  },
+  "personalInfo": {
+    "title": "个人信息",
+    "basicInfo": "基本信息",
+    "username": "用户名",
+    "realName": "真实姓名",
+    "realNamePlaceholder": "请输入真实姓名",
+    "email": "邮箱",
+    "emailPlaceholder": "请输入邮箱",
+    "phone": "联系电话",
+    "phonePlaceholder": "请输入联系电话",
+    "clinic": "所属诊所",
+    "position": "职位",
+    "positionPlaceholder": "请输入职位",
+    "address": "地址",
+    "addressPlaceholder": "请输入地址",
+    "role": "角色",
+    "save": "保存",
+    "saveSuccess": "保存成功！",
+    "uploadSuccess": "头像上传成功",
+    "uploadError": "只能上传图片文件！",
+    "mockData": {
+      "admin": "管理员",
+      "clinicAdmin": "诊所管理员"
+    }
+  }
+}
