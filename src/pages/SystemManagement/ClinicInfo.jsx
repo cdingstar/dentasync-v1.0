@@ -294,7 +294,7 @@ function ClinicInfo() {
           </div>
         </Card>
 
-        {/* Submit Button */}
+        {/* Submit Button */}1
         <div className="submit-section">
           <Button type="primary" htmlType="submit" size="large">
             {t('clinicInfo.save')}

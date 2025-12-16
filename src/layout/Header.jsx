@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Layout, Badge, Avatar, Space, Dropdown, message, Modal, Button, Form, Input } from 'antd'
+import { useState, useEffect } from 'react'
+import { Layout, Badge, Avatar, Space, Dropdown, message, Modal, Button, Form, Input, Tooltip } from 'antd'
 import { useTranslation } from 'react-i18next'
 import {
   BellOutlined,
@@ -10,11 +10,15 @@ import {
   CustomerServiceOutlined,
   SettingOutlined,
   GlobalOutlined,
-  CheckOutlined
+  CheckOutlined,
+  SearchOutlined,
+  FullscreenOutlined,
+  FullscreenExitOutlined,
+  SunOutlined,
+  MoonOutlined
 } from '@ant-design/icons'
 import PersonalInfoModal from './PersonalInfoModal'
 import './Header.css'
-import { Tooltip } from 'antd'
 
 const { Header: AntHeader } = Layout
 
@@ -24,7 +28,85 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
   const [isPersonalInfoVisible, setIsPersonalInfoVisible] = useState(false)
   const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false)
   const [isAboutVisible, setIsAboutVisible] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [isSearchVisible, setIsSearchVisible] = useState(false)
   const [passwordForm] = Form.useForm()
+
+  // Fullscreen toggle
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => {
+        setIsFullscreen(true)
+      }).catch((err) => {
+        console.error(`Error attempting to enable fullscreen: ${err.message} (${err.name})`);
+      });
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+    }
+  }
+
+  // Listen to fullscreen change
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  // Listen for command+k to open search
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchVisible(true);
+      }
+      // Close on ESC if visible
+      if (e.key === 'Escape' && isSearchVisible) {
+         setIsSearchVisible(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isSearchVisible]);
+
+  // Theme toggle (Mock)
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    message.info(isDarkMode ? t('header.switchLightMode') : t('header.switchDarkMode'));
+  };
+
+  // Language Menu Items for Top Bar
+  const languageMenuItems = [
+    {
+      key: 'zh',
+      label: (
+        <Space>
+          <span>{t('menu.chinese')}</span>
+          {i18n.language === 'zh' && <CheckOutlined style={{ color: '#1890ff' }} />}
+        </Space>
+      ),
+      onClick: () => i18n.changeLanguage('zh')
+    },
+    {
+      key: 'en',
+      label: (
+        <Space>
+          <span>{t('menu.english')}</span>
+          {i18n.language === 'en' && <CheckOutlined style={{ color: '#1890ff' }} />}
+        </Space>
+      ),
+      onClick: () => i18n.changeLanguage('en')
+    }
+  ];
 
   // User info
   const userName = currentUser?.shortName || currentUser?.username || '用户'
@@ -173,7 +255,39 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
         </div>
       </div>
       <div className="header-right">
-        <Space size="large">
+        <Space size="large" align="center">
+          {/* Search Input */}
+          <div className="header-search-wrapper" onClick={() => setIsSearchVisible(true)}>
+             <Input 
+              placeholder={t('common.searchPlaceholder')} 
+              prefix={<SearchOutlined style={{ color: '#999' }} />} 
+              bordered={false} 
+              className="header-search-input"
+              readOnly
+            />
+          </div>
+          
+          {/* Theme Toggle */}
+          <Tooltip title={isDarkMode ? t('header.switchLightMode') : t('header.switchDarkMode')}>
+            <div className="header-action-item" onClick={toggleTheme}>
+               {isDarkMode ? <SunOutlined style={{ fontSize: 18 }} /> : <MoonOutlined style={{ fontSize: 18 }} />}
+            </div>
+          </Tooltip>
+
+          {/* Fullscreen Toggle */}
+          <Tooltip title={isFullscreen ? t('header.exitFullscreen') : t('header.enterFullscreen')}>
+             <div className="header-action-item" onClick={toggleFullscreen}>
+               {isFullscreen ? <FullscreenExitOutlined style={{ fontSize: 18 }} /> : <FullscreenOutlined style={{ fontSize: 18 }} />}
+             </div>
+          </Tooltip>
+
+          {/* Language Selector */}
+           <Dropdown menu={{ items: languageMenuItems }} placement="bottomRight" trigger={['click']}>
+            <div className="header-action-item">
+               <GlobalOutlined style={{ fontSize: 18 }} />
+            </div>
+          </Dropdown>
+
           <Badge count={70} overflowCount={99}>
             <BellOutlined
               style={{ fontSize: 18, cursor: 'pointer' }}
@@ -205,6 +319,53 @@ function Header({ currentUser, onLogout, onOpenMessages }) {
           </Dropdown>
         </Space>
       </div>
+
+      {/* Search Modal */}
+      <Modal
+        open={isSearchVisible}
+        onCancel={() => setIsSearchVisible(false)}
+        footer={null}
+        closable={false}
+        width={600}
+        style={{ top: 100 }}
+        className="search-modal"
+        maskClosable={true}
+        destroyOnClose
+      >
+        <div className="search-modal-content">
+          <div className="search-input-wrapper">
+             <SearchOutlined style={{ fontSize: 20, color: '#999', marginRight: 12 }} />
+             <input 
+               autoFocus 
+               placeholder={t('common.searchDialog.placeholder')} 
+               className="search-modal-input"
+             />
+             <div className="search-modal-close" onClick={() => setIsSearchVisible(false)}>
+               ✕
+             </div>
+          </div>
+          <div className="search-results-wrapper">
+             <div className="search-empty-state">
+                {t('common.searchDialog.noHistory')}
+             </div>
+          </div>
+          <div className="search-modal-footer">
+             <div className="search-key-hint">
+               <span className="key-icon">↵</span>
+               <span className="key-label">{t('common.searchDialog.footer.select')}</span>
+             </div>
+             <div className="search-key-hint">
+               <span className="key-icon">↑</span>
+               <span className="key-icon">↓</span>
+               <span className="key-label">{t('common.searchDialog.footer.navigate')}</span>
+             </div>
+             <div className="search-key-hint">
+               <span className="key-icon">esc</span>
+               <span className="key-label">{t('common.searchDialog.footer.close')}</span>
+             </div>
+           </div>
+        </div>
+      </Modal>
 
       {/* Contact Us Modal */}
       <Modal

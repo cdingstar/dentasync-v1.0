@@ -13,6 +13,16 @@
     "close": "Close",
     "dropdown": "(Dropdown)",
     "totalItems": "Total {{count}} items",
+    "searchPlaceholder": "Search ⌘K",
+    "searchDialog": {
+      "placeholder": "Search navigation menu",
+      "noHistory": "No search history",
+      "footer": {
+        "select": "Select",
+        "navigate": "Navigate",
+        "close": "Close"
+      }
+    },
     "gender": {
       "male": "Male",
       "female": "Female"
@@ -78,6 +88,10 @@
     "productTech": "Product Tech",
     "companyInfo": "Company Info",
     "contactUs": "Contact Us",
+    "switchLightMode": "Switch to Light Mode",
+    "switchDarkMode": "Switch to Dark Mode",
+    "enterFullscreen": "Fullscreen",
+    "exitFullscreen": "Exit Fullscreen",
     "version": "System Version",
     "systemVersion": "System Version: Build 1.0.1121",
     "copyright": "Copyright 2025.",

@@ -73,6 +73,50 @@
   color: #666;
 }
 
+/* Search Box Styles */
+.header-search-wrapper {
+  background: #f5f5f5;
+  border-radius: 6px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.header-search-wrapper:hover,
+.header-search-wrapper:focus-within {
+  background: #e6f7ff;
+}
+
+.header-search-input {
+  width: 160px;
+  background: transparent !important;
+  font-size: 14px;
+}
+
+.header-search-input input {
+  background: transparent !important;
+  cursor: text;
+}
+
+/* Header Action Icons */
+.header-action-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.3s;
+}
+
+.header-action-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  color: #1890ff;
+}
+
 /* 客服图标样式 */
 .service-icon-wrapper {
   width: 32px;
@@ -99,73 +143,96 @@
 
 .service-modal .ant-modal-title {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: bold;
 }
 
-.service-select {
-  margin-bottom: 20px;
+/* Search Modal Styles */
+.search-modal .ant-modal-content {
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
 }
 
-.service-list {
-  max-height: 500px;
-  overflow-y: auto;
+.search-modal-content {
+  display: flex;
+  flex-direction: column;
 }
 
-.service-item {
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
   padding: 16px;
   border-bottom: 1px solid #f0f0f0;
-  transition: background-color 0.3s;
 }
 
-.service-item:hover {
-  background-color: #fafafa;
-}
-
-.service-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-  background: #f0f0f0;
-}
-
-.service-name {
+.search-modal-input {
+  flex: 1;
+  border: none;
+  outline: none;
   font-size: 16px;
-  font-weight: 500;
-  color: #262626;
+  color: #333;
 }
 
-.service-expertise {
-  font-size: 13px;
-  color: #8c8c8c;
-  line-height: 1.6;
+.search-modal-input::placeholder {
+  color: #999;
 }
 
-.service-list .ant-list-item-action {
-  margin-left: 16px;
+.search-modal-close {
+  cursor: pointer;
+  color: #999;
+  font-size: 16px;
+  padding: 4px;
 }
 
-.service-list .ant-btn-circle {
-  width: 40px;
-  height: 40px;
+.search-modal-close:hover {
+  color: #333;
+}
+
+.search-results-wrapper {
+  min-height: 300px;
+  max-height: 500px;
+  overflow-y: auto;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.service-list .ant-btn-circle+.ant-btn-circle {
-  margin-left: 8px;
+.search-empty-state {
+  color: #999;
+  font-size: 14px;
 }
 
-/* 自定义版本提示框样式（浅蓝背景） */
-.version-tooltip .ant-tooltip-inner {
-  background: #1890ff;
-  color: #fff;
+.search-modal-footer {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-top: 1px solid #f0f0f0;
+  background: #fff;
 }
 
-.version-tooltip .ant-tooltip-arrow::before {
-  background: #1890ff;
+.search-key-hint {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+  font-size: 12px;
+  color: #999;
+}
+
+.key-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: #f5f5f5;
+  border-radius: 2px;
+  margin-right: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.key-label {
+  margin-left: 2px;
 }
